@@ -1,59 +1,78 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "field:recipe_code",
  "creation": "2024-11-30 11:07:05.918145",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "column_break_nnvp",
-  "naming_series",
-  "column_break_jphh",
-  "recipe_code",
+  "section_break_ubjm",
   "column_break_bfmt",
+  "naming_series",
+  "density",
+  "column_break_qfra",
   "recipe_name",
+  "customer",
+  "column_break_xtqv",
+  "recipe_code",
+  "site",
   "section_break_phce",
   "recipe_items",
-  "section_break_mtjp",
+  "aggregate_section",
   "agg1_name",
   "agg1_qty",
+  "column_break_dtqi",
   "agg2_name",
   "agg2_qty",
+  "column_break_liws",
   "agg3_name",
   "agg3_qty",
+  "column_break_lruu",
   "agg4_name",
   "agg4_qty",
+  "column_break_pkhb",
   "agg5_name",
   "agg5_qty",
+  "column_break_lfut",
   "agg6_name",
   "agg6_qty",
-  "column_break_egju",
+  "cement_section",
   "cem1_name",
   "cem1_qty",
+  "column_break_jayg",
   "cem2_name",
   "cem2_qty",
+  "column_break_jpqq",
   "cem3_name",
   "cem3_qty",
+  "column_break_dwvy",
   "cem4_name",
   "cem4_qty",
+  "column_break_cfgp",
   "cem5_name",
   "cem5_qty",
+  "column_break_egju",
   "sil1_name",
   "sil1_qty",
-  "column_break_sxei",
+  "admixture_section",
   "adm1_name",
   "adm1_qty",
+  "column_break_mvjo",
   "adm2_name",
   "adm2_qty",
+  "column_break_wpgr",
   "adm3_name",
   "adm3_qty",
+  "column_break_sxei",
   "adm4_name",
   "adm4_qty",
-  "column_break_jqfc",
+  "section_break_mtjp",
   "wtr1_name",
   "wtr1_qty",
+  "column_break_rbix",
   "wtr2_name",
   "wtr2_qty",
+  "column_break_jqfc",
   "wtr3_name",
   "wtr3_qty"
  ],
@@ -61,7 +80,8 @@
   {
    "fieldname": "recipe_code",
    "fieldtype": "Data",
-   "label": "Recipe Code"
+   "label": "Recipe Code",
+   "unique": 1
   },
   {
    "fieldname": "column_break_bfmt",
@@ -85,10 +105,6 @@
    "options": "Recipe Items"
   },
   {
-   "fieldname": "column_break_nnvp",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -98,7 +114,9 @@
   },
   {
    "fieldname": "section_break_mtjp",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "WATER"
   },
   {
    "bold": 1,
@@ -176,10 +194,6 @@
   },
   {
    "fieldname": "column_break_egju",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_jphh",
    "fieldtype": "Column Break"
   },
   {
@@ -338,15 +352,110 @@
    "fieldname": "adm4_qty",
    "fieldtype": "Float",
    "label": "Adm4_Qty"
+  },
+  {
+   "fieldname": "aggregate_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "AGGREGATE"
+  },
+  {
+   "fieldname": "column_break_dtqi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_liws",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_lruu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_pkhb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_lfut",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cement_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "CEMENT"
+  },
+  {
+   "fieldname": "column_break_jayg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jpqq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dwvy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_cfgp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "admixture_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "ADMIXTURE"
+  },
+  {
+   "fieldname": "column_break_mvjo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_wpgr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_rbix",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "site",
+   "fieldtype": "Link",
+   "label": "Site",
+   "options": "Address"
+  },
+  {
+   "fieldname": "density",
+   "fieldtype": "Float",
+   "label": "Density"
+  },
+  {
+   "fieldname": "section_break_ubjm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_qfra",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_xtqv",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-09 23:29:14.252928",
+ "modified": "2025-02-18 22:21:11.586931",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Recipe",
- "naming_rule": "By \"Naming Series\" field",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -362,7 +471,9 @@
    "write": 1
   }
  ],
+ "search_fields": "recipe_code",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "recipe_code"
 }
