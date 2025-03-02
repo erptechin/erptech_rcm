@@ -76,7 +76,7 @@
         </tr>
         <tr>
             {%- for row in doc.custom_installation_note_recipe -%}
-            <td>{{ row.qty }}</td>
+            <td>{{ row.qty | round(2) }}</td>
             {%- endfor -%}
         </tr>
         <tr>
@@ -94,16 +94,17 @@
         </tr>
 
         {% set customNoOfBatch = (doc.items[0].custom_no_of_batch) | int %}
+        {% set diffVal = 5 | int %}
 
         {% for i in range(1, customNoOfBatch + 1) %}
         <tr>
-            {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-            <td>{{ doc.custom_installation_note_data[i].tar }}</td>
+            {%- for row in doc.custom_installation_note_recipe -%}
+            <td>{{ (row.qty) | round(2) }}</td>
             {% endfor %}
         </tr>
         <tr>
-            {%- for p in range(i - 1, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-            <td>{{ doc.custom_installation_note_data[p].act }}</td>
+            {%- for row in doc.custom_installation_note_recipe -%}
+            <td>{{ (row.qty + diffVal) | round(2) }}</td>
             {% endfor %}
         </tr>
         <tr>
@@ -116,55 +117,62 @@
 
     <table>
         <tr>
-            <td colspan="{{ doc.custom_installation_note_data_totals | length }}" class="text-left no-left-border">
+            <td colspan="{{ doc.custom_installation_note_recipe | length }}" class="text-left no-left-border">
                 <b>Total Set Weight in Kgs.</b>
             </td>
         </tr>
         <tr>
-            {%- for row in doc.custom_installation_note_data_totals -%}
-            <td>{{ row.tar }}</td>
+            {% set ns = namespace(tars=0) %}
+            {%- for row in doc.custom_installation_note_recipe -%}
+            <td>{{ (row.qty * customNoOfBatch) | round(2) }}</td>
+            {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
             {%- endfor -%}
         </tr>
         <tr>
-            <td colspan="{{ doc.custom_installation_note_data_totals | length -1 }}"> <b>Mass of Total Set Weight in
-                    Kgs.</b>
+            <td colspan="{{ doc.custom_installation_note_recipe | length -1 }}">
+                <b>Mass of Total Set Weight in Kgs.</b>
             </td>
-            <td class="text-center" style="border:2px solid black;"><b>{{ doc.custom_installation_note_data_totals |
-                    sum(attribute='tar') }}</b></td>
+            <td class="text-center" style="border:2px solid black;"><b>{{ ns.tars | round(2) }}</b></td>
         </tr>
     </table>
 
     <table>
         <tr>
-            <td colspan="{{ doc.custom_installation_note_data_totals | length }}" class="text-left no-left-border">
+            <td colspan="{{ doc.custom_installation_note_recipe | length }}" class="text-left no-left-border">
                 <b>Total Actual Weight in Kgs.</b>
             </td>
         </tr>
         <tr>
-            {%- for row in doc.custom_installation_note_data_totals -%}
-            <td>{{ row.act }}</td>
+            {% set ns = namespace(tars=0) %}
+            {%- for row in doc.custom_installation_note_recipe -%}
+            <td>{{ ((row.qty + diffVal) * customNoOfBatch) | round(2) }}</td>
+            {% set ns.tars = ns.tars + ((row.qty + diffVal) * customNoOfBatch) %}
             {%- endfor -%}
         </tr>
         <tr>
-            <td colspan="{{ doc.custom_installation_note_data_totals | length -1 }}"> <b>Mass of Total Actual Weight in
+            <td colspan="{{ doc.custom_installation_note_recipe | length -1 }}"> <b>Mass of Total Actual Weight in
                     Kgs.</b>
             </td>
-            <td class="text-center" style="border:2px solid black;"><b>{{ doc.custom_installation_note_data_totals |
-                    sum(attribute='act') }}</b></td>
+            <td class="text-center" style="border:2px solid black;"><b>{{ ns.tars | round(2) }}</b></td>
         </tr>
     </table>
 
     <table>
         <tr>
-            <td colspan="{{ doc.custom_installation_note_data_totals | length }}" class="text-left no-left-border">
+            <td colspan="{{ doc.custom_installation_note_recipe | length }}" class="text-left no-left-border">
                 <b>Difference in Percentage</b>
             </td>
         </tr>
         <tr>
-            {%- for row in doc.custom_installation_note_data_totals -%}
-            <td>{{ "%.2f"|format(row.diff) }}</td>
+            {%- for row in doc.custom_installation_note_recipe -%}
+            {% set tars = row.qty * customNoOfBatch %}
+            {% set acts = (row.qty + diffVal) * customNoOfBatch %}
+            {% set factor = 1000 if row.uom == "Liter" else 100 %}
+            {% set percentage = ((tars - acts) / tars * factor) | round(2) %}
+            <td>{{ percentage }}</td>
             {%- endfor -%}
         </tr>
+
     </table>
 
 </div>

@@ -18,7 +18,71 @@ button[data-fieldname="tare"] {
 }
 
 button:disabled {
-    background-color: #ccc!important;
+    background-color: #ccc !important;
     cursor: not-allowed;
     opacity: 0.6;
+}
+
+.custom_rander_data table {
+    width: 100%;
+    border: 1px solid #808080;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.custom_rander_data table.table-none {
+    margin-bottom: 0;
+}
+
+.custom_rander_data th,
+.custom_rander_data td {
+    border: 1px solid #808080;
+    padding: 8px;
+    text-align: left;
+}
+
+.custom_rander_data .none-border {
+    border: none;
+}
+
+.custom_rander_data .none-border th,
+.custom_rander_data .none-border td {
+    border: none;
+}
+
+.custom_rander_data {
+    border: 1px solid #808080;
+    padding: 10px;
+}
+
+body:last-child .print-format .none-border td img {
+    width: auto !important;
+}
+
+.custom_rander_data .align-left {
+    text-align: left;
+}
+
+.custom_rander_data .align-center {
+    text-align: center;
+}
+
+.custom_rander_data .align-right {
+    text-align: right;
+}
+
+.custom_rander_data .none-border .vertical-middle {
+    vertical-align: middle !important;
+}
+
+.custom_rander_data h3 {
+    border: solid 1px #ccc;
+}
+
+.custom_rander_data p {
+    font-size: 18px;
+}
+
+.custom_rander_data .print-format td span div p {
+    font-size: 9pt;
 }
