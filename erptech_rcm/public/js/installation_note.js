@@ -57,7 +57,6 @@ async function showRanderData(frm, bomName) {
         callback: function (res) {
             frm.doc.custom_installation_note_recipe = []
             const recipes = res.message.custom_items_2.length ? res.message.custom_items_2 : res.message.items
-            console.log(recipes)
             recipes.forEach((item) => {
                 let custom_installation_note_recipe = frm.add_child("custom_installation_note_recipe");
                 custom_installation_note_recipe.item_code = item.item_code;
