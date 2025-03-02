@@ -91,7 +91,7 @@ async function showRanderData(frm, bomName) {
             })
             itemHeading = itemHeading + `</tr></tbody></table>`
 
-            let itemdata = `<table><tbody><tr><td colspan="${noOfBatch - 1}"><b>Target and Actual Value with moisture correction/absorption in % and other Corrections in Kgs.</b></td></tr>`
+            let itemdata = `<table><tbody><tr><td colspan="${recipes.length}"><b>Target and Actual Value with moisture correction/absorption in % and other Corrections in Kgs.</b></td></tr>`
 
             for (let i = 1; i <= noOfBatch; i++) {
                 itemdata = itemdata + `<tr>`
