@@ -29,18 +29,6 @@ frappe.ui.form.on('Installation Note', {
 
                         if (res.message.items[0].custom_bom_no) {
                             showRanderData(frm, res.message.items[0].custom_bom_no)
-                            frm.doc.custom_installation_note_recipe = []
-                            res.message.custom_items_2.forEach((item) => {
-                                let custom_installation_note_recipe = frm.add_child("custom_installation_note_recipe");
-                                custom_installation_note_recipe.item_code = item.item_code;
-                                custom_installation_note_recipe.item_name = item.item_name;
-                                custom_installation_note_recipe.qty = item.qty;
-                                custom_installation_note_recipe.rate = item.rate;
-                                custom_installation_note_recipe.uom = item.uom;
-                                custom_installation_note_recipe.amount = item.amount;
-                                custom_installation_note_recipe.source_warehouse = item.source_warehouse;
-                            })
-                            frm.refresh_field('custom_installation_note_recipe');
                         }
                     }
                 }
@@ -68,6 +56,20 @@ async function showRanderData(frm, bomName) {
             name: bomName
         },
         callback: function (res) {
+            frm.doc.custom_installation_note_recipe = []
+            const recipes = res.message.custom_items_2 ? res.message.custom_items_2 : res.message.items
+            recipes.forEach((item) => {
+                let custom_installation_note_recipe = frm.add_child("custom_installation_note_recipe");
+                custom_installation_note_recipe.item_code = item.item_code;
+                custom_installation_note_recipe.item_name = item.item_name;
+                custom_installation_note_recipe.qty = item.qty;
+                custom_installation_note_recipe.rate = item.rate;
+                custom_installation_note_recipe.uom = item.uom;
+                custom_installation_note_recipe.amount = item.amount;
+                custom_installation_note_recipe.source_warehouse = item.source_warehouse;
+            })
+            frm.refresh_field('custom_installation_note_recipe');
+
             let noOfBatch = frm.doc.items[0]['custom_no_of_batch']
             const diffVal = Math.floor(Math.random() * (6 + 5 + 1)) - 5;
             const header = `<table class="table-none text-center">
@@ -81,11 +83,11 @@ async function showRanderData(frm, bomName) {
             </tbody></table>`
             let itemHeading = '<table><tbody>'
             itemHeading = itemHeading + `<tr>`
-            res.message.custom_items_2.forEach((item) => {
+            recipes.forEach((item) => {
                 itemHeading = itemHeading + `<td><b>${item.item_name}</b></td>`
             })
             itemHeading = itemHeading + `</tr><tr>`
-            res.message.custom_items_2.forEach((item) => {
+            recipes.forEach((item) => {
                 itemHeading = itemHeading + `<td>${(item.qty).toFixed(2)}</td>`
             })
             itemHeading = itemHeading + `</tr></tbody></table>`
@@ -94,11 +96,11 @@ async function showRanderData(frm, bomName) {
 
             for (let i = 1; i <= noOfBatch; i++) {
                 itemdata = itemdata + `<tr>`
-                res.message.custom_items_2.forEach((item) => {
+                recipes.forEach((item) => {
                     itemdata = itemdata + `<td>${(item.qty).toFixed(2)}</td>`
                 })
                 itemdata = itemdata + `</tr><tr>`
-                res.message.custom_items_2.forEach((item) => {
+                recipes.forEach((item) => {
                     itemdata = itemdata + `<td>${(item.qty + diffVal).toFixed(2)}</td>`
                 })
                 itemdata = itemdata + `</tr>`
@@ -112,7 +114,7 @@ async function showRanderData(frm, bomName) {
             // TarTotal
             let tarTotal = `<table><tbody><tr><td colspan="${noOfBatch - 1}" class="text-left no-left-border"><b>Total Set Weight in Kgs.</b></td></tr><tr>`
             let tarTotals = 0
-            res.message.custom_items_2.forEach((item) => {
+            recipes.forEach((item) => {
                 tarTotal = tarTotal + `<td>${(item.qty * noOfBatch).toFixed(2)}</td>`
                 tarTotals = tarTotals + (item.qty * noOfBatch)
             })
@@ -123,7 +125,7 @@ async function showRanderData(frm, bomName) {
             // ActTotal
             let actTotal = `<table><tbody><tr><td colspan="${noOfBatch - 1}" class="text-left no-left-border"><b>Total Actual Weight in Kgs.</b></td></tr><tr>`
             let actTotals = 0
-            res.message.custom_items_2.forEach((item) => {
+            recipes.forEach((item) => {
                 actTotal = actTotal + `<td>${((item.qty + diffVal) * noOfBatch).toFixed(2)}</td>`
                 actTotals = actTotals + ((item.qty + diffVal) * noOfBatch)
             })
@@ -135,7 +137,7 @@ async function showRanderData(frm, bomName) {
             let difference = `<table><tbody><tr><td colspan="${noOfBatch - 1}" class="text-left no-left-border"><b>Difference in Percentage</b></td></tr><tr>`
             let tars = 0
             let acts = 0
-            res.message.custom_items_2.forEach((item) => {
+            recipes.forEach((item) => {
                 tars = item.qty * noOfBatch
                 acts = (item.qty + diffVal) * noOfBatch
                 difference = difference + `<td>${((tars - acts) / tars * (item.uom == "Liter" ? 1000 : 100)).toFixed(2)}</td>`
