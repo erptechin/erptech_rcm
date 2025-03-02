@@ -26,7 +26,6 @@ frappe.ui.form.on('Installation Note', {
                         frm.doc.items[0]['custom_no_of_batch'] = customNoOfBatch
                         let uom = frm.doc.items[0]['uom']
                         frm.refresh_field('items');
-                        console.log('a', res.message.items[0].custom_bom_no)
                         if (res.message.items[0].custom_bom_no) {
                             showRanderData(frm, res.message.items[0].custom_bom_no)
                         }
@@ -49,7 +48,6 @@ frappe.ui.form.on("BOM Item 2", "cor", function (frm) {
 });
 
 async function showRanderData(frm, bomName) {
-    console.log('b', bomName)
     frappe.call({
         method: "frappe.client.get",
         args: {
@@ -59,7 +57,7 @@ async function showRanderData(frm, bomName) {
         callback: function (res) {
             frm.doc.custom_installation_note_recipe = []
             console.log('c', res.message)
-            const recipes = res.message.custom_items_2 ? res.message.custom_items_2 : res.message.items
+            const recipes = res.message.custom_items_2.length ? res.message.custom_items_2 : res.message.items
             recipes.forEach((item) => {
                 let custom_installation_note_recipe = frm.add_child("custom_installation_note_recipe");
                 custom_installation_note_recipe.item_code = item.item_code;
