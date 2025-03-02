@@ -56,7 +56,6 @@ async function showRanderData(frm, bomName) {
         },
         callback: function (res) {
             frm.doc.custom_installation_note_recipe = []
-            console.log('c', res.message)
             const recipes = res.message.custom_items_2.length ? res.message.custom_items_2 : res.message.items
             recipes.forEach((item) => {
                 let custom_installation_note_recipe = frm.add_child("custom_installation_note_recipe");
@@ -112,29 +111,29 @@ async function showRanderData(frm, bomName) {
             itemdata = itemdata + `</tbody></table>`
 
             // TarTotal
-            let tarTotal = `<table><tbody><tr><td colspan="${noOfBatch - 1}" class="text-left no-left-border"><b>Total Set Weight in Kgs.</b></td></tr><tr>`
+            let tarTotal = `<table><tbody><tr><td colspan="${recipes.length}" class="text-left no-left-border"><b>Total Set Weight in Kgs.</b></td></tr><tr>`
             let tarTotals = 0
             recipes.forEach((item) => {
                 tarTotal = tarTotal + `<td>${(item.qty * noOfBatch).toFixed(2)}</td>`
                 tarTotals = tarTotals + (item.qty * noOfBatch)
             })
             tarTotal = tarTotal + `</tr><tr>
-                <td colspan="${noOfBatch - 2}"> <b>Mass of Total Set Weight in Kgs.</b></td><td class="text-center" style="border:2px solid black;"><b>${(tarTotals).toFixed(2)}</b></td></tr>
+                <td colspan="${recipes.length - 1}"> <b>Mass of Total Set Weight in Kgs.</b></td><td class="text-center" style="border:2px solid black;"><b>${(tarTotals).toFixed(2)}</b></td></tr>
                 </tbody></table>`
 
             // ActTotal
-            let actTotal = `<table><tbody><tr><td colspan="${noOfBatch - 1}" class="text-left no-left-border"><b>Total Actual Weight in Kgs.</b></td></tr><tr>`
+            let actTotal = `<table><tbody><tr><td colspan="${recipes.length}" class="text-left no-left-border"><b>Total Actual Weight in Kgs.</b></td></tr><tr>`
             let actTotals = 0
             recipes.forEach((item) => {
                 actTotal = actTotal + `<td>${((item.qty + diffVal) * noOfBatch).toFixed(2)}</td>`
                 actTotals = actTotals + ((item.qty + diffVal) * noOfBatch)
             })
             actTotal = actTotal + `</tr><tr>
-                <td colspan="${noOfBatch - 2}"> <b>Mass of Total Actual Weight in Kgs.</b></td><td class="text-center" style="border:2px solid black;"><b>${(actTotals).toFixed(2)}</b></td></tr>
+                <td colspan="${recipes.length - 1}"> <b>Mass of Total Actual Weight in Kgs.</b></td><td class="text-center" style="border:2px solid black;"><b>${(actTotals).toFixed(2)}</b></td></tr>
                 </tbody></table>`
 
             // Difference
-            let difference = `<table><tbody><tr><td colspan="${noOfBatch - 1}" class="text-left no-left-border"><b>Difference in Percentage</b></td></tr><tr>`
+            let difference = `<table><tbody><tr><td colspan="${recipes.length}" class="text-left no-left-border"><b>Difference in Percentage</b></td></tr><tr>`
             let tars = 0
             let acts = 0
             recipes.forEach((item) => {
