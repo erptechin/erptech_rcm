@@ -1,0 +1,334 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-03 20:10:09.933809",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_sgap",
+  "aggregate_column",
+  "agg1_item",
+  "agg1_name",
+  "agg2_item",
+  "agg2_name",
+  "agg3_item",
+  "agg3_name",
+  "agg4_item",
+  "agg4_name",
+  "agg5_item",
+  "agg5_name",
+  "agg6_item",
+  "agg6_name",
+  "column_break_hfke",
+  "cem1_item",
+  "cem1_name",
+  "cem2_item",
+  "cem2_name",
+  "cem3_item",
+  "cem3_name",
+  "cem4_item",
+  "cem4_name",
+  "cem5_item",
+  "cem5_name",
+  "silica_item",
+  "silica_name",
+  "column_break_lgzo",
+  "wtr1_item",
+  "wtr1_name",
+  "wtr2_item",
+  "wtr2_name",
+  "wtr3_item",
+  "wtr3_name",
+  "column_break_qxfs",
+  "admix1_item",
+  "admix1_name",
+  "admix2_item",
+  "admix2_name",
+  "admix3_item",
+  "admix3_name",
+  "admix4_item",
+  "admix4_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "agg1_item",
+   "fieldtype": "Link",
+   "label": "Agg1 Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "agg2_item",
+   "fieldtype": "Link",
+   "label": "Agg2 Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "agg3_item",
+   "fieldtype": "Link",
+   "label": "Agg3 Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "agg4_item",
+   "fieldtype": "Link",
+   "label": "Agg4 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "agg1_name",
+   "fieldtype": "Data",
+   "label": "Agg1 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "agg2_name",
+   "fieldtype": "Data",
+   "label": "Agg2 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "agg3_name",
+   "fieldtype": "Data",
+   "label": "Agg3 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "agg4_name",
+   "fieldtype": "Data",
+   "label": "Agg4 Name"
+  },
+  {
+   "fieldname": "cem1_item",
+   "fieldtype": "Link",
+   "label": "Cem1 Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "cem2_item",
+   "fieldtype": "Link",
+   "label": "Cem2 Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "cem3_item",
+   "fieldtype": "Link",
+   "label": "Cem3 Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "cem4_item",
+   "fieldtype": "Link",
+   "label": "Cem4 Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "cem5_item",
+   "fieldtype": "Link",
+   "label": "Cem5 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "cem1_name",
+   "fieldtype": "Data",
+   "label": "Cem1 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "cem2_name",
+   "fieldtype": "Data",
+   "label": "Cem2 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "cem3_name",
+   "fieldtype": "Data",
+   "label": "Cem3 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "cem4_name",
+   "fieldtype": "Data",
+   "label": "Cem4 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "cem5_name",
+   "fieldtype": "Data",
+   "label": "Cem5 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "column_break_hfke",
+   "fieldtype": "Column Break",
+   "label": "CEMENT"
+  },
+  {
+   "bold": 1,
+   "fieldname": "column_break_lgzo",
+   "fieldtype": "Column Break",
+   "label": "WATER"
+  },
+  {
+   "fieldname": "wtr1_item",
+   "fieldtype": "Link",
+   "label": "Wtr1 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "wtr1_name",
+   "fieldtype": "Data",
+   "label": "Wtr1 Name"
+  },
+  {
+   "fieldname": "wtr2_item",
+   "fieldtype": "Link",
+   "label": "Wtr2 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "wtr2_name",
+   "fieldtype": "Data",
+   "label": "Wtr2 Name"
+  },
+  {
+   "fieldname": "wtr3_item",
+   "fieldtype": "Link",
+   "label": "Wtr3 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "wtr3_name",
+   "fieldtype": "Data",
+   "label": "Wtr3 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "column_break_qxfs",
+   "fieldtype": "Column Break",
+   "label": "ADMIXTURE"
+  },
+  {
+   "fieldname": "admix1_item",
+   "fieldtype": "Link",
+   "label": "Admix1 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "admix1_name",
+   "fieldtype": "Data",
+   "label": "Admix1 Name"
+  },
+  {
+   "fieldname": "admix2_item",
+   "fieldtype": "Link",
+   "label": "Admix2 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "admix2_name",
+   "fieldtype": "Data",
+   "label": "Admix2 Name"
+  },
+  {
+   "fieldname": "admix3_item",
+   "fieldtype": "Link",
+   "label": "Admix3 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "admix3_name",
+   "fieldtype": "Data",
+   "label": "Admix3 Name"
+  },
+  {
+   "fieldname": "admix4_item",
+   "fieldtype": "Link",
+   "label": "Admix4 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "admix4_name",
+   "fieldtype": "Data",
+   "label": "Admix4 Name"
+  },
+  {
+   "fieldname": "silica_item",
+   "fieldtype": "Link",
+   "label": "Silica Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "silica_name",
+   "fieldtype": "Data",
+   "label": "Silica Name"
+  },
+  {
+   "fieldname": "agg5_item",
+   "fieldtype": "Link",
+   "label": "Agg5 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "agg5_name",
+   "fieldtype": "Data",
+   "label": "Agg5 Name"
+  },
+  {
+   "fieldname": "agg6_item",
+   "fieldtype": "Link",
+   "label": "Agg6 Item",
+   "options": "Item"
+  },
+  {
+   "bold": 1,
+   "fieldname": "agg6_name",
+   "fieldtype": "Data",
+   "label": "Agg6 Name"
+  },
+  {
+   "bold": 1,
+   "fieldname": "aggregate_column",
+   "fieldtype": "Column Break",
+   "label": "AGGREGATE"
+  },
+  {
+   "fieldname": "section_break_sgap",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-03 21:15:20.887921",
+ "modified_by": "Administrator",
+ "module": "Erptech Rcm",
+ "name": "Raw Material Mapping",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
