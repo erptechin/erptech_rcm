@@ -1,7 +1,13 @@
 frappe.ui.form.on('Installation Note', {
     refresh: async function (frm) {
-        if (frm.doc.items[0] && frm.doc.items[0].prevdoc_docname) {
-            InstallationCount = await frappe.db.count('Installation Note')
+        const materialMapping = await frappe.db.get_list('Raw Material Mapping', {
+            fields: ["item_name", "item"],
+        })
+       
+
+        const itemLists = ['20 MM', 'SAND', '20 MM', '10MM', 'Agg5', 'Agg6', 'CEM-I', 'CEM-II', 'CEM-III', 'Cem4', 'Cem5', 'Water 1', 'Wtr2', 'Wtr3', 'Admixture 1', 'ADMIX-II 2', 'Admix3', 'Cem4', 'silica']
+        if (frm.doc.name.includes("new-installation-note") && frm.doc.items[0] && frm.doc.items[0].prevdoc_docname) {
+
             frappe.call({
                 method: "frappe.client.get",
                 args: {
@@ -35,18 +41,22 @@ frappe.ui.form.on('Installation Note', {
                                 },
                                 callback: function (res) {
                                     const recipes = res.message.custom_items_2.length ? res.message.custom_items_2 : res.message.items
-                                    frm.doc.custom_installation_note_recipe = []
-                                    recipes.forEach((item) => {
-                                        let custom_installation_note_recipe = frm.add_child("custom_installation_note_recipe");
-                                        custom_installation_note_recipe.item_code = item.item_code;
-                                        custom_installation_note_recipe.item_name = item.item_name;
-                                        custom_installation_note_recipe.qty = item.qty;
-                                        custom_installation_note_recipe.rate = item.rate;
-                                        custom_installation_note_recipe.uom = item.uom;
-                                        custom_installation_note_recipe.amount = item.amount;
-                                        custom_installation_note_recipe.source_warehouse = item.source_warehouse;
-                                    })
-                                    frm.refresh_field('custom_installation_note_recipe');
+                                    frm.doc.custom_installation_note_recipe_items = []
+                                    let tempIds = {}
+                                    for (let i = 0; i <= materialMapping.length - 1; i++) {
+                                        let custom_installation_note_recipe_items = frm.add_child("custom_installation_note_recipe_items");
+                                        let recipe = recipes.find((item) => item.item_code == materialMapping[i].item && item.item_code in tempIds === false)
+                                        custom_installation_note_recipe_items.item_name = materialMapping[i].item_name;
+                                        if (recipe) {
+                                            tempIds[recipe.item_code] = true
+                                            custom_installation_note_recipe_items.qty = recipe.qty;
+                                            custom_installation_note_recipe_items.uom = recipe.uom;
+                                        } else {
+                                            custom_installation_note_recipe_items.qty = 0;
+                                            custom_installation_note_recipe_items.uom = 'Kg';
+                                        }
+                                    }
+                                    frm.refresh_field('custom_installation_note_recipe_items');
                                     showRanderData(frm)
                                 }
                             });
@@ -58,24 +68,18 @@ frappe.ui.form.on('Installation Note', {
             });
         }
     },
-
+    setup: function (frm) {
+        if (frm.doc.custom_installation_note_recipe_items.length) {
+            showRanderData(frm)
+        }
+    },
 })
 
-frappe.ui.form.on("BOM Item 2", "cor", function (frm) {
-    for (let item of frm.doc.custom_installation_note_recipe) {
-        for (let note of frm.doc.custom_installation_note_data) {
-            if (item.item_code === note.item) {
-                frappe.model.set_value("Installation Note Data", note.name, "cor", item.cor)
-            }
-        }
-    }
-});
-
 async function showRanderData(frm) {
-    const recipes = frm.doc.custom_installation_note_recipe
+    const recipes = frm.doc.custom_installation_note_recipe_items
     let noOfBatch = frm.doc.items[0]['custom_no_of_batch']
     const diffVal = Math.floor(Math.random() * (6 + 5 + 1)) - 5;
-    const header = `<table class="table-none text-center">
+    const mainHeader = `<table class="table-none text-center">
                 <tbody><tr>
                     <td class="text-center no-left-border no-right-border"><b>Aggregate</b> </td>
                     <td class="text-center no-left-border no-right-border"><b>Cement</b></td>
@@ -104,7 +108,7 @@ async function showRanderData(frm) {
         })
         itemdata = itemdata + `</tr><tr>`
         recipes.forEach((item) => {
-            itemdata = itemdata + `<td>${(item.qty + diffVal).toFixed(2)}</td>`
+            itemdata = itemdata + `<td>${(item.qty ? item.qty + diffVal : 0).toFixed(2)}</td>`
         })
         itemdata = itemdata + `</tr>`
         itemdata = itemdata + ` <tr>
@@ -129,8 +133,8 @@ async function showRanderData(frm) {
     let actTotal = `<table><tbody><tr><td colspan="${recipes.length}" class="text-left no-left-border"><b>Total Actual Weight in Kgs.</b></td></tr><tr>`
     let actTotals = 0
     recipes.forEach((item) => {
-        actTotal = actTotal + `<td>${((item.qty + diffVal) * noOfBatch).toFixed(2)}</td>`
-        actTotals = actTotals + ((item.qty + diffVal) * noOfBatch)
+        actTotal = actTotal + `<td>${((item.qty ? item.qty + diffVal : 0) * noOfBatch).toFixed(2)}</td>`
+        actTotals = actTotals + ((item.qty ? item.qty + diffVal : 0) * noOfBatch)
     })
     actTotal = actTotal + `</tr><tr>
                 <td colspan="${recipes.length - 1}"> <b>Mass of Total Actual Weight in Kgs.</b></td><td class="text-center" style="border:2px solid black;"><b>${(actTotals).toFixed(2)}</b></td></tr>
@@ -142,14 +146,14 @@ async function showRanderData(frm) {
     let acts = 0
     recipes.forEach((item) => {
         tars = item.qty * noOfBatch
-        acts = (item.qty + diffVal) * noOfBatch
-        difference = difference + `<td>${((tars - acts) / tars * (item.uom == "Liter" ? 1000 : 100)).toFixed(2)}</td>`
+        acts = (item.qty ? item.qty + diffVal : 0) * noOfBatch
+        difference = difference + `<td>${(tars ? (tars - acts) / tars * (item.uom == "Liter" ? 1000 : 100) : 0).toFixed(2)}</td>`
     })
     difference = difference + `</tr></tbody></table>`
 
     frm.set_df_property('custom_rander_data', 'options', `
                 <div class="custom_rander_data">
-                ${header}
+                ${mainHeader}
                 ${itemHeading}
                 ${itemdata}
                 ${tarTotal}

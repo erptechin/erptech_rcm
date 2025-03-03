@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class InstallationNoteDataTotal(Document):
+class InstallationNoteRecipe(Document):
 	pass
