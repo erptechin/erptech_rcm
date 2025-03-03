@@ -38,22 +38,22 @@ frappe.ui.form.on('Installation Note', {
                                 },
                                 callback: function (res) {
                                     const recipes = res.message.custom_items_2.length ? res.message.custom_items_2 : res.message.items
-                                    frm.doc.custom_installation_note_recipe_items = []
+                                    frm.doc.custom_installation_note_recipe = []
                                     let tempIds = {}
                                     for (let i = 0; i <= materialMapping.length - 1; i++) {
-                                        let custom_installation_note_recipe_items = frm.add_child("custom_installation_note_recipe_items");
+                                        let custom_installation_note_recipe = frm.add_child("custom_installation_note_recipe");
                                         let recipe = recipes.find((item) => item.item_code == materialMapping[i].item && item.item_code in tempIds === false)
-                                        custom_installation_note_recipe_items.item_name = materialMapping[i].item_name;
+                                        custom_installation_note_recipe.item_name = materialMapping[i].item_name;
                                         if (recipe) {
                                             tempIds[recipe.item_code] = true
-                                            custom_installation_note_recipe_items.qty = recipe.qty;
-                                            custom_installation_note_recipe_items.uom = recipe.uom;
+                                            custom_installation_note_recipe.qty = recipe.qty;
+                                            custom_installation_note_recipe.uom = recipe.uom;
                                         } else {
-                                            custom_installation_note_recipe_items.qty = 0;
-                                            custom_installation_note_recipe_items.uom = 'Kg';
+                                            custom_installation_note_recipe.qty = 0;
+                                            custom_installation_note_recipe.uom = 'Kg';
                                         }
                                     }
-                                    frm.refresh_field('custom_installation_note_recipe_items');
+                                    frm.refresh_field('custom_installation_note_recipe');
                                     showRanderData(frm)
                                 }
                             });
@@ -66,14 +66,14 @@ frappe.ui.form.on('Installation Note', {
         }
     },
     setup: function (frm) {
-        if (frm?.doc?.custom_installation_note_recipe_items?.length) {
+        if (frm?.doc?.custom_installation_note_recipe?.length) {
             showRanderData(frm)
         }
     },
 })
 
 async function showRanderData(frm) {
-    const recipes = frm.doc.custom_installation_note_recipe_items
+    const recipes = frm.doc.custom_installation_note_recipe
     let noOfBatch = frm.doc.items[0]['custom_no_of_batch']
     const diffVal = Math.floor(Math.random() * (6 + 5 + 1)) - 5;
     const mainHeader = `<table class="table-none text-center">
