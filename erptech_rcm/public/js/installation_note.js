@@ -3,9 +3,6 @@ frappe.ui.form.on('Installation Note', {
         const materialMapping = await frappe.db.get_list('Raw Material Mapping', {
             fields: ["item_name", "item"],
         })
-       
-
-        const itemLists = ['20 MM', 'SAND', '20 MM', '10MM', 'Agg5', 'Agg6', 'CEM-I', 'CEM-II', 'CEM-III', 'Cem4', 'Cem5', 'Water 1', 'Wtr2', 'Wtr3', 'Admixture 1', 'ADMIX-II 2', 'Admix3', 'Cem4', 'silica']
         if (frm.doc.name.includes("new-installation-note") && frm.doc.items[0] && frm.doc.items[0].prevdoc_docname) {
 
             frappe.call({
@@ -69,7 +66,7 @@ frappe.ui.form.on('Installation Note', {
         }
     },
     setup: function (frm) {
-        if (frm.doc.custom_installation_note_recipe_items.length) {
+        if (frm?.doc?.custom_installation_note_recipe_items?.length) {
             showRanderData(frm)
         }
     },
