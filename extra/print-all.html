@@ -1,1106 +1,284 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 10px;
-}
+<div class="container-fluid" id="container-fluid">
+    <table class="table">
+        <tbody>
+            <tr class="no-right-border">
+                <td rowspan="3" colspan="1" class="no-left-border no-bottom-border  no-top-border ">
+                    <img src="./files/print-logo.jpeg" class="img img-rounded" align="left" width="80" height="60">
+                </td>
 
-table.table-none {
-    margin-bottom: 0;
-}
+                <td class=" no-bottom-border  no-top-border no-left-border"></td>
 
-th,
-td {
-    border: 1px solid #808080;
-    padding: 8px;
-    text-align: left;
-}
-
-.none-border-td,
-.none-border {
-    border: none;
-}
-
-.none-border th,
-.none-border td {
-    border: none;
-}
-
-.body-part {
-    border: 1px solid #808080;
-    padding: 10px;
-}
-
-body:last-child .print-format .none-border td img {
-    width: auto !important;
-}
-
-.align-left {
-    text-align: left;
-}
-
-.align-center {
-    text-align: center;
-}
-
-.align-right {
-    text-align: right;
-}
-
-.none-border .vertical-middle {
-    vertical-align: middle !important;
-}
-
-h3 {
-    border: solid 1px #ccc;
-}
-
-p {
-    font-size: 18px;
-}
-
-.print-format td span div p {
-    font-size: 9pt;
-}
-
-.none-border tbody td {
-    width: auto;
-}
-
-tbody td {
-    width: 100px;
-}
-body .print-format td{
-    padding: 4px !important;
-}
-
-
-<div class="container-fluid">
-    <table class="none-border">
-        <tr>
-            <td>
-                <img src="/files/print-logo.jpeg" class="img img-rounded" width="47" height="60">
-            </td>
-
-            <td class="align-center">
-                <h3>BIHAR RMC</h3>
-                <p>
-                    <span>Report Title: <b>Batch Sheet</b></span>
-                    <span>Plant Sl.No: <b>566</b></span>
-                </p>
-            </td>
-        </tr>
-
-    </table>
-
-    <div class="body-part">
-        <table class="none-border">
-            <tr>
-                <td nowrap><strong>Batch Date</strong></td>
-                <td><span>{{ doc.get_formatted("inst_date") }}</span></td>
-                <td nowrap><strong>Batch Start Time</strong></td>
-                <td><span>{{ doc.get_formatted("custom_start_time") }}</span></td>
-                <td nowrap><strong>Batch End Time</strong></td>
-                <td><span>{{ doc.get_formatted("inst_time") }}</span></td>
+                <td colspan="3" style="font-size: 2.0em;" width="60%" class="text-center top-border"><b>BIHAR
+                        RMC</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class=" no-bottom-border no-right-border no-top-border "></td>
             </tr>
             <tr>
-                <td nowrap><strong>Batch Number</strong></td>
+                <td colspan="6" class="no-left-border no-bottom-border no-right-border">
+                    <p class="text-left"><span
+                            style="font-size: 2.0em; float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Report
+                                Title:</b>&nbsp;&nbsp;&nbsp;&nbsp; <b>Batch Sheet</b>&nbsp;&nbsp;&nbsp;<b> Plant
+                                Sl.No: 566</b></span></p>
+                </td>
+                <td class="no-left-border no-bottom-border no-right-border"></td>
+                <td class="no-left-border no-bottom-border no-right-border"></td>
+                <td class="no-left-border no-bottom-border no-right-border"></td>
+                <td class="no-left-border no-bottom-border no-right-border"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table1" style="width: 100%">
+        <tbody>
+            <tr>
                 <td>
-                    {% if doc.custom_installation_note_data and doc.custom_installation_note_data[0].batch_no %}
-                    <span>{{doc.custom_installation_note_data[0].batch_no}}</span>
-                    {% endif %}
-                </td>
-                <td nowrap><strong>Recipe Code</strong></td>
-                <td><span>{{doc.custom_recipe_name}}</span></td>
-                <td nowrap><strong>Ordered Qty</strong></td>
-                <td><span>{{doc.items[0].qty}}</span></td>
-            </tr>
-            <tr>
-                <td nowrap><strong>Batch Name</strong></td>
-                <td><span>{{doc.items[0].description}}</span></td>
-                <td nowrap><strong>Recipe Name</strong></td>
-                <td><span>{{ doc.custom_recipe_name }}</span></td>
-                <td nowrap><strong>Production Qty</strong></td>
-                <td><span>{{doc.items[0].custom_count}}</span></td>
-            </tr>
-            <tr>
-                <td nowrap><strong>Order Number</strong></td>
-                <td><span>{{doc.items[0].custom_sales_order_no}}</span></td>
-                <td nowrap><strong>Truck Number</strong></td>
-                <td><span>{{ doc.custom_vehicle_no }}</span></td>
-                <td nowrap><strong>Adj/Manual Qty</strong></td>
-                <td><span></span></td>
-            </tr>
-            <tr>
-                <td nowrap><strong>Customer</strong></td>
-                <td>{{ doc.customer_name }}</td>
-                <td nowrap><strong>Truck Driver</strong></td>
-                <td><span>{{ doc.custom_driver_name }}</span></td>
-                <td nowrap><strong>With This Load</strong></td>
-                <td><span></span></td>
-            </tr>
-            <tr>
-                <td nowrap><strong>Site</strong></td>
-                <td><span>{{ doc.custom_site }}</span></td>
-                <td nowrap><strong>Batch size</strong></td>
-                <td><span>{{doc.items[0].custom_batch_size}}</span></td>
-                <td nowrap><strong>Mixer capacity</strong></td>
-                <td><span>{{ doc.custom_batch_size }}</span></td>
-            </tr>
+                    <table style="width: 90%; margin-left:1%;">
 
-        </table>
-        <table class="text-center">
-            <tr>
-                <td class="none-border-td">
+                        <tbody>
+                            <tr>
+                                <td colspan="2"><strong>Batch Date</strong></td>
 
-                    <table class="table-none none-border text-center">
-                        <tr>
-                            <td class="text-center no-left-border no-right-border"><b>Aggregate</b> </td>
-                            <td class="text-center no-left-border no-right-border"><b>Cement</b></td>
-                            <td class="text-center no-left-border no-right-border"><b>Water/Ice</b></td>
-                            <td class="text-center no-left-border no-right-border"><b>Admixture</b></td>
-                            <td class="text-center no-left-border no-right-border"><b>Silica</b></td>
-                        </tr>
+                                <td colspan="2"><span>: {{ doc.get_formatted("inst_date") }}</span></td>
 
-                    </table>
+                                <td colspan="2"><strong>Batch Start Time</strong></td>
 
-                    <table>
-                        <tr>
-                            <td><b>20MM</b></td>
-                            <td><b>SAND</b></td>
-                            <td><b>10MM</b></td>
-                            <td><b>Agg5</b></td>
-                            <td><b>Agg6</b></td>
-                            <td><b>CEM-I</b></td>
-                            <td><b>CEM-II</b></td>
-                            <td><b>CEM-III</b></td>
-                            <td><b>Cem4</b></td>
-                            <td><b>Cem5</b></td>
-                            <td><b>Water 1</b></td>
-                            <td><b>Wtr2</b></td>
-                            <td><b>Wtr3</b></td>
-                            <td><b>Admixture 1</td>
-                            <td><b>ADMIX-II</td>
-                            <td><b>Admix 3</td>
-                            <td><b>silica</b></td>
+                                <td colspan="2"><span>: {{ doc.get_formatted("custom_start_time") }}</span></td>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "20 MM" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Crushed Sand" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "10 MM" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Agg5" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Agg6" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Cement" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "CEM-II" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "CEM-III" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Cem4" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Cem5" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Water" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Wtr2" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Wtr3" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Admixture" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "ADMIX-II" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "Admix3" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_recipe -%}
-                                {%- if row.item_name == "silica" -%}
-                                {{ row.qty }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                        </tr>
-                        <tr class="none-border">
-                            <td colspan="16"> <b>Mass of Recipe Targets in
-                                    Kgs.</b>
-                            </td>
-                            <td class="text-center" style="border:2px solid black;"><b>{{
-                                    doc.custom_installation_note_recipe |
-                                    sum(attribute='qty') }}</b></td>
-                        </tr>
-                    </table>
+                                <td colspan="2"><strong>Batch End Time</strong></td>
 
-                    <table>
-                        <tr class="none-border">
-                            <td colspan="17"><b>Target and Actual Value
-                                    with
-                                    moisture
-                                    correction/absorption in % and other Corrections in Kgs.</b></td>
-                        </tr>
+                                <td colspan="2"><span>: {{ doc.get_formatted("inst_time") }}</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="font-size: 13px;"><strong>Batch Number</strong></td>
 
-                        {% set customNoOfBatch = (doc.items[0].custom_no_of_batch) | int %}
+                                <td colspan="2"><span>: 2</span></td>
+                                <td colspan="2"><strong>Recipe Code</strong></td>
 
-                        {% for i in range(1, customNoOfBatch + 1) %}
-                        <tr>
+                                <td colspan="2"><span>: {{doc.custom_recipe_name}}</span></td>
 
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "20 MM" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Crushed Sand" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "10 MM" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Agg5" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Agg6" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Cement" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "CEM-II" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "CEM-III" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Cem4" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Cem5" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Water" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Wtr2" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Wtr3" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Admixture" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "ADMIX-II" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Admix3" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "silica" -%}
-                                {{ doc.custom_installation_note_data[i].tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
+                                <td colspan="2"><strong>Ordered Qty</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].qty}}</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Batch Name</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].description}}</span></td>
+                                <td colspan="2"><strong>Recipe Name</strong></td>
+                                <td colspan="2"><span>: {{doc.custom_recipe_name}}</span></td>
+                                <td colspan="2"><strong>Production Qty</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].custom_count}}</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Order Number</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].custom_sales_order_no}}</span></td>
+                                <td colspan="2"><strong>Truck Number</strong></td>
+                                <td colspan="2"><span>: {{ doc.custom_vehicle_no }}</span></td>
+                                <td colspan="2"><strong>Adj/Manual Qty</strong></td>
+                                <td colspan="2"><span>: 0.00</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Customer</strong></td>
+                                <td colspan="2"><span>: {{ doc.customer_name }}</span></td>
+                                <td colspan="2"><strong>Truck Driver</strong></td>
+                                <td colspan="2"><span>: {{ doc.custom_driver_name }}</span></td>
+                                <td colspan="2"><strong>With This Load</strong></td>
+                                <td colspan="2"><span>: 0.0</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Site</strong></td>
+                                <td colspan="2"><span>: {{ doc.custom_site }}</span></td>
+                                <td colspan="2"><strong>Batch size</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].custom_batch_size}}</span></td>
+                                <td colspan="2"><strong>Mixer capacity</strong></td>
+                                <td colspan="2"><span>: {{ doc.custom_batch_size }}</span></td>
+                            </tr>
 
-
-                        </tr>
-                        <tr>
-
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "20 MM" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Crushed Sand" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "10 MM" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Agg5" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Agg6" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Cement" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "CEM-II" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "CEM-III" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Cem4" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Cem5" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Water" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Wtr2" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Wtr3" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Admixture" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "ADMIX-II" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "Admix3" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for i in range(0, doc.custom_installation_note_data|length, customNoOfBatch) -%}
-                                {%- if doc.custom_installation_note_data[i].item == "silica" -%}
-                                {{ doc.custom_installation_note_data[i].act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-
-
-                        </tr>
-                       
-                        <tr>
-                            <td colspan="17" style="border-bottom: 1.0px solid #80808073; padding: 0.1em;"></td>
-                        </tr>
-                        {%- endfor -%}
-                    </table>
-
-                    <table>
-                        <tr class="none-border">
-                            <td colspan="17" class="text-left no-left-border">
-                                <b>Total Set Weight in Kgs.</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "20 MM" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Crushed Sand" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "10 MM" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Agg5" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Agg6" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Cement" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "CEM-II" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "CEM-III" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Cem4" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Cem5" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Water" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Wtr2" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Wtr3" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Admixture" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "ADMIX-II" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Admix3" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "silica" -%}
-                                {{ row.tar }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="16"> <b>Mass of Total
-                                    Set Weight in
-                                    Kgs.</b>
-                            </td>
-                            <td class="text-center" style="border:2px solid black;"><b>{{
-                                    doc.custom_installation_note_data_totals |
-                                    sum(attribute='tar') }}</b></td>
-                        </tr>
-                    </table>
-
-                    <table>
-                        <tr class="none-border">
-                            <td colspan="17" class="text-left no-left-border">
-                                <b>Total Actual Weight in Kgs.</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "20 MM" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Crushed Sand" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "10 MM" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Agg5" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Agg6" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Cement" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "CEM-II" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "CEM-III" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Cem4" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Cem5" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Water" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Wtr2" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Wtr3" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Admixture" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "ADMIX-II" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Admix3" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "silica" -%}
-                                {{ row.act }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="16"> <b>Mass of Total Actual Weight in Kgs.</b></td>
-                            <td class="text-center" style="border:2px solid black;"><b>{{
-                                    doc.custom_installation_note_data_totals |
-                                    sum(attribute='act') }}</b></td>
-                        </tr>
-                    </table>
-
-                    <table>
-                        <tr class="none-border">
-                            <td colspan="17" class="text-left no-left-border">
-                                <b>Difference in Percentage</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "20 MM" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Crushed Sand" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "10 MM" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Agg5" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Agg6" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Cement" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "CEM-II" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "CEM-III" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Cem4" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Cem5" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Water" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Wtr2" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Wtr3" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Admixture" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "ADMIX-II" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "Admix3" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                            <td>
-                                {%- for row in doc.custom_installation_note_data_totals -%}
-                                {%- if row.item == "silica" -%}
-                                {{ "%.2f"|format(row.diff) }}
-                                {%- endif -%}
-                                {%- endfor -%}
-                                {{ "0.00" }}
-                            </td>
-                        </tr>
+                        </tbody>
                     </table>
                 </td>
             </tr>
-        </table>
+            <tr>
+                <td>
+                    <br>
+
+                    <table class="table text-center">
+
+                        <tbody>
+
+                            <tr class="hide-top">
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border no-right-border table2-td">
+                                    <table class="table2">
+                                        <tr class="hide-top">
+                                            <td class="text-center no-left-border no-right-border">
+                                                <b>Aggregate</b>
+                                            </td>
+                                            <td class="text-center no-left-border no-right-border"><b>Cement</b>
+                                            </td>
+                                            <td class="text-center no-left-border no-right-border">
+                                                <b>Water/Ice</b>
+                                            </td>
+                                            <td class="text-center no-left-border no-right-border">
+                                                <b>Admixture</b>
+                                            </td>
+                                            <td class="text-center no-left-border no-right-border"><b>Silica</b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073"><b>{{ row.item_name }}</b></td>
+                                {%- endfor -%}
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">{{ row.qty | round(2) }}</td>
+                                {%- endfor -%}
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length -1 }}"
+                                    class="text-right no-left-border no-bottom-border"
+                                    style="border-right:1.5px solid black;"><b>Mass of Recipe Targets in
+                                        Kgs.</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td class="text-center" style="border:2px solid black;">
+                                    <b>{{ doc.custom_installation_note_recipe |
+                                        sum(attribute='qty') }}</b>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border no-right-border"><b>Target and
+                                        Actual Value with moisture correction/absorption in % and other
+                                        Corrections in Kgs.</b></td>
+                            </tr>
+
+                            {% set customNoOfBatch = (doc.items[0].custom_no_of_batch) | int %}
+                            {% set diffVal = 5 | int %}
+
+                            {% for i in range(1, customNoOfBatch + 1) %}
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">{{ (row.qty) | round(2) }}</td>
+                                {% endfor %}
+
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">{{ (row.qty + diffVal) | round(2) }}</td>
+                                {% endfor %}
+
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">0.00</td>
+                                {% endfor %}
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">0.00</td>
+                                {% endfor %}
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    style="border-bottom: 1.0px solid #80808073; padding: 0.1em;">
+                                </td>
+                            </tr>
+                            {%- endfor -%}
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border"><b>Total Set Weight in Kgs.</b></td>
+
+                            </tr>
+
+                            <tr>
+                                {% set ns = namespace(tars=0) %}
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">4725</td>
+                                {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
+                                {%- endfor -%}
+
+                            </tr>
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length -1 }}" class="text-right"
+                                    style="border-right:1.5px solid black;">
+                                    <b>Mass of Total Set Weight in Kgs.</b>
+                                </td>
+                                <td class="text-center" style="border:2px solid black;">
+                                    <b>{{ ns.tars | round(2) }}</b>
+                                </td>
+
+                            </tr>
 
 
-    </div>
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border"><b>Total Actual Weight in Kgs.</b></td>
 
-    <table class="none-border">
-        <tr>
-            <td class="align-left">
-                <img src="/files/print-logo-bottom.jpeg" class="img img-rounded" width="47" height="60">
-            </td>
-            <td class="align-center vertical-middle">Page 1</td>
-            <td class="align-right vertical-middle">Print Date:{{ frappe.utils.now_datetime() }}</td>
-        </tr>
+                            </tr>
 
+
+                            <tr>
+                                {% set ns = namespace(tars=0) %}
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">{{ ((row.qty + diffVal) * customNoOfBatch) |
+                                    round(2) }}</td>
+                                {% set ns.tars = ns.tars + ((row.qty + diffVal) * customNoOfBatch) %}
+                                {%- endfor -%}
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length -1 }}" class="text-right"
+                                    style="border-right:1.5px solid black;">
+                                    <b>Mass of Total Actual Weight in Kgs.</b>
+                                </td>
+                                <td class="text-center" style="border:2px solid black;">
+                                    <b>{{ ns.tars | round(2) }}</b>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border"><b>Difference in Percentage</b></td>
+
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                {% set tars = row.qty * customNoOfBatch %}
+                                {% set acts = (row.qty + diffVal) * customNoOfBatch %}
+                                {% set factor = 1000 if row.uom == "Liter" else 100 %}
+                                {% set percentage = ((tars - acts) / tars * factor) | round(2) %}
+                                <td style="border: 1.0px solid #80808073" class="text-center">{{ percentage }}</td>
+                                {%- endfor -%}
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
     </table>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer>
+        <div class="left">
+            <img src="./files/print-logo-bottom.jpeg" alt="Logo" width="120" height="40">
+        </div>
+        <div class="center">Page 1</div>
+        <div class="right">Print Date:{{ frappe.utils.now_datetime() }}</div>
+    </footer>
 </div>
