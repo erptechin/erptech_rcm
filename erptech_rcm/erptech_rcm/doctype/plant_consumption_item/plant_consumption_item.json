@@ -9,6 +9,11 @@
   "sequence_number",
   "batch_size_val0",
   "ticket_id_val0",
+  "addinfo23",
+  "timestamp",
+  "timestamp_utc",
+  "batching_plant",
+  "pro_qty_val0",
   "column_break_mkzz",
   "agg_1_name_val0",
   "agg1_set_log_val0",
@@ -391,12 +396,38 @@
    "fieldname": "ticket_id_val0",
    "fieldtype": "Data",
    "label": "TICKET_ID_VAL0"
+  },
+  {
+   "fieldname": "addinfo23",
+   "fieldtype": "Data",
+   "label": "AddInfo23"
+  },
+  {
+   "fieldname": "timestamp",
+   "fieldtype": "Datetime",
+   "label": "timestamp"
+  },
+  {
+   "fieldname": "timestamp_utc",
+   "fieldtype": "Datetime",
+   "label": "timestamp_utc"
+  },
+  {
+   "fieldname": "batching_plant",
+   "fieldtype": "Link",
+   "label": "Batching Plant",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "pro_qty_val0",
+   "fieldtype": "Data",
+   "label": "PRO_QTY_VAL0"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-02-12 23:44:23.604894",
+ "modified": "2025-03-04 10:56:34.919927",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Plant Consumption Item",
