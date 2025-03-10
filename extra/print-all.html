@@ -170,10 +170,15 @@
 
                             <tr>
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                <td style="border: 1.0px solid #80808073">{{ (row.qty + diffVal) | round(2) }}</td>
-                                {% endfor %}
-
+                                {% if row.qty == 0 %}
+                                {% set value = 0.00 %}
+                                {% else %}
+                                {% set value = (row.qty + diffVal) | round(2) %}
+                                {% endif %}
+                                <td style="border: 1.0px solid #80808073">{{ value }}</td>
+                                {%- endfor %}
                             </tr>
+
 
                             <tr>
                                 {%- for row in doc.custom_installation_note_recipe -%}
@@ -203,7 +208,8 @@
                             <tr>
                                 {% set ns = namespace(tars=0) %}
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                <td style="border: 1.0px solid #80808073">4725</td>
+                                <td style="border: 1.0px solid #80808073">{{ ((row.qty) * customNoOfBatch) |
+                                    round(2) }}</td>
                                 {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
                                 {%- endfor -%}
 
@@ -226,13 +232,16 @@
 
                             </tr>
 
-
                             <tr>
                                 {% set ns = namespace(tars=0) %}
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                <td style="border: 1.0px solid #80808073">{{ ((row.qty + diffVal) * customNoOfBatch) |
-                                    round(2) }}</td>
-                                {% set ns.tars = ns.tars + ((row.qty + diffVal) * customNoOfBatch) %}
+                                {% if row.qty == 0 %}
+                                {% set newValue = 0.00 %}
+                                {% else %}
+                                {% set newValue = ((row.qty + diffVal) * customNoOfBatch) | round(2) %}
+                                {% endif %}
+                                <td style="border: 1.0px solid #80808073">{{ newValue }}</td>
+                                {% set ns.tars = ns.tars + newValue %}
                                 {%- endfor -%}
                             </tr>
 
@@ -258,10 +267,17 @@
                                 {% set tars = row.qty * customNoOfBatch %}
                                 {% set acts = (row.qty + diffVal) * customNoOfBatch %}
                                 {% set factor = 1000 if row.uom == "Liter" else 100 %}
+
+                                {% if tars == 0 %}
+                                {% set percentage = 0.00 %}
+                                {% else %}
                                 {% set percentage = ((tars - acts) / tars * factor) | round(2) %}
+                                {% endif %}
+
                                 <td style="border: 1.0px solid #80808073" class="text-center">{{ percentage }}</td>
                                 {%- endfor -%}
                             </tr>
+
 
                         </tbody>
                     </table>

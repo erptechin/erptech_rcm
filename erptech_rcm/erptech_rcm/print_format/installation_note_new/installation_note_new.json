@@ -17,7 +17,11 @@
  "margin_left": 15.0,
  "margin_right": 15.0,
  "margin_top": 15.0,
+<<<<<<< HEAD
  "modified": "2025-03-07 12:25:54.141100",
+=======
+ "modified": "2025-03-07 12:23:14.022809",
+>>>>>>> 5da26832cf3c321f50d9ee5dc98c133009030d36
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Installation Note New",
