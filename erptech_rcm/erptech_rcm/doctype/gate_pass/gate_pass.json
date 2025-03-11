@@ -89,7 +89,7 @@
   },
   {
    "fieldname": "address",
-   "fieldtype": "Small Text",
+   "fieldtype": "Data",
    "label": "Address"
   },
   {
@@ -130,7 +130,7 @@
   },
   {
    "fieldname": "remarks",
-   "fieldtype": "Small Text",
+   "fieldtype": "Data",
    "label": "Remarks"
   },
   {
@@ -161,7 +161,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-28 01:38:09.520597",
+ "modified": "2025-03-10 16:28:00.692358",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Gate Pass",

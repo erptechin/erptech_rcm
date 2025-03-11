@@ -10,7 +10,9 @@
   "aggregate_column",
   "item_name",
   "column_break_hfke",
-  "item"
+  "item",
+  "column_break_ymhb",
+  "decimal"
  ],
  "fields": [
   {
@@ -48,11 +50,21 @@
    "fieldname": "srno",
    "fieldtype": "Int",
    "label": "SrNo"
+  },
+  {
+   "fieldname": "column_break_ymhb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "decimal",
+   "fieldtype": "Check",
+   "label": "Decimal"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-03-08 09:33:00.529224",
+ "modified": "2025-03-10 14:37:54.960061",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Raw Material Mapping",

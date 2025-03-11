@@ -8,6 +8,7 @@
  "field_order": [
   "item_name",
   "qty",
+  "set_qty",
   "uom"
  ],
  "fields": [
@@ -31,12 +32,18 @@
    "label": "uom",
    "options": "UOM",
    "reqd": 1
+  },
+  {
+   "fieldname": "set_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Set Qty"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-03-03 23:24:57.601076",
+ "modified": "2025-03-10 11:59:56.742382",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Installation Note Recipe",

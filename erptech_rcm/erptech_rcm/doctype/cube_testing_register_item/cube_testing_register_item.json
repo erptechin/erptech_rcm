@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-10 21:23:01.529529",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "age_in_days",
+  "date_of_testing",
+  "cube_ref_no",
+  "cube_dimensions_in_mm",
+  "weight_kg",
+  "load_kn",
+  "compressive_strength",
+  "average_strength"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "fieldname": "age_in_days",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Age In Days",
+   "options": "1\n3\n7\n28\n56"
+  },
+  {
+   "fieldname": "date_of_testing",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date Of Testing"
+  },
+  {
+   "fieldname": "cube_ref_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Cube Ref. No"
+  },
+  {
+   "default": "150X150X150",
+   "fieldname": "cube_dimensions_in_mm",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Cube Dimensions in mm",
+   "options": "150X150X150"
+  },
+  {
+   "fieldname": "weight_kg",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weight Kg"
+  },
+  {
+   "fieldname": "load_kn",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Load KN"
+  },
+  {
+   "fieldname": "compressive_strength",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Compressive Strength"
+  },
+  {
+   "fieldname": "average_strength",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Average Strength"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-10 22:58:34.553182",
+ "modified_by": "Administrator",
+ "module": "Erptech Rcm",
+ "name": "Cube Testing Register Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
