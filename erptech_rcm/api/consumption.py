@@ -395,7 +395,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_cmt1[0].name if items_data_cmt1 else None,
-                    "act_qty": item["CMT1_SET_LOG_VAL0"],
+                    "act_qty": item["CMT1_ACT_LOG_VAL0"],
                 }
             )
             items_data_cmt2 = frappe.get_all(
@@ -406,7 +406,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_cmt2[0].name if items_data_cmt2 else None,
-                    "act_qty": item["CMT2_SET_LOG_VAL0"],
+                    "act_qty": item["CMT2_ACT_LOG_VAL0"],
                 }
             )
             items_data_cmt3 = frappe.get_all(
@@ -417,7 +417,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_cmt3[0].name if items_data_cmt3 else None,
-                    "act_qty": item["CMT3_SET_LOG_VAL0"],
+                    "act_qty": item["CMT3_ACT_LOG_VAL0"],
                 }
             )
             items_data_cmt4 = frappe.get_all(
@@ -428,7 +428,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_cmt4[0].name if items_data_cmt4 else None,
-                    "act_qty": item["CMT4_SET_LOG_VAL0"],
+                    "act_qty": item["CMT4_ACT_LOG_VAL0"],
                 }
             )
             items_data_cmt5 = frappe.get_all(
@@ -439,7 +439,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_cmt5[0].name if items_data_cmt5 else None,
-                    "act_qty": item["CMT5_SET_LOG_VAL0"],
+                    "act_qty": item["CMT5_ACT_LOG_VAL0"],
                 }
             )
             items_data_cmt6 = frappe.get_all(
@@ -450,7 +450,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_cmt6[0].name if items_data_cmt6 else None,
-                    "act_qty": item["CMT6_SET_LOG_VAL0"],
+                    "act_qty": item["CMT6_ACT_LOG_VAL0"],
                 }
             )
             # ADM
@@ -462,7 +462,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_adm1[0].name if items_data_adm1 else None,
-                    "act_qty": item["ADM1_SET_LOG_VAL0"],
+                    "act_qty": item["ADM1_ACT_LOG_VAL0"],
                 }
             )
             items_data_adm2 = frappe.get_all(
@@ -473,7 +473,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_adm2[0].name if items_data_adm2 else None,
-                    "act_qty": item["ADM2_SET_LOG_VAL0"],
+                    "act_qty": item["ADM2_ACT_LOG_VAL0"],
                 }
             )
             items_data_adm3 = frappe.get_all(
@@ -484,7 +484,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_adm3[0].name if items_data_adm3 else None,
-                    "act_qty": item["ADM3_SET_LOG_VAL0"],
+                    "act_qty": item["ADM3_ACT_LOG_VAL0"],
                 }
             )
             items_data_adm4 = frappe.get_all(
@@ -495,7 +495,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_adm4[0].name if items_data_adm4 else None,
-                    "act_qty": item["ADM4_SET_LOG_VAL0"],
+                    "act_qty": item["ADM4_ACT_LOG_VAL0"],
                 }
             )
             items_data_adm5 = frappe.get_all(
@@ -506,7 +506,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_adm5[0].name if items_data_adm5 else None,
-                    "act_qty": item["ADM5_SET_LOG_VAL0"],
+                    "act_qty": item["ADM5_ACT_LOG_VAL0"],
                 }
             )
             # WTR
@@ -518,7 +518,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_wtr1[0].name if items_data_wtr1 else None,
-                    "act_qty": item["WTR1_SET_LOG_VAL0"],
+                    "act_qty": item["WTR1_ACT_LOG_VAL0"],
                 }
             )
             items_data_wtr2 = frappe.get_all(
@@ -529,7 +529,7 @@ def consumption_set_data_kyb():
             items_delivery_note.append(
                 {
                     "item_name": items_data_wtr2[0].name if items_data_wtr2 else None,
-                    "act_qty": item["WTR2_SET_LOG_VAL0"],
+                    "act_qty": item["WTR2_ACT_LOG_VAL0"],
                 }
             )
 
