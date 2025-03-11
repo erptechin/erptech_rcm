@@ -569,8 +569,8 @@ def consumption_set_data_kyb():
             "custom_addinfo23": result["AddInfo23"],
             "posting_date": result["timestamp"],
             "posting_time": result["timestamp"],
-            "custom_batch_date": result["timestamp"],
-            "delivery_items": items_delivery_note,
+            "custom_batch_date": result["timestamp"]
+            # "delivery_items": items_delivery_note,
         }
         exists = frappe.db.exists(db_name, {"addinfo23": result["AddInfo23"]})
         if exists:
@@ -596,52 +596,52 @@ def consumption_set_data_kyb():
             doc.insert(ignore_permissions=True)
 
             # Create a new doc object Delivery Note
-            # if (
-            #     data_delivery_note["customer"]
-            #     and data_delivery_note["custom_recipe_grade_val0"]
-            # ):
-            #     item_data = frappe.get_all(
-            #         "Item",
-            #         filters={
-            #             "item_name": data_delivery_note["custom_recipe_grade_val0"]
-            #         },
-            #         fields=["item_code", "item_name"],
-            #     )
-            #     if item_data:
-            #         doc = frappe.get_doc(
-            #             {**{"doctype": db_name_delivery_note}, **data_delivery_note}
-            #         )
-            #         aggregated_data = defaultdict(int)
-            #         for delivery_item in data_delivery_note["delivery_items"]:
-            #             aggregated_data[delivery_item["item_name"]] += delivery_item[
-            #                 "act_qty"
-            #             ]
-            #         results = [
-            #             {"item_name": item_name, "act_qty": act_qty}
-            #             for item_name, act_qty in aggregated_data.items()
-            #         ]
+            if (
+                data_delivery_note["customer"]
+                and data_delivery_note["custom_recipe_grade_val0"]
+            ):
+                item_data = frappe.get_all(
+                    "Item",
+                    filters={
+                        "item_name": data_delivery_note["custom_recipe_grade_val0"]
+                    },
+                    fields=["item_code", "item_name"],
+                )
+                if item_data:
+                    doc = frappe.get_doc(
+                        {**{"doctype": db_name_delivery_note}, **data_delivery_note}
+                    )
+                    aggregated_data = defaultdict(int)
+                    for delivery_item in data_delivery_note["delivery_items"]:
+                        aggregated_data[delivery_item["item_name"]] += delivery_item[
+                            "act_qty"
+                        ]
+                    results = [
+                        {"item_name": item_name, "act_qty": act_qty}
+                        for item_name, act_qty in aggregated_data.items()
+                    ]
 
-            #         for result in results:
-            #             if result["item_name"]:
-            #                 doc.append("custom_consumed_raw_material", result)
+                    for result in results:
+                        if result["item_name"]:
+                            doc.append("custom_consumed_raw_material", result)
 
-            #         doc.append(
-            #             "items",
-            #             {
-            #                 "item_code": item_data[0].item_code,
-            #                 "item_name": item_data[0].item_name,
-            #                 "qty": (
-            #                     data_delivery_note["custom_pro_qty_val0"]
-            #                     if (
-            #                         data_delivery_note["custom_pro_qty_val0"]
-            #                         and data_delivery_note["custom_pro_qty_val0"] != 0
-            #                     )
-            #                     else 1
-            #                 ),
-            #             },
-            #         )
+                    # doc.append(
+                    #     "items",
+                    #     {
+                    #         "item_code": item_data[0].item_code,
+                    #         "item_name": item_data[0].item_name,
+                    #         "qty": (
+                    #             data_delivery_note["custom_pro_qty_val0"]
+                    #             if (
+                    #                 data_delivery_note["custom_pro_qty_val0"]
+                    #                 and data_delivery_note["custom_pro_qty_val0"] != 0
+                    #             )
+                    #             else 1
+                    #         ),
+                    #     },
+                    # )
 
-            #         doc.insert(ignore_permissions=True)
+                    doc.insert(ignore_permissions=True)
 
     # Commit the changes to save the records
     frappe.db.commit()
