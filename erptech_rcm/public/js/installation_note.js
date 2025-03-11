@@ -45,14 +45,15 @@ frappe.ui.form.on('Installation Note', {
                                         let recipe = recipes.find((item) => item.item_code == materialMapping[i].item && item.item_code in tempIds === false)
                                         custom_installation_note_recipe.item_name = materialMapping[i].item_name;
                                         if (recipe) {
-                                            const diffVal = Math.floor(Math.random() * (6 + 5 + 1)) - 5;
                                             tempIds[recipe.item_code] = true
                                             custom_installation_note_recipe.qty = recipe.qty;
-                                            custom_installation_note_recipe.set_qty = recipe.qty + diffVal;
+                                            const setQty = Array.from({ length: customNoOfBatch }, () => recipe.qty + Math.floor(Math.random() * (6 + 5 + 1)) - 5);
+                                            custom_installation_note_recipe.qtys = JSON.stringify(setQty);
                                             custom_installation_note_recipe.uom = recipe.uom;
                                         } else {
                                             custom_installation_note_recipe.qty = 0;
-                                            custom_installation_note_recipe.set_qty = 0;
+                                            const setQty = Array.from({ length: customNoOfBatch }, () => 0);
+                                            custom_installation_note_recipe.qtys = JSON.stringify(setQty);
                                             custom_installation_note_recipe.uom = 'Kg';
                                         }
                                     }
@@ -107,7 +108,8 @@ async function showRanderData(frm) {
         })
         itemdata = itemdata + `</tr><tr>`
         recipes.forEach((item) => {
-            itemdata = itemdata + `<td>${(item.set_qty ? item.set_qty : 0).toFixed(2)}</td>`
+            qtys = JSON.parse(item.qtys)
+            itemdata = itemdata + `<td>${Number(qtys[i - 1]).toFixed(2)}</td>`
         })
         itemdata = itemdata + `</tr>`
         itemdata = itemdata + ` <tr>
@@ -131,9 +133,11 @@ async function showRanderData(frm) {
     // ActTotal
     let actTotal = `<table><tbody><tr><td colspan="${recipes.length}" class="text-left no-left-border"><b>Total Actual Weight in Kgs.</b></td></tr><tr>`
     let actTotals = 0
-    recipes.forEach((item) => {
-        actTotal = actTotal + `<td>${((item.set_qty ? item.set_qty : 0) * noOfBatch).toFixed(2)}</td>`
-        actTotals = actTotals + ((item.set_qty ? item.set_qty : 0) * noOfBatch)
+    recipes.forEach((item, k) => {
+        qtys = JSON.parse(item.qtys)
+        let sum = qtys.reduce((acc, val) => acc + val, 0);
+        actTotal = actTotal + `<td>${(sum).toFixed(2)}</td>`
+        actTotals = actTotals + sum
     })
     actTotal = actTotal + `</tr><tr>
                 <td colspan="${recipes.length - 1}"> <b>Mass of Total Actual Weight in Kgs.</b></td><td class="text-center" style="border:2px solid black;"><b>${(actTotals).toFixed(2)}</b></td></tr>
@@ -144,8 +148,10 @@ async function showRanderData(frm) {
     let tars = 0
     let acts = 0
     recipes.forEach((item) => {
+        qtys = JSON.parse(item.qtys)
+        let sum = qtys.reduce((acc, val) => acc + val, 0);
         tars = item.qty * noOfBatch
-        acts = (item.set_qty ? item.set_qty: 0) * noOfBatch
+        acts = sum
         difference = difference + `<td>${(tars ? (tars - acts) / tars * (item.uom == "Liter" ? 1000 : 100) : 0).toFixed(2)}</td>`
     })
     difference = difference + `</tr></tbody></table>`
