@@ -97,7 +97,7 @@ async function showRanderData(frm) {
     })
     itemHeading = itemHeading + `</tr><tr>`
     recipes.forEach((item) => {
-        itemHeading = itemHeading + `<td>${(item.qty).toFixed(2)}</td>`
+        itemHeading = itemHeading + `<td>${(item.qty).toFixed(item.decimal ? 2 : 0)}</td>`
     })
     itemHeading = itemHeading + `</tr></tbody></table>`
 
