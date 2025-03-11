@@ -576,17 +576,17 @@ def consumption_set_data_kyb():
         if exists:
             batch = frappe.get_doc(db_name, {"addinfo23": result["AddInfo23"]})
             # Updtae doc object
-            # for field, value in data.items():
-            #     if field != "items":
-            #         batch.set(field, value)
+            for field, value in data.items():
+                if field != "items":
+                    batch.set(field, value)
 
-            #     # Updtae child doc object
-            #     if "items" in data:
-            #         batch.table_hbmh.clear()
-            #         for child_item in data["items"]:
-            #             batch.append("table_hbmh", child_item)
+                # Updtae child doc object
+                # if "items" in data:
+                #     batch.table_hbmh.clear()
+                #     for child_item in data["items"]:
+                #         batch.append("table_hbmh", child_item)
 
-            # batch.save(ignore_permissions=True)
+            batch.save(ignore_permissions=True)
         else:
 
             # Create a new doc object
