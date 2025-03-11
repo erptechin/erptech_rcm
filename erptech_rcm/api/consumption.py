@@ -572,7 +572,7 @@ def consumption_set_data_kyb():
             "custom_batch_date": result["timestamp"],
             "delivery_items": items_delivery_note,
         }
-        return {"status": "success", "data_delivery_note": data_delivery_note}
+        return {"status": "success", "message": data_delivery_note}
         exists = frappe.db.exists(db_name, {"addinfo23": result["AddInfo23"]})
         if exists:
             batch = frappe.get_doc(db_name, {"addinfo23": result["AddInfo23"]})
@@ -645,5 +645,5 @@ def consumption_set_data_kyb():
                     doc.insert(ignore_permissions=True)
 
     # Commit the changes to save the records
-    # frappe.db.commit()
-    # return {"status": "success", "message": "Data fetched successfully"}
+    frappe.db.commit()
+    return {"status": "success", "message": "Data fetched successfully"}
