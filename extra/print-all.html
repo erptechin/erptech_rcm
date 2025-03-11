@@ -134,7 +134,13 @@
 
                             <tr>
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                <td style="border: 1.0px solid #80808073">{{ row.qty | round(2) }}</td>
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(row.qty) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(row.qty) }}
+                                    {% endif %}
+                                </td>
                                 {%- endfor -%}
                             </tr>
 
@@ -158,37 +164,56 @@
                             </tr>
 
                             {% set customNoOfBatch = (doc.items[0].custom_no_of_batch) | int %}
-                            {% set diffVal = 5 | int %}
 
                             {% for i in range(1, customNoOfBatch + 1) %}
                             <tr>
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                <td style="border: 1.0px solid #80808073">{{ (row.qty) | round(2) }}</td>
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(row.qty) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(row.qty) }}
+                                    {% endif %}
+                                </td>
                                 {% endfor %}
 
                             </tr>
 
                             <tr>
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                {% if row.qty == 0 %}
-                                {% set value = 0.00 %}
-                                {% else %}
-                                {% set value = (row.qty + diffVal) | round(2) %}
-                                {% endif %}
-                                <td style="border: 1.0px solid #80808073">{{ value }}</td>
+                                {% set qtys = row.qtys.strip('[]').split(',') %}
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(qtys[i-1] | float) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(qtys[i-1] | float) }}
+                                    {% endif %}
+                                </td>
                                 {%- endfor %}
                             </tr>
 
 
                             <tr>
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                <td style="border: 1.0px solid #80808073">0.00</td>
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(0 | float) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(0 | float) }}
+                                    {% endif %}
+                                </td>
                                 {% endfor %}
                             </tr>
 
                             <tr>
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                <td style="border: 1.0px solid #80808073">0.00</td>
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(0 | float) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(0 | float) }}
+                                    {% endif %}
+                                </td>
                                 {% endfor %}
                             </tr>
 
@@ -208,8 +233,13 @@
                             <tr>
                                 {% set ns = namespace(tars=0) %}
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                <td style="border: 1.0px solid #80808073">{{ ((row.qty) * customNoOfBatch) |
-                                    round(2) }}</td>
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(row.qty * customNoOfBatch) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(row.qty * customNoOfBatch) }}
+                                    {% endif %}
+                                </td>
                                 {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
                                 {%- endfor -%}
 
@@ -220,7 +250,7 @@
                                     <b>Mass of Total Set Weight in Kgs.</b>
                                 </td>
                                 <td class="text-center" style="border:2px solid black;">
-                                    <b>{{ ns.tars | round(2) }}</b>
+                                    <b>{{ "%.2f"|format(ns.tars) }}</b>
                                 </td>
 
                             </tr>
@@ -235,13 +265,19 @@
                             <tr>
                                 {% set ns = namespace(tars=0) %}
                                 {%- for row in doc.custom_installation_note_recipe -%}
-                                {% if row.qty == 0 %}
-                                {% set newValue = 0.00 %}
-                                {% else %}
-                                {% set newValue = ((row.qty + diffVal) * customNoOfBatch) | round(2) %}
-                                {% endif %}
-                                <td style="border: 1.0px solid #80808073">{{ newValue }}</td>
-                                {% set ns.tars = ns.tars + newValue %}
+                                {% set qtys = row.qtys.strip('[]').split(',') %}
+                                {% set to = namespace(total=0) %}
+                                {% for qty in qtys %}
+                                {% set to.total = to.total + qty | float %}
+                                {% endfor %}
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(to.total) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(to.total) }}
+                                    {% endif %}
+                                </td>
+                                {% set ns.tars = ns.tars + to.total %}
                                 {%- endfor -%}
                             </tr>
 
@@ -251,7 +287,7 @@
                                     <b>Mass of Total Actual Weight in Kgs.</b>
                                 </td>
                                 <td class="text-center" style="border:2px solid black;">
-                                    <b>{{ ns.tars | round(2) }}</b>
+                                    <b>{{ "%.2f"|format(ns.tars) }}</b>
                                 </td>
 
                             </tr>
@@ -265,19 +301,25 @@
                             <tr>
                                 {%- for row in doc.custom_installation_note_recipe -%}
                                 {% set tars = row.qty * customNoOfBatch %}
-                                {% set acts = (row.qty + diffVal) * customNoOfBatch %}
+
+                                {% set qtys = row.qtys.strip('[]').split(',') %}
+                                {% set to = namespace(acts=0) %}
+                                {% for qty in qtys %}
+                                {% set to.acts = to.acts + qty | float %}
+                                {% endfor %}
+
                                 {% set factor = 1000 if row.uom == "Liter" else 100 %}
 
                                 {% if tars == 0 %}
                                 {% set percentage = 0.00 %}
                                 {% else %}
-                                {% set percentage = ((tars - acts) / tars * factor) | round(2) %}
+                                {% set percentage = ((tars - to.acts) / tars * factor) %}
                                 {% endif %}
 
-                                <td style="border: 1.0px solid #80808073" class="text-center">{{ percentage }}</td>
+                                <td style="border: 1.0px solid #80808073" class="text-center">{{
+                                    "%.2f"|format(percentage) }}</td>
                                 {%- endfor -%}
                             </tr>
-
 
                         </tbody>
                     </table>
