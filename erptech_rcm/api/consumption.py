@@ -645,5 +645,5 @@ def consumption_set_data_kyb():
                     doc.insert(ignore_permissions=True)
 
     # Commit the changes to save the records
-    frappe.db.commit()
-    return {"status": "success", "message": "Data fetched successfully"}
+    # frappe.db.commit()
+    # return {"status": "success", "message": "Data fetched successfully"}
