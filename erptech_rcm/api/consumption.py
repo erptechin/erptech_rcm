@@ -572,6 +572,7 @@ def consumption_set_data_kyb():
             "custom_batch_date": result["timestamp"],
             "delivery_items": items_delivery_note,
         }
+        return {"status": "success", "data_delivery_note": data_delivery_note}
         exists = frappe.db.exists(db_name, {"addinfo23": result["AddInfo23"]})
         if exists:
             batch = frappe.get_doc(db_name, {"addinfo23": result["AddInfo23"]})
