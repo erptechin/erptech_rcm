@@ -1,7 +1,8 @@
 frappe.ui.form.on('Installation Note', {
     refresh: async function (frm) {
         const materialMapping = await frappe.db.get_list('Raw Material Mapping', {
-            fields: ["item_name", "item"],
+            fields: ["item_name", "item", "decimal"],
+            order_by: "srno ASC"
         })
         if (frm.doc.name.includes("new-installation-note") && frm.doc.items[0] && frm.doc.items[0].prevdoc_docname) {
 
@@ -44,6 +45,7 @@ frappe.ui.form.on('Installation Note', {
                                         let custom_installation_note_recipe = frm.add_child("custom_installation_note_recipe");
                                         let recipe = recipes.find((item) => item.item_code == materialMapping[i].item && item.item_code in tempIds === false)
                                         custom_installation_note_recipe.item_name = materialMapping[i].item_name;
+                                        custom_installation_note_recipe.decimal = materialMapping[i].decimal;
                                         if (recipe) {
                                             tempIds[recipe.item_code] = true
                                             custom_installation_note_recipe.qty = recipe.qty;
@@ -104,12 +106,12 @@ async function showRanderData(frm) {
     for (let i = 1; i <= noOfBatch; i++) {
         itemdata = itemdata + `<tr>`
         recipes.forEach((item) => {
-            itemdata = itemdata + `<td>${(item.qty).toFixed(2)}</td>`
+            itemdata = itemdata + `<td>${(item.qty).toFixed(item.decimal ? 2 : 0)}</td>`
         })
         itemdata = itemdata + `</tr><tr>`
         recipes.forEach((item) => {
             qtys = JSON.parse(item.qtys)
-            itemdata = itemdata + `<td>${Number(qtys[i - 1]).toFixed(2)}</td>`
+            itemdata = itemdata + `<td>${Number(qtys[i - 1]).toFixed(item.decimal ? 2 : 0)}</td>`
         })
         itemdata = itemdata + `</tr>`
         itemdata = itemdata + ` <tr>
@@ -123,7 +125,7 @@ async function showRanderData(frm) {
     let tarTotal = `<table><tbody><tr><td colspan="${recipes.length}" class="text-left no-left-border"><b>Total Set Weight in Kgs.</b></td></tr><tr>`
     let tarTotals = 0
     recipes.forEach((item) => {
-        tarTotal = tarTotal + `<td>${(item.qty * noOfBatch).toFixed(2)}</td>`
+        tarTotal = tarTotal + `<td>${(item.qty * noOfBatch).toFixed(item.decimal ? 2 : 0)}</td>`
         tarTotals = tarTotals + (item.qty * noOfBatch)
     })
     tarTotal = tarTotal + `</tr><tr>
@@ -133,10 +135,10 @@ async function showRanderData(frm) {
     // ActTotal
     let actTotal = `<table><tbody><tr><td colspan="${recipes.length}" class="text-left no-left-border"><b>Total Actual Weight in Kgs.</b></td></tr><tr>`
     let actTotals = 0
-    recipes.forEach((item, k) => {
+    recipes.forEach((item) => {
         qtys = JSON.parse(item.qtys)
         let sum = qtys.reduce((acc, val) => acc + val, 0);
-        actTotal = actTotal + `<td>${(sum).toFixed(2)}</td>`
+        actTotal = actTotal + `<td>${(sum).toFixed(item.decimal ? 2 : 0)}</td>`
         actTotals = actTotals + sum
     })
     actTotal = actTotal + `</tr><tr>
