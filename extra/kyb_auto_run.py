@@ -7,7 +7,7 @@ from decimal import Decimal
 import pyodbc
 
 
-def make_api_call(type):
+def make_api_call():
     """Function to make an API call and handle the response."""
     url = "https://myhome.erptech.in/api/method/"
     headers = {"Content-Type": "application/json"}
@@ -55,14 +55,9 @@ def make_api_call(type):
             fetchLatest = settings["fetch_latest"]
             from_date = formatted_date if fetchLatest else settings["from_date"]
             to_date = current_date if fetchLatest else settings["to_date"]
-            if type == "all":
-                do_data.execute(
-                    f"SELECT * FROM {do_table} WHERE timestamp BETWEEN '{from_date}' AND '{to_date}'"
-                )
-            else:
-                do_data.execute(
-                    f"SELECT * FROM {do_table} WHERE sequence_number > {settings['count']}"
-                )
+            do_data.execute(
+                f"SELECT * FROM {do_table} WHERE timestamp BETWEEN '{from_date}' AND '{to_date}'"
+            )
 
             if settings["sql_server"] == 1:
                 do_columns = [column[0] for column in do_data.description]
@@ -123,4 +118,4 @@ def make_api_call(type):
 
 # Auto-run the function when the script is executed
 if __name__ == "__main__":
-    make_api_call("all")
+    make_api_call()
