@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:tower",
  "creation": "2025-01-26 02:24:51.151518",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -11,15 +12,17 @@
   {
    "fieldname": "tower",
    "fieldtype": "Data",
-   "label": "Tower"
+   "label": "Tower",
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-26 02:25:39.578205",
+ "modified": "2025-03-12 19:34:15.915062",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Tower",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -35,7 +38,9 @@
    "write": 1
   }
  ],
+ "search_fields": "tower",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "tower"
 }

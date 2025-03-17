@@ -11,8 +11,10 @@
   "cube_ref_no",
   "cube_dimensions_in_mm",
   "weight_kg",
+  "area",
   "load_kn",
   "compressive_strength",
+  "compressive_strength_total",
   "average_strength"
  ],
  "fields": [
@@ -60,19 +62,31 @@
    "fieldname": "compressive_strength",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Compressive Strength"
+   "label": "Compressive Strength (N/mm\u00b2)"
   },
   {
    "fieldname": "average_strength",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Average Strength"
+  },
+  {
+   "default": "22.50",
+   "fieldname": "area",
+   "fieldtype": "Select",
+   "label": "Area (mm\u00b2)",
+   "options": "22.50"
+  },
+  {
+   "fieldname": "compressive_strength_total",
+   "fieldtype": "Float",
+   "label": "Compressive Strength Total"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-03-10 22:58:34.553182",
+ "modified": "2025-03-17 00:27:32.044867",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Cube Testing Register Item",
