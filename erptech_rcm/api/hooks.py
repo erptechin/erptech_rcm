@@ -2,7 +2,6 @@ import frappe
 import requests
 from erptech_rcm.api.custom import get_child_items
 
-
 @frappe.whitelist()
 def create_stock_entry(doc, method):
     host = frappe.request.host
