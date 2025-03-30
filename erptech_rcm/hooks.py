@@ -29,8 +29,8 @@ app_include_css = "/assets/erptech_rcm/css/erptech_rcm.css"
 app_include_js = "/assets/erptech_rcm/js/erptech_rcm.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/erptech_rcm/css/erptech_rcm.css"
-# web_include_js = "/assets/erptech_rcm/js/erptech_rcm.js"
+web_include_css = "/assets/erptech_rcm/css/erptech_rcm_web.css"
+web_include_js = "/assets/erptech_rcm/js/erptech_rcm_web.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "erptech_rcm/public/scss/website"
