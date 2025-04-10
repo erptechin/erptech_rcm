@@ -76,6 +76,18 @@ frappe.ui.form.on('Installation Note', {
             showRanderData(frm)
         }
     },
+    inst_time: async function (frm) {
+        if (frm.doc.inst_time) {
+            if (!frm.doc.custom_start_time) {
+                frm.set_value('inst_time', null);
+            }
+            const start = timeToSeconds(frm.doc.custom_start_time);
+            const end = timeToSeconds(frm.doc.inst_time);
+            if (start > end) {
+                frm.set_value('inst_time', null);
+            }
+        }
+    },
 })
 
 async function showRanderData(frm) {
@@ -169,3 +181,8 @@ async function showRanderData(frm) {
     </div>`);
 
 }
+
+function timeToSeconds(timeStr) {
+    const [h, m, s] = timeStr.split(':').map(Number);
+    return h * 3600 + m * 60 + s;
+  }

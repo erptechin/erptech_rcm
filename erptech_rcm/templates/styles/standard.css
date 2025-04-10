@@ -6,18 +6,37 @@ html body {
 	background-color: #fff;
 }
 
-.print-format div, .print-format span, .print-format td, .print-format h1, .print-format h2, .print-format h3, .print-format h4 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+.print-format {
+	background-color: white;
+	border-radius: 8px;
+	max-width: 8.3in;
+	min-height: 11.69in;
+	padding: 0.75in;
+	margin: auto;
+	color: var(--gray-900);
 }
+
+.print-format div,
+.print-format span,
+.print-format td,
+.print-format h1,
+.print-format h2,
+.print-format h3,
+.print-format h4 {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
 .action-banner {
 	text-align: center;
 	display: block;
 }
+
 td {
-    display: table-cell;
-    vertical-align: inherit;
-    unicode-bidi: isolate;
+	display: table-cell;
+	vertical-align: inherit;
+	unicode-bidi: isolate;
 }
+
 .print-1 {
 	display: inline-block;
 	padding: 6px 12px;
@@ -61,4 +80,11 @@ td {
 	color: #fff;
 	background-color: #31b0d5;
 	text-decoration: none;
+}
+
+.Installation.Note .print-full {
+	width: 100% !important;
+	padding: 0 !important;
+	max-width: initial !important;
+	min-height: initial !important;
 }

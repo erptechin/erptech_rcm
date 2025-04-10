@@ -1,0 +1,486 @@
+<div class="container-fluid" id="container-fluid">
+    <table class="table">
+        <tbody>
+            <tr class="no-right-border">
+                <td rowspan="3" colspan="1" class="no-left-border no-bottom-border  no-top-border ">
+                    <img src="./files/print-logo.jpeg" class="img img-rounded" align="left" width="80" height="60">
+                </td>
+
+                <td class=" no-bottom-border  no-top-border no-left-border"></td>
+
+                <td colspan="3" style="font-size: 2.0em;" width="60%" class="text-center top-border"><b>BIHAR
+                        RMC</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class=" no-bottom-border no-right-border no-top-border "></td>
+            </tr>
+            <tr>
+                <td colspan="6" class="no-left-border no-bottom-border no-right-border">
+                    <p class="text-left"><span
+                            style="font-size: 2.0em; float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Report
+                                Title:</b>&nbsp;&nbsp;&nbsp;&nbsp; <b>Batch Sheet</b>&nbsp;&nbsp;&nbsp;<b> Plant
+                                Sl.No: 566</b></span></p>
+                </td>
+                <td class="no-left-border no-bottom-border no-right-border"></td>
+                <td class="no-left-border no-bottom-border no-right-border"></td>
+                <td class="no-left-border no-bottom-border no-right-border"></td>
+                <td class="no-left-border no-bottom-border no-right-border"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table1" style="width: 100%">
+        <tbody>
+            <tr>
+                <td>
+                    <table style="width: 90%; margin-left:1%;">
+
+                        <tbody>
+                            <tr>
+                                <td colspan="2"><strong>Batch Date</strong></td>
+
+                                <td colspan="2"><span>: {{ doc.get_formatted("inst_date") }}</span></td>
+
+                                <td colspan="2"><strong>Batch Start Time</strong></td>
+
+                                <td colspan="2"><span>: {{ doc.get_formatted("custom_start_time") }}</span></td>
+
+                                <td colspan="2"><strong>Batch End Time</strong></td>
+
+                                <td colspan="2"><span>: {{ doc.get_formatted("inst_time") }}</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="font-size: 13px;"><strong>Batch Number</strong></td>
+
+                                <td colspan="2"><span>: 2</span></td>
+                                <td colspan="2"><strong>Recipe Code</strong></td>
+
+                                <td colspan="2"><span>: {{doc.custom_recipe_name}}</span></td>
+
+                                <td colspan="2"><strong>Ordered Qty</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].qty}}</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Batch Name</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].description}}</span></td>
+                                <td colspan="2"><strong>Recipe Name</strong></td>
+                                <td colspan="2"><span>: {{doc.custom_recipe_name}}</span></td>
+                                <td colspan="2"><strong>Production Qty</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].custom_count}}</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Order Number</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].custom_sales_order_no}}</span></td>
+                                <td colspan="2"><strong>Truck Number</strong></td>
+                                <td colspan="2"><span>: {{ doc.custom_vehicle_no }}</span></td>
+                                <td colspan="2"><strong>Adj/Manual Qty</strong></td>
+                                <td colspan="2"><span>: 0.00</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Customer</strong></td>
+                                <td colspan="2"><span>: {{ doc.customer_name }}</span></td>
+                                <td colspan="2"><strong>Truck Driver</strong></td>
+                                <td colspan="2"><span>: {{ doc.custom_driver_name }}</span></td>
+                                <td colspan="2"><strong>With This Load</strong></td>
+                                <td colspan="2"><span>: 0.0</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Site</strong></td>
+                                <td colspan="2"><span>: {{ doc.custom_site }}</span></td>
+                                <td colspan="2"><strong>Batch size</strong></td>
+                                <td colspan="2"><span>: {{doc.items[0].custom_batch_size}}</span></td>
+                                <td colspan="2"><strong>Mixer capacity</strong></td>
+                                <td colspan="2"><span>: {{ doc.custom_batch_size }}</span></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+
+                    <table class="table text-center">
+
+                        <tbody>
+
+                            <tr class="hide-top">
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border no-right-border table2-td">
+                                    <table class="table2">
+                                        <tr class="hide-top">
+                                            <td class="text-center no-left-border no-right-border">
+                                                <b>Aggregate</b>
+                                            </td>
+                                            <td class="text-center no-left-border no-right-border"><b>Cement</b>
+                                            </td>
+                                            <td class="text-center no-left-border no-right-border">
+                                                <b>Water/Ice</b>
+                                            </td>
+                                            <td class="text-center no-left-border no-right-border">
+                                                <b>Admixture</b>
+                                            </td>
+                                            <td class="text-center no-left-border no-right-border"><b>Silica</b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073"><b>{{ row.item_name }}</b></td>
+                                {%- endfor -%}
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(row.qty) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(row.qty) }}
+                                    {% endif %}
+                                </td>
+                                {%- endfor -%}
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length -1 }}"
+                                    class="text-right no-left-border no-bottom-border"
+                                    style="border-right:1.5px solid black;"><b>Mass of Recipe Targets in
+                                        Kgs.</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td class="text-center" style="border:2px solid black;">
+                                    <b>{{ doc.custom_installation_note_recipe |
+                                        sum(attribute='qty') }}</b>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border no-right-border"><b>Target and
+                                        Actual Value with moisture correction/absorption in % and other
+                                        Corrections in Kgs.</b></td>
+                            </tr>
+
+                            {% set customNoOfBatch = (doc.items[0].custom_no_of_batch) | int %}
+
+                            {% for i in range(1, customNoOfBatch + 1) %}
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(row.qty) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(row.qty) }}
+                                    {% endif %}
+                                </td>
+                                {% endfor %}
+
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                {% set qtys = row.qtys.strip('[]').split(',') %}
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(qtys[i-1] | float) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(qtys[i-1] | float) }}
+                                    {% endif %}
+                                </td>
+                                {%- endfor %}
+                            </tr>
+
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">0.00</td>
+                                {% endfor %}
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">0.00</td>
+                                {% endfor %}
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    style="border-bottom: 1.0px solid #80808073; padding: 0.1em;">
+                                </td>
+                            </tr>
+                            {%- endfor -%}
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border"><b>Total Set Weight in Kgs.</b></td>
+
+                            </tr>
+
+                            <tr>
+                                {% set ns = namespace(tars=0) %}
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(row.qty * customNoOfBatch) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(row.qty * customNoOfBatch) }}
+                                    {% endif %}
+                                </td>
+                                {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
+                                {%- endfor -%}
+
+                            </tr>
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length -1 }}" class="text-right"
+                                    style="border-right:1.5px solid black;">
+                                    <b>Mass of Total Set Weight in Kgs.</b>
+                                </td>
+                                <td class="text-center" style="border:2px solid black;">
+                                    <b>{{ "%.2f"|format(ns.tars) }}</b>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border"><b>Total Actual Weight in Kgs.</b></td>
+
+                            </tr>
+
+                            <tr>
+                                {% set ns = namespace(tars=0) %}
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                {% set qtys = row.qtys.strip('[]').split(',') %}
+                                {% set to = namespace(total=0) %}
+                                {% for qty in qtys %}
+                                {% set to.total = to.total + qty | float %}
+                                {% endfor %}
+                                <td style="border: 1.0px solid #80808073">
+                                    {% if row.decimal %}
+                                    {{ "%.2f"|format(to.total) }}
+                                    {% else %}
+                                    {{ "%.0f"|format(to.total) }}
+                                    {% endif %}
+                                </td>
+                                {% set ns.tars = ns.tars + to.total %}
+                                {%- endfor -%}
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length -1 }}" class="text-right"
+                                    style="border-right:1.5px solid black;">
+                                    <b>Mass of Total Actual Weight in Kgs.</b>
+                                </td>
+                                <td class="text-center" style="border:2px solid black;">
+                                    <b>{{ "%.2f"|format(ns.tars) }}</b>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td colspan="{{ doc.custom_installation_note_recipe | length }}"
+                                    class="text-left no-left-border"><b>Difference in Percentage</b></td>
+
+                            </tr>
+
+                            <tr>
+                                {%- for row in doc.custom_installation_note_recipe -%}
+                                {% set tars = row.qty * customNoOfBatch %}
+
+                                {% set qtys = row.qtys.strip('[]').split(',') %}
+                                {% set to = namespace(acts=0) %}
+                                {% for qty in qtys %}
+                                {% set to.acts = to.acts + qty | float %}
+                                {% endfor %}
+
+                                {% set factor = 1000 if row.uom == "Liter" else 100 %}
+
+                                {% if tars == 0 %}
+                                {% set percentage = 0.00 %}
+                                {% else %}
+                                {% set percentage = ((tars - to.acts) / tars * factor) %}
+                                {% endif %}
+
+                                <td style="border: 1.0px solid #80808073" class="text-center">{{
+                                    "%.2f"|format(percentage) }}</td>
+                                {%- endfor -%}
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer>
+        <div class="left">
+            <img src="./files/print-logo-bottom.jpeg" alt="Logo" width="120" height="40">
+        </div>
+        <div class="center">Page 1</div>
+        <div class="right">Print Date:{{ frappe.utils.now_datetime() }}</div>
+    </footer>
+</div>
+
+<style>
+    @media print {
+        @page {
+            margin-left: 15px;
+            padding: 0;
+        }
+
+        .table {
+            border: 1px solid #ABB2B9;
+            width: 90%;
+            padding: 0;
+            border-collapse: separate;
+            border-spacing: 1px;
+            font-size: 7px;
+        }
+
+        .table>tbody>tr>td,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>td,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>thead>tr>th {
+            border: 1px solid #ABB2B9;
+            border-collapse: separate;
+            border-spacing: 1px;
+            font-size: 10px;
+            padding: 0;
+        }
+    }
+
+    .table tr td,
+    tr th {
+        border: 1px solid black;
+        border-collapse: separate;
+        border-spacing: 1px;
+        padding: 0;
+
+    }
+
+    .hide-bottom {
+        border-bottom-style: hidden;
+    }
+
+    .hide-top {
+        border-top-style: hidden;
+    }
+
+    .no-top-border {
+        border-top-style: hidden !important;
+    }
+
+    .no-bottom-border {
+        border-bottom-style: hidden !important;
+    }
+
+    .no-right-border {
+        border-right-style: hidden !important;
+    }
+
+    .no-left-border {
+        border-left-style: hidden !important;
+    }
+
+    .table>tbody>tr>td,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>td,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>thead>tr>th {
+        padding: 6px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        padding: 0;
+    }
+
+    .table1,
+    th1,
+    td1 {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 0;
+    }
+
+    .table1 span div {
+        display: inline-block;
+    }
+
+    .table1 td {
+        white-space: nowrap;
+    }
+
+    .hide-top .table2-td {
+        padding: 0 !important;
+        border-bottom: 0;
+    }
+
+    .table2 {
+        width: 100%;
+        padding: 0;
+    }
+
+    .table {
+        width: 95%;
+        max-width: 95%;
+        margin-bottom: 15px;
+        padding: 0px;
+        margin-left: 2%;
+    }
+
+    .td2 {
+        border: 3px solid black;
+        padding: 0;
+    }
+
+    .details {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: #f1f1f1;
+        padding: 10px;
+
+    }
+
+    .content {
+        flex: 1;
+    }
+
+    footer {
+
+        padding: 10px;
+        text-align: center;
+        position: relative;
+        width: 100%;
+        bottom: 0;
+    }
+
+    .left {
+        float: left;
+    }
+
+    .center {
+        display: inline-block;
+    }
+
+    .right {
+        float: right;
+    }
+
+    footer::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
