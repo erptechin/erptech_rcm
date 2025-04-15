@@ -1,0 +1,465 @@
+<div class="main_container" id="container_fluid">
+    <table class="border-bottom">
+        <tbody>
+            <tr>
+                <td>
+                    <img width="119" height="72"
+                        src="data:image/png;base64,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" />
+                </td>
+                <td class="align-center">
+                    <div
+                        style="background:#F9EBD6;border:1.0pt solid #000000;margin: 0 auto;min-height:30.0pt;width:156.1pt;margin-top: 10px;">
+                        <p class="s1">MIXING REPORT</p>
+                    </div>
+                    <h1>RMC PLANT</h1>
+                </td>
+                <td>
+                    <div class="align-left" style="float: right;">
+                        <h1 style="color: #00F;">VENUS</h1>
+                        <h2>Plant Capacity <span style=" color: #00F;">60 CBM</span></h2>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="gap-table">
+        <tbody>
+            <tr>
+                <td>
+                    <table cellspacing="0" class="borders">
+                        <tbody>
+                            <tr>
+                                <td>Customer</td>
+                                <td>{{ doc.customer_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Site</td>
+                                <td>{{ doc.custom_site }}</td>
+                            </tr>
+                            <tr>
+                                <td>Recipe</td>
+                                <td>{{doc.custom_recipe_name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Order</td>
+                                <td>{{doc.items[0].custom_sales_order_no}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table cellspacing="0" class="borders">
+                        <tbody>
+                            <tr>
+                                <td>Start Time</td>
+                                <td>{{ doc.get_formatted("custom_start_time") }}</td>
+                            </tr>
+                            <tr>
+                                <td>End Time</td>
+                                <td>{{ doc.get_formatted("inst_time") }}</td>
+                            </tr>
+                            <tr>
+                                <td>Docket No.</td>
+                                <td>...</td>
+                            </tr>
+                            <tr>
+                                <td>Truck No.</td>
+                                <td>{{ doc.custom_vehicle_no }}</td>
+                            </tr>
+                            <tr>
+                                <td>Driver</td>
+                                <td>{{ doc.custom_driver_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>TH volume</td>
+                                <td>0 KG/M<sup>3</sup></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table cellspacing="0" class="borders">
+                        <tbody>
+                            <tr>
+                                <td>Act. Batches</td>
+                                <td>{{doc.items[0].custom_count}}</td>
+                            </tr>
+                            <tr>
+                                <td>Load Qty.</td>
+                                <td>{{doc.items[0].qty}} M<sup>3</sup></td>
+                            </tr>
+                            <tr>
+                                <td>Order Qty.</td>
+                                <td>
+                                    {% set sales_order = frappe.get_doc("Sales Order",
+                                    doc.items[0].custom_sales_order_no) %}
+                                    {{sales_order.items[0].qty}} M<sup>3</sup>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>With This Load</td>
+                                <td>
+                                    {% set delivery_note = frappe.get_doc("Delivery Note",
+                                    doc.items[0].custom_delivery_note) %}
+                                    {{delivery_note.items[0].qty}} M<sup>3</sup>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Batch Size</td>
+                                <td>{{doc.items[0].custom_percycle}}</td>
+                            </tr>
+                            <tr>
+                                <td>W/C Ratio</td>
+                                <td>
+                                    {% set to = namespace(water=0) %}
+                                    {% set to = namespace(cement=0) %}
+                                    {% set to = namespace(flyash=0) %}
+                                    {%- for row in doc.custom_installation_note_recipe -%}
+                                    {% if row.item_name == "WATER" %}
+                                    {% set to.water = row.qty %}
+                                    {% endif %}
+                                    {% if row.item_name == "CEMENT 1" %}
+                                    {% set to.cement = row.qty %}
+                                    {% endif %}
+                                    {% if row.item_name == "FLYASH" %}
+                                    {% set to.flyash = row.qty %}
+                                    {% endif %}
+                                    {%- endfor %}
+                                    {{"%.2f"|format(to.water / (to.cement + to.flyash) | float)}} M<sup>3</sup>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <table cellspacing="0" class="table text-center">
+
+        <tbody>
+
+            <tr>
+                <td style="background:#F9EBD6;color: rgb(0, 0, 255);border: 1.0px solid #80808073"><b>Batch No</b></td>
+                <td style="background:#F9EBD6;color: rgb(0, 0, 255);border: 1.0px solid #80808073"><b>Cycle Time</b>
+                </td>
+                {%- for row in doc.custom_installation_note_recipe -%}
+                <td style="background:#F9EBD6;color: rgb(0, 0, 255);border: 1.0px solid #80808073"><b>{{ row.item_name
+                        }}</b></td>
+                {%- endfor -%}
+                <td style="background:#F9EBD6;color: rgb(0, 0, 255);border: 1.0px solid #80808073"><b>TOTAL KG</b></td>
+            </tr>
+
+            {% set customNoOfBatch = (doc.items[0].custom_no_of_batch) | int %}
+
+            {% set inst_time = "" ~ (doc.inst_time) %}
+            {% set inst_parts = inst_time.split(':') %}
+
+            {% set custom_start_time = "" ~ (doc.custom_start_time) %}
+            {% set start_parts = custom_start_time.split(':') %}
+
+
+            {% set h1 = inst_parts[0]|int %}
+            {% set m1 = inst_parts[1]|int %}
+            {% set s1 = inst_parts[2]|int %}
+            {% set total1 = h1 * 3600 + m1 * 60 + s1 %}
+
+            {% set h2 = start_parts[0]|int %}
+            {% set m2 = start_parts[1]|int %}
+            {% set s2 = start_parts[2]|int %}
+            {% set total2 = h2 * 3600 + m2 * 60 + s2 %}
+
+            {% set total_seconds = total1 - total2 %}
+
+            {% set installation_note_recipe = doc.custom_installation_note_recipe[0] %}
+            {% set random_values = installation_note_recipe.qtys.strip('[]').split(',') %}
+            {% set to = namespace(randomValue=0) %}
+
+            {% for i in range(1, customNoOfBatch + 1) %}
+            {% set second = total_seconds/customNoOfBatch %}
+            {% if (i-1) % 2 == 0 %}
+            {% set to.randomValue = (random_values[i-1]|int) / 10 %}
+            {% endif %}
+
+
+            <tr>
+                <td style="border: 1.0px solid #80808073">{{i}}</td>
+                {% if (i-1) % 2 == 0 %}
+                <td style="border: 1.0px solid #80808073">{{"%.0f"|format(second + (to.randomValue)| float)}}</td>
+                {% else %}
+                <td style="border: 1.0px solid #80808073">{{"%.0f"|format(second - (to.randomValue)| float)}}</td>
+                {% endif %}
+                {% set to = namespace(totalM=0) %}
+                {%- for row in doc.custom_installation_note_recipe -%}
+                {% set qtys = row.qtys.strip('[]').split(',') %}
+                {% set to.totalM = to.totalM + qtys[i-1] | float %}
+                <td style="border: 1.0px solid #80808073">
+                    {% if row.decimal %}
+                    {{ "%.2f"|format(qtys[i-1] | float) }}
+                    {% else %}
+                    {{ "%.0f"|format(qtys[i-1] | float) }}
+                    {% endif %}
+                </td>
+                {%- endfor %}
+                <td style="border: 1.0px solid #80808073">{{ to.totalM }}</td>
+            </tr>
+
+            {%- endfor -%}
+
+            <tr>
+                <td colspan="2" style="border: 1.0px solid #80808073"><b>Moi & ABS</b></td>
+                {%- for row in doc.custom_installation_note_recipe -%}
+                <td style="border: 1.0px solid #80808073" class="text-center">0%</td>
+                {%- endfor -%}
+                <td style="border: 1.0px solid #80808073"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="border: 1.0px solid #80808073"><b>Actual Total</b></td>
+                {% set toa = namespace(totalA=0) %}
+                {% set ns = namespace(tars=0) %}
+                {%- for row in doc.custom_installation_note_recipe -%}
+                {% set qtys = row.qtys.strip('[]').split(',') %}
+                {% set to = namespace(total=0) %}
+                {% for qty in qtys %}
+                {% set to.total = to.total + qty | float %}
+                {% endfor %}
+                {% set toa.totalA = (toa.totalA + to.total) %}
+                <td style="border: 1.0px solid #80808073">
+                    {% if row.decimal %}
+                    {{ "%.2f"|format(to.total) }}
+                    {% else %}
+                    {{ "%.0f"|format(to.total) }}
+                    {% endif %}
+                </td>
+                {% set ns.tars = ns.tars + to.total %}
+                {%- endfor -%}
+                <td style="border: 1.0px solid #80808073">{{ toa.totalA }}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="border: 1.0px solid #80808073"><b>Target Total</b></td>
+                {% set tob = namespace(totalB=0) %}
+                {% set ns = namespace(tars=0) %}
+                {%- for row in doc.custom_installation_note_recipe -%}
+                {% set tob.totalB = (tob.totalB + (row.qty * customNoOfBatch)) %}
+                <td style="border: 1.0px solid #80808073">
+                    {% if row.decimal %}
+                    {{ "%.2f"|format(row.qty * customNoOfBatch) }}
+                    {% else %}
+                    {{ "%.0f"|format(row.qty * customNoOfBatch) }}
+                    {% endif %}
+                </td>
+                {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
+                {%- endfor -%}
+                <td style="border: 1.0px solid #80808073">{{ tob.totalB }}</td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2" style="border: 1.0px solid #80808073"><b>Average</b></td>
+                {% set ns = namespace(tars=0) %}
+                {%- for row in doc.custom_installation_note_recipe -%}
+                {% set qtys = row.qtys.strip('[]').split(',') %}
+                {% set to = namespace(total=0) %}
+                {% for qty in qtys %}
+                {% set to.total = to.total + qty | float %}
+                {% endfor %}
+                <td style="border: 1.0px solid #80808073">
+                    {% if row.decimal %}
+                    {{ "%.2f"|format(to.total/10) }}
+                    {% else %}
+                    {{ "%.0f"|format(to.total/10) }}
+                    {% endif %}
+                </td>
+                {% set ns.tars = ns.tars + to.total %}
+                {%- endfor -%}
+                <td style="border: 1.0px solid #80808073"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="border: 1.0px solid #80808073"><b>Target</b></td>
+                {% set ns = namespace(tars=0) %}
+                {%- for row in doc.custom_installation_note_recipe -%}
+                <td style="border: 1.0px solid #80808073">
+                    {% if row.decimal %}
+                    {{ "%.2f"|format((row.qty * customNoOfBatch)/10) }}
+                    {% else %}
+                    {{ "%.0f"|format((row.qty * customNoOfBatch)/10) }}
+                    {% endif %}
+                </td>
+                {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
+                {%- endfor -%}
+                <td style="border: 1.0px solid #80808073"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="border: 1.0px solid #80808073"><b>Recipe Design</b></td>
+                {%- for row in doc.custom_installation_note_recipe -%}
+                <td style="border: 1.0px solid #80808073">
+                    {% if row.decimal %}
+                    {{ "%.2f"|format(row.qty) }}
+                    {% else %}
+                    {{ "%.0f"|format(row.qty) }}
+                    {% endif %}
+                </td>
+                {%- endfor -%}
+                <td style="border: 1.0px solid #80808073"></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-indent: 0pt;text-align: left;">Supervisor :
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </p>
+                </td>
+                <td class="align-right">
+                    <h3 style="padding-top: 5pt;text-indent: 0pt;font-size: 10pt;">All Unit in Kg</h3>
+                    <p style="text-indent: 0pt;">Operator :
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+    @media print {
+        @page {
+            size: landscape;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            transform: none !important;
+            width: auto !important;
+            height: auto !important;
+            position: static !important;
+        }
+
+        .main_container {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .table {
+            border: 1px solid #ABB2B9;
+            width: 100%;
+            padding: 0;
+            border-collapse: separate;
+            border-spacing: 1px;
+            font-size: 7px;
+        }
+
+        .table>tbody>tr>td,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>td,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>thead>tr>th {
+            border: 1px solid #ABB2B9;
+            border-collapse: separate;
+            border-spacing: 1px;
+            font-size: 10px;
+            padding: 0;
+        }
+    }
+
+    .main_container {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+        padding: 0px;
+    }
+
+    .align-left {
+        text-align: left;
+    }
+
+    .align-right {
+        text-align: right;
+    }
+
+    .align-center {
+        text-align: center;
+    }
+
+    h1 {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 10pt;
+        margin: 5px 0;
+        padding: 0;
+    }
+
+    h2 {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    .s1 {
+        color: #A42A2A;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 16pt;
+        padding: 0;
+        margin: 0;
+        line-height: 34px;
+    }
+
+    .border-bottom {
+        border-bottom: solid 2px #FF6246;
+    }
+
+    .borders {
+        border: 1.0px solid #80808073;
+    }
+
+    .borders td {
+        border: 1.0px solid #80808073;
+        padding: 3px;
+    }
+
+    .borders td span {
+        border: 1.0px solid #80808073;
+        padding: 3px;
+    }
+
+    .gap-table td {
+        padding: 0 10px;
+        font-weight: bold;
+    }
+</style>
