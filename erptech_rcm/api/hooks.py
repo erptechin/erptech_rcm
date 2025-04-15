@@ -7,7 +7,7 @@ def create_stock_entry(doc, method):
     host = frappe.request.host
     parts = host.split(".")
     subdomain = parts[0]
-    if subdomain == "jke" or subdomain == "biharrmc":
+    if subdomain == "jke" or subdomain == "balaji" or subdomain == "biharrmc":
         pass
     else:
         # Check some conditions or add any custom validation logic before creating a Stock Entry

@@ -26,25 +26,30 @@ frappe.ui.form.on('Delivery Note', {
                 reqd: 1
             },
                 function (values) {
-                    let sItem = items.find((item) => item.item_name === values.item)
                     frappe.call({
                         method: "frappe.client.get",
                         args: {
                             doctype: "Sales Order",
-                            name: sItem.against_sales_order
+                            name: items[0].against_sales_order
                         },
                         callback: function (res) {
                             if (res.message) {
-                                frm.doc.items[0]['custom_bom_no'] = res.message.items[0] ? res.message.items[0].bom_no : ""
-                                frm.doc.items[0]['custom_balance_quantity'] = frm.doc.items[0].stock_qty
+                                let sItem = res.message.items.find((item) => item.item_name === values.item)
+                                let item = frm.add_child("items");
+                                item.custom_bom_no = sItem?.bom_no
+                                item.custom_balance_quantity = sItem?.qty
+                                item.item_code = sItem?.item_code
+                                item.item_name = sItem?.item_name
+                                item.uom = sItem?.uom
+                                item.against_sales_order = sItem?.parent
+                                item.so_detail = sItem?.name
                                 if (frm.doc.name.includes("new-delivery-note")) {
-                                    frm.doc.items[0]['qty'] = ''
+                                    item.qty = 0;
                                 }
                                 frm.refresh_field('items');
                             }
                         }
                     });
-
                 },
                 __('Select Item'),
                 __('Select')
@@ -58,8 +63,9 @@ frappe.ui.form.on('Delivery Note', {
                 },
                 callback: function (res) {
                     if (res.message) {
-                        frm.doc.items[0]['custom_bom_no'] = res.message.items[0] ? res.message.items[0].bom_no : ""
-                        frm.doc.items[0]['custom_balance_quantity'] = res.message.items[0].qty
+                        let sItem = res.message.items[0]
+                        frm.doc.items[0]['custom_bom_no'] = sItem ? sItem.bom_no : ""
+                        frm.doc.items[0]['custom_balance_quantity'] = sItem.qty
                         if (frm.doc.name.includes("new-delivery-note")) {
                             frm.doc.items[0]['qty'] = ''
                         }
@@ -107,16 +113,55 @@ frappe.ui.form.on('Delivery Note Item', {
     qty: function (frm, cdt, cdn) {
         let row = locals[cdt][cdn];
         if (row.qty) {
-            const custom_produced_qty = row.custom_balance_quantity - row.stock_qty
-            const custom_cumulative_qty = custom_produced_qty + row.qty
-            frappe.model.set_value(cdt, cdn, 'qty', row.qty)
-            frappe.model.set_value(cdt, cdn, 'custom_produced_qty', custom_produced_qty)
-            frappe.model.set_value(cdt, cdn, 'custom_cumulative_qty', custom_cumulative_qty)
-            // frappe.db.get_value('Item', row.item_code, 'item_name')
-            //     .then(r => {
-            //         const item_name = r.message.item_name;
-            //         frappe.model.set_value(cdt, cdn, 'item_name', item_name);
-            // });
+            const today = frappe.datetime.get_today();
+            frappe.call({
+                // method: 'erptech_rcm.api.custom.get_latest_delivery_note_with_items',
+                // args: {
+                //     posting_date: today,
+                //     against_sales_order: row.against_sales_order,
+                // },
+                method: "frappe.client.get_list",
+                args: {
+                    doctype: "Delivery Note",
+                    filters: [
+                        ["status", "!=", "Draft"],
+                        ["posting_date", "=", today],
+                        ["Delivery Note Item", "against_sales_order", "=", row.against_sales_order],
+                    ],
+                    fields: ["name", "creation", "status"],
+                    limit_page_length: 1,
+                    order_by: "creation desc"
+                },
+                callback: function (res) {
+                    if (res.message && res.message.length > 0) {
+                        const dnName = res.message[0].name;
+                        frappe.call({
+                            method: "frappe.client.get",
+                            args: {
+                                doctype: "Delivery Note",
+                                name: dnName
+                            },
+                            callback: function (docRes) {
+                                const fullDoc = docRes.message;
+                                const custom_produced_qty = fullDoc.items[0].custom_cumulative_qty
+                                const custom_cumulative_qty = custom_produced_qty + row.qty
+                                frappe.model.set_value(cdt, cdn, 'custom_serial_count', Number(fullDoc.items[0].custom_serial_count) + 1)
+                                frappe.model.set_value(cdt, cdn, 'qty', row.qty)
+                                frappe.model.set_value(cdt, cdn, 'custom_produced_qty', custom_produced_qty)
+                                frappe.model.set_value(cdt, cdn, 'custom_cumulative_qty', custom_cumulative_qty)
+                            }
+                        });
+
+                    } else {
+                        const custom_produced_qty = 0
+                        const custom_cumulative_qty = custom_produced_qty + row.qty
+                        frappe.model.set_value(cdt, cdn, 'custom_serial_count', 1)
+                        frappe.model.set_value(cdt, cdn, 'qty', row.qty)
+                        frappe.model.set_value(cdt, cdn, 'custom_produced_qty', custom_produced_qty)
+                        frappe.model.set_value(cdt, cdn, 'custom_cumulative_qty', custom_cumulative_qty)
+                    }
+                }
+            });
         }
 
     }
