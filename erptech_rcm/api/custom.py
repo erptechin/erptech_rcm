@@ -67,3 +67,22 @@ def unlink_customer_address(customer_name, address_name):
         return f"Address '{address_name}' has been removed from Customer '{customer_name}'."
     else:
         return f"No address found linked to Customer '{customer_name}' with the name '{address_name}'."
+    
+
+@frappe.whitelist()
+def get_latest_delivery_note_with_items(posting_date, against_sales_order):
+    dn = frappe.db.sql("""
+        SELECT name
+        FROM `tabDelivery Note` dn
+        JOIN `tabDelivery Note Item` dni ON dni.parent = dn.name
+        WHERE dn.posting_date = %s
+          AND dni.against_sales_order = %s
+          AND dn.docstatus = 1
+        ORDER BY dn.creation DESC
+        LIMIT 1
+    """, (posting_date, against_sales_order), as_dict=True)
+
+    if dn:
+        return frappe.get_doc("Delivery Note", dn[0].name)
+    return None
+

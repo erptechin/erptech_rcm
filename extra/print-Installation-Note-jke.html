@@ -1,5 +1,5 @@
 <div class="main_container" id="container_fluid">
-    <table class="border-bottom">
+    <table class="border-bottom" style="margin-bottom: 0;">
         <tbody>
             <tr>
                 <td>
@@ -14,7 +14,7 @@
                     <h1>RMC PLANT</h1>
                 </td>
                 <td>
-                    <div class="align-left" style="float: right;">
+                    <div class="align-left">
                         <h1 style="color: #00F;">VENUS</h1>
                         <h2>Plant Capacity <span style=" color: #00F;">60 CBM</span></h2>
                     </div>
@@ -23,7 +23,7 @@
         </tbody>
     </table>
 
-    <table class="gap-table">
+    <table class="gap-table" style="margin-bottom: 0;">
         <tbody>
             <tr>
                 <td>
@@ -43,7 +43,7 @@
                             </tr>
                             <tr>
                                 <td>Order</td>
-                                <td>{{doc.items[0].custom_sales_order_no}}</td>
+                                <td>{{ doc.items[0].custom_sales_order_no[-5:] }}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">&nbsp;</td>
@@ -55,19 +55,26 @@
                     </table>
                 </td>
                 <td>
+
                     <table cellspacing="0" class="borders">
                         <tbody>
                             <tr>
                                 <td>Start Time</td>
-                                <td>{{ doc.get_formatted("custom_start_time") }}</td>
+                                <td>
+                                    {% set custom_start_time = frappe.utils.get_time(doc.custom_start_time) %}
+                                    {{ doc.get_formatted("inst_date") }} {{ custom_start_time.strftime("%I:%M:%S %p") }}
+                                </td>
                             </tr>
                             <tr>
                                 <td>End Time</td>
-                                <td>{{ doc.get_formatted("inst_time") }}</td>
+                                <td>
+                                    {% set inst_time = frappe.utils.get_time(doc.inst_time) %}
+                                    {{ doc.get_formatted("inst_date") }} {{ inst_time.strftime("%I:%M:%S %p") }}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Docket No.</td>
-                                <td>...</td>
+                                <td>{{ doc.name[-5:] }}</td>
                             </tr>
                             <tr>
                                 <td>Truck No.</td>
@@ -79,7 +86,13 @@
                             </tr>
                             <tr>
                                 <td>TH volume</td>
-                                <td>0 KG/M<sup>3</sup></td>
+                                <td>
+                                    {% set to = namespace(totalTh=0) %}
+                                    {%- for row in doc.custom_installation_note_recipe -%}
+                                    {% set to.totalTh = to.totalTh + row.qty %}
+                                    {%- endfor -%}
+                                    {{to.totalTh}} KG/M<sup>3</sup>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -143,7 +156,12 @@
         </tbody>
     </table>
 
-    <table cellspacing="0" class="table text-center">
+    <p style="text-indent: 0pt;text-align: left;">Slump :
+        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+        MM
+    </p>
+
+    <table cellspacing="0" class="table text-center data_table" style="width: 90%; margin: 0 auto;">
 
         <tbody>
 
@@ -186,16 +204,15 @@
             {% for i in range(1, customNoOfBatch + 1) %}
             {% set second = total_seconds/customNoOfBatch %}
             {% if (i-1) % 2 == 0 %}
-            {% set to.randomValue = (random_values[i-1]|int) / 10 %}
+            {% set to.randomValue = (random_values[i-1]|int) / 100 %}
             {% endif %}
-
 
             <tr>
                 <td style="border: 1.0px solid #80808073">{{i}}</td>
                 {% if (i-1) % 2 == 0 %}
-                <td style="border: 1.0px solid #80808073">{{"%.0f"|format(second + (to.randomValue)| float)}}</td>
+                <td style="border: 1.0px solid #80808073">{{"%.0f"|format(70 + (to.randomValue)| float)}}</td>
                 {% else %}
-                <td style="border: 1.0px solid #80808073">{{"%.0f"|format(second - (to.randomValue)| float)}}</td>
+                <td style="border: 1.0px solid #80808073">{{"%.0f"|format(70 - (to.randomValue)| float)}}</td>
                 {% endif %}
                 {% set to = namespace(totalM=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
@@ -215,7 +232,7 @@
             {%- endfor -%}
 
             <tr>
-                <td colspan="2" style="border: 1.0px solid #80808073"><b>Moi & ABS</b></td>
+                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Moi & ABS</b></td>
                 {%- for row in doc.custom_installation_note_recipe -%}
                 <td style="border: 1.0px solid #80808073" class="text-center">0%</td>
                 {%- endfor -%}
@@ -223,7 +240,7 @@
             </tr>
 
             <tr>
-                <td colspan="2" style="border: 1.0px solid #80808073"><b>Actual Total</b></td>
+                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Actual Total</b></td>
                 {% set toa = namespace(totalA=0) %}
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
@@ -246,7 +263,7 @@
             </tr>
 
             <tr>
-                <td colspan="2" style="border: 1.0px solid #80808073"><b>Target Total</b></td>
+                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Target Total</b></td>
                 {% set tob = namespace(totalB=0) %}
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
@@ -265,7 +282,7 @@
 
 
             <tr>
-                <td colspan="2" style="border: 1.0px solid #80808073"><b>Average</b></td>
+                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Average</b></td>
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
                 {% set qtys = row.qtys.strip('[]').split(',') %}
@@ -286,7 +303,7 @@
             </tr>
 
             <tr>
-                <td colspan="2" style="border: 1.0px solid #80808073"><b>Target</b></td>
+                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Target</b></td>
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
                 <td style="border: 1.0px solid #80808073">
@@ -302,7 +319,7 @@
             </tr>
 
             <tr>
-                <td colspan="2" style="border: 1.0px solid #80808073"><b>Recipe Design</b></td>
+                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Recipe Design</b></td>
                 {%- for row in doc.custom_installation_note_recipe -%}
                 <td style="border: 1.0px solid #80808073">
                     {% if row.decimal %}
@@ -324,13 +341,16 @@
             <tr>
                 <td>
                     <p style="text-indent: 0pt;text-align: left;">Supervisor :
-                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
                     </p>
                 </td>
                 <td class="align-right">
-                    <h3 style="padding-top: 5pt;text-indent: 0pt;font-size: 10pt;">All Unit in Kg</h3>
+                    <h3
+                        style="padding-top: 5pt;text-indent: 0pt;font-size: 10pt;padding-bottom: 15px;padding-right: 110px;">
+                        All Unit in Kg
+                    </h3>
                     <p style="text-indent: 0pt;">Operator :
-                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
                     </p>
                 </td>
             </tr>
@@ -458,8 +478,22 @@
         padding: 3px;
     }
 
-    .gap-table td {
-        padding: 0 10px;
+    .gap-table td:nth-child(1) {
         font-weight: bold;
+        padding-right: 7%;
+    }
+
+    .gap-table td:nth-child(2) {
+        font-weight: bold;
+        padding-right: 5%;
+    }
+
+    .gap-table td:nth-child(3) {
+        font-weight: bold;
+        padding-right: 5%;
+    }
+
+    .data_table td {
+        padding: 2px 5px !important;
     }
 </style>

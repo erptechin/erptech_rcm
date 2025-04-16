@@ -15,7 +15,14 @@ frappe.ui.form.on('Installation Note', {
                 callback: async function (res) {
                     if (res.message) {
                         let bom = await frappe.db.get_value('BOM', res.message.items[0].custom_bom_no, 'custom_recipe_code')
-                        frm.set_value('inst_time', res.message.posting_time);
+                        if (res.message.posting_time) {
+                            let now = new Date();
+                            let [hours, minutes, seconds] = (res.message.posting_time).split(':').map(Number);
+                            now.setHours(hours, minutes, seconds);
+                            now.setMinutes(now.getMinutes() - 2);
+                            let updatedTime = now.toTimeString().split(' ')[0];
+                            frm.set_value('inst_time', updatedTime);
+                        }
                         frm.set_value('custom_vehicle_no', res.message.custom_vehicle);
                         frm.set_value('custom_driver_name', res.message.driver);
                         frm.set_value('custom_recipe_name', res.message.items[0].item_code);
@@ -72,20 +79,47 @@ frappe.ui.form.on('Installation Note', {
         }
     },
     setup: function (frm) {
+        if (frm.doc.name.includes("new-installation-note") && frm.doc.custom_delivery_note) {
+            frappe.call({
+                method: "frappe.client.get_list",
+                args: {
+                    doctype: "Installation Note",
+                    filters: [
+                        ["custom_delivery_note", "=", frm.doc.custom_delivery_note]
+                    ],
+                    fields: ["name"],
+                    limit_page_length: 1
+                },
+                callback: function (res) {
+                    if (res.message.length) {
+                        window.open(`${window.location.origin}/app/installation-note/${res.message[0].name}`, '_self');
+                    }
+                }
+            });
+        }
         if (frm?.doc?.custom_installation_note_recipe?.length) {
             showRanderData(frm)
         }
     },
     inst_time: async function (frm) {
+        // if (frm.doc.inst_time) {            
+        //     if (!frm.doc.custom_start_time) {
+        //         frm.set_value('inst_time', null);
+        //     }
+        //     const start = timeToSeconds(frm.doc.custom_start_time);
+        //     const end = timeToSeconds(frm.doc.inst_time);
+        //     if (start > end) {
+        //         frm.set_value('inst_time', null);
+        //     }
+        // }
         if (frm.doc.inst_time) {
-            if (!frm.doc.custom_start_time) {
-                frm.set_value('inst_time', null);
-            }
-            const start = timeToSeconds(frm.doc.custom_start_time);
-            const end = timeToSeconds(frm.doc.inst_time);
-            if (start > end) {
-                frm.set_value('inst_time', null);
-            }
+            let noOfBatch = frm.doc.items[0]?.custom_no_of_batch ? frm.doc.items[0].custom_no_of_batch : 1
+            let now = new Date();
+            let [hours, minutes, seconds] = (frm.doc.inst_time).split(':').map(Number);
+            now.setHours(hours, minutes, seconds);
+            now.setSeconds(now.getSeconds() - (Number(noOfBatch) * 80));
+            let updatedTime = now.toTimeString().split(' ')[0];
+            frm.set_value('custom_start_time', updatedTime);
         }
     },
 })
@@ -185,4 +219,4 @@ async function showRanderData(frm) {
 function timeToSeconds(timeStr) {
     const [h, m, s] = timeStr.split(':').map(Number);
     return h * 3600 + m * 60 + s;
-  }
+}
