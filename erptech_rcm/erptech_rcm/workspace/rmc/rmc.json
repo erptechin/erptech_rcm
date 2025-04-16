@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"Lb3o9D9e0w\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Order\",\"col\":3}},{\"id\":\"r3kQHf_7dL\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Delivery Challan\",\"col\":3}},{\"id\":\"dYIGXYuIz3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Plant Consumption\",\"col\":3}},{\"id\":\"qv0YWHKW6P\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Weight Bridge\",\"col\":3}},{\"id\":\"io2jp943qu\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Consumption Settings\",\"col\":3}},{\"id\":\"HRxumpVEeN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Gate Pass\",\"col\":3}},{\"id\":\"bcJMD214K0\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vehicle Log Entry\",\"col\":3}},{\"id\":\"QLfkVXDxsq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Cube Testing Register\",\"col\":3}},{\"id\":\"cRsLuZXAtT\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Batching Plant-1</b></span>\",\"col\":12}},{\"id\":\"MrM3N_GvFR\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Yesterday Dispatch\",\"col\":3}},{\"id\":\"u7YId5z4pg\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Dispatch\",\"col\":3}},{\"id\":\"hLXw3xMNdd\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"This Month Dispatch\",\"col\":3}},{\"id\":\"key3MSMtvB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"This Year Dispatch\",\"col\":3}},{\"id\":\"p0RYG8SmdQ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Batching Plant-2</b></span>\",\"col\":12}}]",
+ "content": "[{\"id\":\"Lb3o9D9e0w\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Order\",\"col\":3}},{\"id\":\"Z2A-27NJCG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Schedule\",\"col\":3}},{\"id\":\"r3kQHf_7dL\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Delivery Challan\",\"col\":3}},{\"id\":\"dYIGXYuIz3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Plant Consumption\",\"col\":3}},{\"id\":\"qv0YWHKW6P\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Weight Bridge\",\"col\":3}},{\"id\":\"io2jp943qu\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Consumption Settings\",\"col\":3}},{\"id\":\"HRxumpVEeN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Batch Report\",\"col\":3}},{\"id\":\"bcJMD214K0\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vehicle Log Entry\",\"col\":3}},{\"id\":\"cRsLuZXAtT\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Batching Plant-1</b></span>\",\"col\":12}},{\"id\":\"u7YId5z4pg\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Dispatch\",\"col\":3}},{\"id\":\"MrM3N_GvFR\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Yesterday Dispatch\",\"col\":3}},{\"id\":\"hLXw3xMNdd\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"This Month Dispatch\",\"col\":3}},{\"id\":\"key3MSMtvB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"This Year Dispatch\",\"col\":3}},{\"id\":\"UzpcH9zbOz\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Production Plan\",\"col\":4}},{\"id\":\"uGmF4MdK-b\",\"type\":\"card\",\"data\":{\"card_name\":\"Master\",\"col\":4}}]",
  "creation": "2024-03-12 00:20:56.016182",
  "custom_blocks": [],
  "docstatus": 0,
@@ -12,9 +12,79 @@
  "indicator_color": "",
  "is_hidden": 0,
  "label": "RMC",
- "links": [],
- "modified": "2025-03-29 04:12:36.654463",
- "modified_by": "BR-biharrmc@erptech.in",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Master",
+   "link_count": 6,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Quotation",
+   "link_count": 0,
+   "link_to": "Quotation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Driver",
+   "link_count": 0,
+   "link_to": "Driver",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Vehicle",
+   "link_count": 0,
+   "link_to": "Vehicle",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Pump Name",
+   "link_count": 0,
+   "link_to": "Pump Name",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Recipe",
+   "link_count": 0,
+   "link_to": "Recipe",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "BOM",
+   "link_count": 0,
+   "link_to": "BOM",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-04-13 07:20:56.444180",
+ "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "RMC",
  "number_cards": [
@@ -38,7 +108,13 @@
  "owner": "test@admin.com",
  "parent_page": "",
  "public": 1,
- "quick_lists": [],
+ "quick_lists": [
+  {
+   "document_type": "Production Plan",
+   "label": "Production Plan",
+   "quick_list_filter": "[[\"Production Plan\",\"posting_date\",\"Timespan\",\"today\",false]]"
+  }
+ ],
  "roles": [],
  "sequence_id": 0.0,
  "shortcuts": [
@@ -53,24 +129,24 @@
   {
    "color": "Grey",
    "doc_view": "List",
+   "label": "Batch Report",
+   "link_to": "Installation Note",
+   "stats_filter": "[[\"Installation Note\",\"inst_date\",\"Timespan\",\"today\",false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Schedule",
+   "link_to": "Production Plan",
+   "stats_filter": "[[\"Production Plan\",\"posting_date\",\"Timespan\",\"today\",false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
    "label": "Consumption Settings",
    "link_to": "Consumption Settings",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Cube Testing Register",
-   "link_to": "Cube Testing Register",
-   "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Gate Pass",
-   "link_to": "Gate Pass",
-   "stats_filter": "[]",
    "type": "DocType"
   },
   {
