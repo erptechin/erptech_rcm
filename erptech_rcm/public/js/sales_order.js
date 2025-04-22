@@ -1,5 +1,17 @@
 frappe.ui.form.on('Sales Order', {
-    setup: function (frm) {
+
+
+    setup: async function (frm) {
+
+        //Check If Is Branch
+        frm.set_df_property('custom_branch', 'hidden', 1);
+        frm.set_df_property('custom_branch', 'reqd', 0);
+        const isBranchEnabled = await frappe.db.get_single_value('Theme Settings', 'is_enable_branch');
+        if (isBranchEnabled) {
+            frm.set_df_property('custom_branch', 'hidden', 0);
+            frm.set_df_property('custom_branch', 'reqd', 1);
+        }
+
         if (frm.doc.name.includes("new-sales-order")) {
             frm.set_value('custom_site', null);
             // frm.set_value('shipping_address_name', null);

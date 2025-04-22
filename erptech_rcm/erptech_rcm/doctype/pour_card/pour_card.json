@@ -91,7 +91,7 @@
    "fieldname": "tower",
    "fieldtype": "Link",
    "label": "Tower",
-   "options": "Tower"
+   "options": "Structure"
   },
   {
    "fieldname": "floor",
@@ -147,7 +147,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-26 03:00:53.490689",
+ "modified": "2025-04-17 19:55:16.570611",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Pour Card",

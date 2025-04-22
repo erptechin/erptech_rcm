@@ -12,16 +12,16 @@
   {
    "fieldname": "tower",
    "fieldtype": "Data",
-   "label": "Tower",
+   "label": "Structure",
    "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-03-12 19:34:15.915062",
+ "modified": "2025-04-17 19:55:35.816154",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
- "name": "Tower",
+ "name": "Structure",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

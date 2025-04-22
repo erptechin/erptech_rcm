@@ -178,7 +178,7 @@
    "fieldname": "tower",
    "fieldtype": "Link",
    "label": "Tower",
-   "options": "Tower"
+   "options": "Structure"
   },
   {
    "fieldname": "floor",
@@ -216,7 +216,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-28 11:56:23.245888",
+ "modified": "2025-04-17 19:55:15.743089",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Delivery Challan",

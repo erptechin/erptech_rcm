@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class Tower(Document):
+class Structure(Document):
 	pass

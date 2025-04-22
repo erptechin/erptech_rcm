@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestTower(FrappeTestCase):
+class TestStructure(FrappeTestCase):
 	pass

@@ -71,7 +71,7 @@
    "fieldname": "tower",
    "fieldtype": "Link",
    "label": "Tower",
-   "options": "Tower"
+   "options": "Structure"
   },
   {
    "fieldname": "structure_location",
@@ -129,7 +129,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-03-10 23:09:31.209418",
+ "modified": "2025-04-17 19:55:16.274234",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "Cube Testing Register",
