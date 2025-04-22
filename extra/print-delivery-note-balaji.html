@@ -1,0 +1,232 @@
+<div
+    style="font-family: Arial, sans-serif; max-width: 800px; margin: auto; border: 1px solid #000; padding: 20px 20px 0px 20px; font-size: 14px;">
+    <table width="100%" style="border-collapse: collapse;">
+        <tr>
+            <td style="width: 70%;position: relative;">
+                <div
+                    style="position: absolute;top: -20px;right: 20%;border: 1px solid #000; display: inline-block; padding: 2px 8px; font-weight: bold;">
+                    CHALLAN</div>
+                <span style="position: absolute;top: -17px;right: 9%;font-size: 12px;">Original</span>
+                {% set company = frappe.get_doc("Company", doc.company) %}
+                {% set links = frappe.get_all('Dynamic Link', filters={'link_doctype': 'Company', 'link_name':
+                doc.company, 'parenttype': 'Address'}, fields=['parent']) %}
+                {% set address = frappe.get_doc("Address", links[0].parent) if links else None
+                %}
+                <h2 style="margin: 0;">{{ company.company_name }}</h2>
+                {% if address %}
+                <p style="margin: 0;line-height: 20px;">
+                    {{ address.address_line1 or "" }}<br>
+                    {% if address.address_line2 %}{{ address.address_line2 }}<br>{% endif %}
+                    {{ address.city or "" }}{% if address.state %}, {{ address.state }}{% endif %},
+                    {% if address.pincode %}{{ address.pincode }},{% endif %}
+                    {{ address.country or "" }}
+                </p>
+                <p style="margin: 0;line-height: 20px;">
+                    {% if address.email_id %}<strong>Mail</strong> :- {{ address.email_id }}<br>{% endif %}
+                    {% if address.phone %}<strong>Mobile</strong>:- {{ address.phone }}<br>{% endif %}
+                </p>
+                {% endif %}<br>
+            </td>
+            <td style="text-align: right;">
+                <img src="/files/logo.png" alt="Logo" style="width: 100%;">
+            </td>
+        </tr>
+    </table>
+
+    <hr style="border: 0.5px solid #000; margin: 5px 0;" />
+
+    <table width="100%" class="data_table">
+        <tr>
+            <td>Challan No. : <strong>{{ doc.name }}</strong></td>
+            <td>Date : <strong>{{ doc.posting_date }}</strong></td>
+            <td>Batch No. : <strong>{{ doc.name[-5:] }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3">Client : <strong>{{ doc.customer }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3">Site : <strong>{{ doc.custom_site }}</strong></td>
+        </tr>
+        <tr>
+            <td>PO. No. : <strong>{{ doc.items[0].custom_pour_card }}</strong></td>
+            <td>Qty : <strong>{{ doc.items[0].qty }} {{ doc.items[0].uom }}</strong></td>
+            <td>Serial No. : <strong>{{ doc.name[-5:] }}</strong></td>
+        </tr>
+        <tr>
+            <td>Grade : <strong>{{ doc.items[0].item_name }}</strong></td>
+            <td>Dump/Pump : <strong>{{ doc.custom_dumppump }}</strong></td>
+            <td>Opening Qty : <strong>{{ doc.items[0].custom_produced_qty }}</strong></td>
+        </tr>
+
+        <tr>
+            <td>TM No. : <strong>PB06V6246</strong></td>
+            <td>Driver : <strong>{{ doc.driver_name }}</strong></td>
+            <td>Current Qty : <strong>{{ doc.items[0].custom_cumulative_qty }}</strong></td>
+        </tr>
+        <tr>
+            <td>Time Out : <strong>{{ doc.posting_time }}</strong></td>
+            <td>Transport Charges : __________________</td>
+            <td>Total Qty : <strong>{{ doc.items[0].custom_produced_qty + doc.items[0].custom_cumulative_qty }}</strong>
+            </td>
+        </tr>
+    </table>
+
+    <hr style="border: 0.5px solid #000; margin: 5px 0 0 0;" />
+
+    <table width="100%">
+        <tr>
+            <td style="width: 40%;">
+                <p style="line-height: 20px;"><strong>GST No.</strong>: {{ company.gstin }}<br>
+                    <strong>Pan No.</strong>: {{ company.pan }}<br>
+                    <strong>StateCode</strong>: 27
+                </p>
+            </td>
+            <td>
+                <p style="margin: 0;font-size: 12px;">The Client is responsible for all kind of centering shuttering,
+                    scaffolding and
+                    reinforcement work,
+                    our company
+                    is not responsible for any damages occurred due to above reasons.<br>
+                    We are not responsible for slump, strength or quality of concrete when water is added at site on
+                    request of customer.</p>
+            </td>
+        </tr>
+    </table>
+
+    <hr style="border: 0.5px solid #000; margin: 0;" />
+
+    <table width="100%">
+        <tr>
+            <td style="width: 50%;">
+                <p>Site time in ___________ Out ___________</p>
+                <p>KMS ___________ HRS ___________</p>
+                <p>Received By</p>
+            </td>
+            <td>
+                <p style="text-align: right;">For, Balaji Enterprises</p>
+                <br />
+                <p style="text-align: right;"><br>Authorised Signatory</p>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<div
+    style="font-family: Arial, sans-serif; max-width: 800px; margin: auto; border: 1px solid #000; margin-top: 5px; padding: 20px 20px 0px 20px; font-size: 14px;">
+    <table width="100%" style="border-collapse: collapse;">
+        <tr>
+            <td style="width: 70%;position: relative;">
+                <div
+                    style="position: absolute;top: -20px;right: 20%;border: 1px solid #000; display: inline-block; padding: 2px 8px; font-weight: bold;">
+                    CHALLAN</div>
+                <span style="position: absolute;top: -17px;right: 6%;font-size: 12px;">Duplicate</span>
+                {% set company = frappe.get_doc("Company", doc.company) %}
+                {% set links = frappe.get_all('Dynamic Link', filters={'link_doctype': 'Company', 'link_name':
+                doc.company, 'parenttype': 'Address'}, fields=['parent']) %}
+                {% set address = frappe.get_doc("Address", links[0].parent) if links else None
+                %}
+                <h2 style="margin: 0;">{{ company.company_name }}</h2>
+                {% if address %}
+                <p style="margin: 0;line-height: 20px;">
+                    {{ address.address_line1 or "" }}<br>
+                    {% if address.address_line2 %}{{ address.address_line2 }}<br>{% endif %}
+                    {{ address.city or "" }}{% if address.state %}, {{ address.state }}{% endif %},
+                    {% if address.pincode %}{{ address.pincode }},{% endif %}
+                    {{ address.country or "" }}
+                </p>
+                <p style="margin: 0;line-height: 20px;">
+                    {% if address.email_id %}<strong>Mail</strong> :- {{ address.email_id }}<br>{% endif %}
+                    {% if address.phone %}<strong>Mobile</strong>:- {{ address.phone }}<br>{% endif %}
+                </p>
+                {% endif %}<br>
+            </td>
+            <td style="text-align: right;">
+                <img src="/files/logo.png" alt="Logo" style="width: 100%;">
+            </td>
+        </tr>
+    </table>
+
+    <hr style="border: 0.5px solid #000; margin: 5px 0;" />
+
+    <table width="100%" class="data_table">
+        <tr>
+            <td>Challan No. : <strong>{{ doc.name }}</strong></td>
+            <td>Date : <strong>{{ doc.posting_date }}</strong></td>
+            <td>Batch No. : <strong>{{ doc.name[-5:] }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3">Client : <strong>{{ doc.customer }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3">Site : <strong>{{ doc.custom_site }}</strong></td>
+        </tr>
+        <tr>
+            <td>PO. No. : <strong>{{ doc.items[0].custom_pour_card }}</strong></td>
+            <td>Qty : <strong>{{ doc.items[0].qty }} {{ doc.items[0].uom }}</strong></td>
+            <td>Serial No. : <strong>{{ doc.name[-5:] }}</strong></td>
+        </tr>
+        <tr>
+            <td>Grade : <strong>{{ doc.items[0].item_name }}</strong></td>
+            <td>Dump/Pump : <strong>{{ doc.custom_dumppump }}</strong></td>
+            <td>Opening Qty : <strong>{{ doc.items[0].custom_produced_qty }}</strong></td>
+        </tr>
+
+        <tr>
+            <td>TM No. : <strong>PB06V6246</strong></td>
+            <td>Driver : <strong>{{ doc.driver_name }}</strong></td>
+            <td>Current Qty : <strong>{{ doc.items[0].custom_cumulative_qty }}</strong></td>
+        </tr>
+        <tr>
+            <td>Time Out : <strong>{{ doc.posting_time }}</strong></td>
+            <td>Transport Charges : __________________</td>
+            <td>Total Qty : <strong>{{ doc.items[0].custom_produced_qty + doc.items[0].custom_cumulative_qty }}</strong>
+            </td>
+        </tr>
+    </table>
+
+    <hr style="border: 0.5px solid #000; margin: 5px 0 0 0;" />
+
+    <table width="100%">
+        <tr>
+            <td style="width: 40%;">
+                <p style="line-height: 20px;"><strong>GST No.</strong>: {{ company.gstin }}<br>
+                    <strong>Pan No.</strong>: {{ company.pan }}<br>
+                    <strong>StateCode</strong>: 27
+                </p>
+            </td>
+            <td>
+                <p style="margin: 0;font-size: 12px;">The Client is responsible for all kind of centering shuttering,
+                    scaffolding and
+                    reinforcement work,
+                    our company
+                    is not responsible for any damages occurred due to above reasons.<br>
+                    We are not responsible for slump, strength or quality of concrete when water is added at site on
+                    request of customer.</p>
+            </td>
+        </tr>
+    </table>
+
+    <hr style="border: 0.5px solid #000; margin: 0;" />
+
+    <table width="100%">
+        <tr>
+            <td style="width: 50%;">
+                <p>Site time in ___________ Out ___________</p>
+                <p>KMS ___________ HRS ___________</p>
+                <p>Received By</p>
+            </td>
+            <td>
+                <p style="text-align: right;">For, Balaji Enterprises</p>
+                <br />
+                <p style="text-align: right;"><br>Authorised Signatory</p>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<style>
+    .main_page {
+        margin: -65px;
+    }
+</style>
