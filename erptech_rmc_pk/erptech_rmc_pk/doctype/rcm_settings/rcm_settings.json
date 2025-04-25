@@ -1,0 +1,60 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "creation": "2024-09-10 18:08:41.213383",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "weigh_scale_settings",
+        "enable_weigh_scale",
+        "baud_rate"
+    ],
+    "fields": [
+        {
+            "fieldname": "weigh_scale_settings",
+            "fieldtype": "Section Break",
+            "label": "Weigh Scale Settings"
+        },
+        {
+            "default": "0",
+            "fieldname": "enable_weigh_scale",
+            "fieldtype": "Check",
+            "label": "Enable Weigh Scale"
+        },
+        {
+            "default": "9600",
+            "fieldname": "baud_rate",
+            "fieldtype": "Select",
+            "label": "Baud rate",
+            "options": "110\n300\n600\n1200\n2400\n4800\n9600\n14400\n19200\n28800\n38400\n56000\n57600\n115200\n128000\n256000"
+        },
+        {
+            "fieldname": "split_character",
+            "fieldtype": "Data",
+            "label": "Split Character"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "issingle": 1,
+    "links": [],
+    "modified": "2024-09-12 18:39:06.433715",
+    "modified_by": "Administrator",
+    "module": "Erptech RMC PK",
+    "name": "RCM Settings",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+}

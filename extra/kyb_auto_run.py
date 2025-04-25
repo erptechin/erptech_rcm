@@ -16,7 +16,7 @@ def make_api_call():
 
         # Make the GET request
         consumption_settings = requests.get(
-            url + "erptech_rcm.api.consumption.consumption_settings",
+            url + "erptech_rmc_pk.api.consumption.consumption_settings",
             headers=headers,
         )
         consumption_settings.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
@@ -99,7 +99,7 @@ def make_api_call():
             # Make the POST request
             print(new_results)
             consumption_set_data = requests.post(
-                url + "erptech_rcm.api.consumption.consumption_set_data_kyb",
+                url + "erptech_rmc_pk.api.consumption.consumption_set_data_kyb",
                 json={"payload": json.dumps(new_results)},
                 headers=headers,
             )

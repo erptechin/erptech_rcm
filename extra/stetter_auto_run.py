@@ -15,7 +15,7 @@ def make_api_call(type):
 
     try:
         # Make the GET request
-        consumption_settings = requests.get(url+"erptech_rcm.api.consumption.consumption_settings", headers=headers)
+        consumption_settings = requests.get(url+"erptech_rmc_pk.api.consumption.consumption_settings", headers=headers)
         consumption_settings.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
         
         # Process the response
@@ -92,7 +92,7 @@ def make_api_call(type):
                 results.append(filtered_result)
                 
             # Make the POST request
-            consumption_set_data = requests.post(url+"erptech_rcm.api.consumption.consumption_set_data_stetter", json={"payload": json.dumps(results)}, headers=headers)
+            consumption_set_data = requests.post(url+"erptech_rmc_pk.api.consumption.consumption_set_data_stetter", json={"payload": json.dumps(results)}, headers=headers)
             consumption_set_data.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
             
             # Process the response
