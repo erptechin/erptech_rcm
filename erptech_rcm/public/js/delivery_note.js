@@ -125,7 +125,7 @@ frappe.ui.form.on('Delivery Note Item', {
                     doctype: "Delivery Note",
                     filters: [
                         ["status", "!=", "Draft"],
-                        ["posting_date", "=", today],
+                        ["posting_date", "=", frm.doc.posting_date],
                         ["Delivery Note Item", "against_sales_order", "=", row.against_sales_order],
                     ],
                     fields: ["name", "creation", "status"],
