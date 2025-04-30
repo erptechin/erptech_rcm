@@ -9,11 +9,9 @@
       "case-master": "Case Masters",
       "agency": "Agency"
     },
-    "transactions": {
-      "transactions": "Transactions",
-      "charge-entry": "Charge Entry",
-      "case": "Case",
-      "payment-details": "Payment Details"
+    "sales": {
+      "sales": "Sales",
+      "sales-order": "Sales Order"
     },
     "settings": {
       "settings": "Settings",

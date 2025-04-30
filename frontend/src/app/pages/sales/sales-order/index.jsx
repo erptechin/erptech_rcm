@@ -42,8 +42,9 @@ import { useInfo, useFeachData } from "hooks/useApiHook";
 
 const isSafari = getUserAgentBrowser() === "Safari";
 
-const doctype = "Fine Transaction"
-const fields = ['fine_amount', 'unpaid_amount', 'defendant_full_name', 'legacy_balance_amount', 'offence_code', 'status']
+const pageName = "Sales Doc List"
+const doctype = "Sales Order"
+const fields = ['customer_name']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();
@@ -150,12 +151,12 @@ export default function ListData() {
   useLockScrollbar(tableSettings.enableFullScreen);
 
   return (
-    <Page title={doctype}>
+    <Page title={pageName}>
       <div className="transition-content grid grid-cols-1 grid-rows-[auto_auto_1fr] px-(--margin-x) py-4">
         <div className="flex items-center justify-between space-x-4 ">
           <div className="min-w-0">
             <h2 className="truncate text-xl font-medium tracking-wide text-gray-800 dark:text-dark-50">
-              {doctype} Lists
+              {pageName}
             </h2>
           </div>
           <Button

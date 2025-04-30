@@ -57,75 +57,34 @@ const protectedRoutes = {
           ],
         },
         {
-          path: "transactions",
+          path: "sales",
           children: [
             {
               index: true,
-              element: <Navigate to="/transactions/charge-entry" />,
+              element: <Navigate to="/sales/sales-order" />,
             },
             {
-              path: "charge-entry",
+              path: "sales-order",
               lazy: async () => ({
-                Component: (await import("app/pages/transactions/charge-entry"))
+                Component: (await import("app/pages/sales/sales-order"))
                   .default,
               }),
             },
             {
-              path: "charge-entry/add-new",
+              path: "sales-order/add-new",
               lazy: async () => ({
-                Component: (await import("app/pages/transactions/charge-entry/form"))
+                Component: (await import("app/pages/sales/sales-order/form"))
                   .default,
               }),
             },
             {
-              path: "charge-entry/edit/:id",
+              path: "sales-order/edit/:id",
               lazy: async () => ({
-                Component: (await import("app/pages/transactions/charge-entry/form"))
+                Component: (await import("app/pages/sales/sales-order/form"))
                   .default,
               }),
             },
-            {
-              path: "case",
-              lazy: async () => ({
-                Component: (await import("app/pages/transactions/case"))
-                  .default,
-              }),
-            },
-            {
-              path: "case/add-new",
-              lazy: async () => ({
-                Component: (await import("app/pages/transactions/case/form"))
-                  .default,
-              }),
-            },
-            {
-              path: "case/edit/:id",
-              lazy: async () => ({
-                Component: (await import("app/pages/transactions/case/form"))
-                  .default,
-              }),
-            },
-            {
-              path: "payment-details",
-              lazy: async () => ({
-                Component: (await import("app/pages/transactions/payment-details"))
-                  .default,
-              }),
-            },
-            {
-              path: "payment-details/add-new",
-              lazy: async () => ({
-                Component: (await import("app/pages/transactions/payment-details/form"))
-                  .default,
-              }),
-            },
-            {
-              path: "payment-details/edit/:id",
-              lazy: async () => ({
-                Component: (await import("app/pages/transactions/payment-details/form"))
-                  .default,
-              }),
-            },
+
           ]
         },
         {
