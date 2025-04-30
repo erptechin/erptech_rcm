@@ -13,10 +13,10 @@ import { Button, Card } from "components/ui";
 import DynamicForms from 'app/components/form/dynamicForms';
 import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApiHook";
 
-const pageName = "Sales Doc List"
+const pageName = "Sales Orders"
 const doctype = "Sales Order"
-const fields = ['dob', 'driving_licence_no', 'filed_date', 'violator_first_name']
-const subFields = ['violator_last_name', 'offense_date']
+const fields = ['customer_name', 'order_type']
+const subFields = ['delivery_date']
 
 // ----------------------------------------------------------------------
 
