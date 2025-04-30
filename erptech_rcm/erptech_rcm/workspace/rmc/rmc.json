@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"Lb3o9D9e0w\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Order\",\"col\":3}},{\"id\":\"Z2A-27NJCG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Schedule\",\"col\":3}},{\"id\":\"r3kQHf_7dL\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Delivery Challan\",\"col\":3}},{\"id\":\"dYIGXYuIz3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Plant Consumption\",\"col\":3}},{\"id\":\"qv0YWHKW6P\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Weight Bridge\",\"col\":3}},{\"id\":\"io2jp943qu\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Consumption Settings\",\"col\":3}},{\"id\":\"HRxumpVEeN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Batch Report\",\"col\":3}},{\"id\":\"bcJMD214K0\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vehicle Log Entry\",\"col\":3}},{\"id\":\"cRsLuZXAtT\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Batching Plant-1</b></span>\",\"col\":12}},{\"id\":\"u7YId5z4pg\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Dispatch\",\"col\":3}},{\"id\":\"MrM3N_GvFR\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Yesterday Dispatch\",\"col\":3}},{\"id\":\"hLXw3xMNdd\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"This Month Dispatch\",\"col\":3}},{\"id\":\"key3MSMtvB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"This Year Dispatch\",\"col\":3}},{\"id\":\"UzpcH9zbOz\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Production Plan\",\"col\":4}},{\"id\":\"uGmF4MdK-b\",\"type\":\"card\",\"data\":{\"card_name\":\"Customer_Site Assredd\",\"col\":4}},{\"id\":\"HmvyfwoZJ6\",\"type\":\"card\",\"data\":{\"card_name\":\"Master\",\"col\":4}}]",
+ "content": "[{\"id\":\"Lb3o9D9e0w\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Order\",\"col\":3}},{\"id\":\"Z2A-27NJCG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Schedule\",\"col\":3}},{\"id\":\"r3kQHf_7dL\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Delivery Challan\",\"col\":3}},{\"id\":\"dYIGXYuIz3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Plant Consumption\",\"col\":3}},{\"id\":\"qv0YWHKW6P\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Weight Bridge\",\"col\":3}},{\"id\":\"io2jp943qu\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Consumption Settings\",\"col\":3}},{\"id\":\"HRxumpVEeN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Batch Report\",\"col\":3}},{\"id\":\"bcJMD214K0\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vehicle Log Entry\",\"col\":3}},{\"id\":\"cRsLuZXAtT\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 18px; letter-spacing: 0.18px;\\\"><b>Dispatch</b></span>\",\"col\":12}},{\"id\":\"u7YId5z4pg\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Dispatch\",\"col\":3}},{\"id\":\"MrM3N_GvFR\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Yesterday Dispatch\",\"col\":3}},{\"id\":\"hLXw3xMNdd\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"This Month Dispatch\",\"col\":3}},{\"id\":\"key3MSMtvB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"This Year Dispatch\",\"col\":3}},{\"id\":\"UzpcH9zbOz\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Production Plan\",\"col\":4}},{\"id\":\"uGmF4MdK-b\",\"type\":\"card\",\"data\":{\"card_name\":\"Customer_Site Assredd\",\"col\":4}},{\"id\":\"HmvyfwoZJ6\",\"type\":\"card\",\"data\":{\"card_name\":\"Master\",\"col\":4}}]",
  "creation": "2024-03-12 00:20:56.016182",
  "custom_blocks": [],
  "docstatus": 0,
@@ -112,18 +112,18 @@
    "type": "Link"
   }
  ],
- "modified": "2025-04-17 08:03:53.828668",
+ "modified": "2025-04-26 11:21:40.708259",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "RMC",
  "number_cards": [
   {
-   "label": "Yesterday Dispatch",
-   "number_card_name": "Yesterday Dispatch"
-  },
-  {
    "label": "Today Dispatch",
    "number_card_name": "Today Dispatch"
+  },
+  {
+   "label": "Yesterday Dispatch",
+   "number_card_name": "Yesterday Dispatch"
   },
   {
    "label": "This Month Dispatch",
