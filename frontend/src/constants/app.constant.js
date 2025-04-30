@@ -1,5 +1,5 @@
-export const APP_NAME = "SMART COURT";
-export const APP_KEY = "smart-court";
+export const APP_NAME = "RMC APP";
+export const APP_KEY = "rmc-app";
 
 // Redirect Paths
 export const REDIRECT_URL_KEY = "redirect";
