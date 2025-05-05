@@ -1,6 +1,9 @@
 import { NAV_TYPE_ITEM, } from "constants/app.constant";
 import DashboardsIcon from 'assets/dualicons/dashboards.svg?react'
-import DualTableIcon from 'assets/dualicons/table.svg?react'
+import DualComponentsIcon from 'assets/dualicons/components.svg?react'
+import DualApplicationsIcon from 'assets/dualicons/applications.svg?react'
+import DualFormsIcon from 'assets/dualicons/forms.svg?react'
+import DualElementsIcon from 'assets/dualicons/elements.svg?react'
 
 export const baseNavigation = [
     {
@@ -12,11 +15,35 @@ export const baseNavigation = [
         Icon: DashboardsIcon,
     },
     {
-        id: 'masters',
+        id: 'stores',
         type: NAV_TYPE_ITEM,
-        path: '/masters/region',
-        title: 'masters',
-        transKey: 'nav.masters.masters',
-        Icon: DualTableIcon,
+        path: '/stores/item',
+        title: 'Stores',
+        transKey: 'nav.stores.stores',
+        Icon: DualComponentsIcon,
+    },
+    {
+        id: 'purchases',
+        type: NAV_TYPE_ITEM,
+        path: '/purchases/supplier',
+        title: 'Purchases',
+        transKey: 'nav.purchases.purchases',
+        Icon: DualApplicationsIcon,
+    },
+    {
+        id: 'sales',
+        type: NAV_TYPE_ITEM,
+        path: '/sales/customer',
+        title: 'Sales',
+        transKey: 'nav.sales.sales',
+        Icon: DualFormsIcon,
+    },
+    {
+        id: 'labs',
+        type: NAV_TYPE_ITEM,
+        path: '/labs/recipe',
+        title: 'labs',
+        transKey: 'nav.labs.labs',
+        Icon: DualElementsIcon,
     }
 ]

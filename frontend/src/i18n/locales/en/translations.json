@@ -2,16 +2,35 @@
   "nav": {
     "dashboards": {
       "dashboards": "Home",
-      "home": "Home",
-      "charge-entry": "Charge Entry"
+      "home": "Home"
     },
-    "case-master": {
-      "case-master": "Case Masters",
-      "agency": "Agency"
+    "stores": {
+      "stores": "Stores",
+      "item": "Item",
+      "stock-entry": "Stock Entry"
+    },
+    "purchases": {
+      "purchases": "Purchases",
+      "supplier": "Supplier",
+      "purchase-order": "Purchase Order",
+      "purchase-receipt": "Purchase Receipt",
+      "purchase-invoice": "Purchase Invoice"
     },
     "sales": {
       "sales": "Sales",
-      "sales-order": "Sales Order"
+      "customer": "Customer",
+      "site": "Site",
+      "quotation": "Quotation",
+      "sales-order": "Sales Order",
+      "schedule": "Schedule",
+      "delivery-challan": "Delivery Challan",
+      "sales-invoice": "Sales Invoice"
+    },
+    "labs": {
+      "labs": "Labs",
+      "recipe": "Recipe",
+      "grade": "Grade",
+      "cube-testing-register": "Cube Testing Register"
     },
     "settings": {
       "settings": "Settings",
