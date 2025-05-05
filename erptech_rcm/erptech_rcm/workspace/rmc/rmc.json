@@ -112,7 +112,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-04-26 11:21:40.708259",
+ "modified": "2025-05-04 16:18:10.258258",
  "modified_by": "Administrator",
  "module": "Erptech Rcm",
  "name": "RMC",
@@ -144,7 +144,11 @@
    "quick_list_filter": "[[\"Production Plan\",\"posting_date\",\"Timespan\",\"today\",false]]"
   }
  ],
- "roles": [],
+ "roles": [
+  {
+   "role": ""
+  }
+ ],
  "sequence_id": 0.0,
  "shortcuts": [
   {
