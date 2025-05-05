@@ -431,6 +431,57 @@ const protectedRoutes = {
             },
           ]
         },
+        {
+          path: "fleets",
+          children: [
+            {
+              index: true,
+              element: <Navigate to="/fleets/vehicle" />,
+            },
+            {
+              path: "vehicle",
+              lazy: async () => ({
+                Component: (await import("app/pages/fleets/vehicle"))
+                  .default,
+              }),
+            },
+            {
+              path: "vehicle/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/fleets/vehicle/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "vehicle/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/fleets/vehicle/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "driver",
+              lazy: async () => ({
+                Component: (await import("app/pages/fleets/driver"))
+                  .default,
+              }),
+            },
+            {
+              path: "driver/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/fleets/driver/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "driver/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/fleets/driver/form"))
+                  .default,
+              }),
+            },
+          ]
+        },
       ]
     },
     {

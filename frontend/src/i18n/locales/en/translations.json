@@ -32,6 +32,11 @@
       "grade": "Grade",
       "cube-testing-register": "Cube Testing Register"
     },
+    "fleets": {
+      "fleets": "Fleets",
+      "driver": "Driver",
+      "vehicle": "Vehicle"
+    },
     "settings": {
       "settings": "Settings",
       "general": "General",

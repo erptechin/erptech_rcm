@@ -3,6 +3,7 @@ import { stores } from "./stores";
 import { purchases } from "./purchases";
 import { sales } from "./sales";
 import { labs } from "./labs";
+import { fleets } from "./fleets";
 
 export const navigation = [
     dashboards,
@@ -10,6 +11,7 @@ export const navigation = [
     purchases,
     sales,
     labs,
+    fleets,
 ]
 
 export { baseNavigation } from './baseNavigation'
