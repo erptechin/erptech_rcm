@@ -42,8 +42,9 @@ import { useInfo, useFeachData } from "hooks/useApiHook";
 
 const isSafari = getUserAgentBrowser() === "Safari";
 
-const doctype = "Agency"
-const fields = ['agency_name', 'agency_code', 'type', 'por_category', 'omv_issuing_agency']
+const pageName = "Recipe List"
+const doctype = "Recipe"
+const fields = ['recipe_name']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();
@@ -150,12 +151,12 @@ export default function ListData() {
   useLockScrollbar(tableSettings.enableFullScreen);
 
   return (
-    <Page title={doctype}>
+    <Page title={pageName}>
       <div className="transition-content grid grid-cols-1 grid-rows-[auto_auto_1fr] px-(--margin-x) py-4">
         <div className="flex items-center justify-between space-x-4 ">
           <div className="min-w-0">
             <h2 className="truncate text-xl font-medium tracking-wide text-gray-800 dark:text-dark-50">
-              {doctype} Lists
+              {pageName}
             </h2>
           </div>
           <Button

@@ -42,7 +42,7 @@ import { useInfo, useFeachData } from "hooks/useApiHook";
 
 const isSafari = getUserAgentBrowser() === "Safari";
 
-const pageName = "Sales Doc List"
+const pageName = "Sales Order List"
 const doctype = "Sales Order"
 const fields = ['customer_name', 'order_type', 'delivery_date']
 

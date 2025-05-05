@@ -57,11 +57,220 @@ const protectedRoutes = {
           ],
         },
         {
+          path: "stores",
+          children: [
+            {
+              index: true,
+              element: <Navigate to="/stores/item" />,
+            },
+            {
+              path: "item",
+              lazy: async () => ({
+                Component: (await import("app/pages/stores/item"))
+                  .default,
+              }),
+            },
+            {
+              path: "item/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/stores/item/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "item/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/stores/item/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "stock-entry",
+              lazy: async () => ({
+                Component: (await import("app/pages/stores/stock-entry"))
+                  .default,
+              }),
+            },
+            {
+              path: "stock-entry/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/stores/stock-entry/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "stock-entry/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/stores/stock-entry/form"))
+                  .default,
+              }),
+            },
+
+          ]
+        },
+        {
+          path: "purchases",
+          children: [
+            {
+              index: true,
+              element: <Navigate to="/purchases/supplier" />,
+            },
+            {
+              path: "supplier",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/supplier"))
+                  .default,
+              }),
+            },
+            {
+              path: "supplier/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/supplier/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "supplier/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/supplier/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "purchase-order",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/purchase-order"))
+                  .default,
+              }),
+            },
+            {
+              path: "purchase-order/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/purchase-order/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "purchase-order/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/purchase-order/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "purchase-receipt",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/purchase-receipt"))
+                  .default,
+              }),
+            },
+            {
+              path: "purchase-receipt/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/purchase-receipt/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "purchase-receipt/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/purchase-receipt/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "purchase-invoice",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/purchase-invoice"))
+                  .default,
+              }),
+            },
+            {
+              path: "purchase-invoice/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/purchase-invoice/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "purchase-invoice/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/purchases/purchase-invoice/form"))
+                  .default,
+              }),
+            },
+
+          ]
+        },
+        {
           path: "sales",
           children: [
             {
               index: true,
-              element: <Navigate to="/sales/sales-order" />,
+              element: <Navigate to="/sales/customer" />,
+            },
+            {
+              path: "customer",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/customer"))
+                  .default,
+              }),
+            },
+            {
+              path: "customer/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/customer/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "customer/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/customer/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "site",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/site"))
+                  .default,
+              }),
+            },
+            {
+              path: "site/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/site/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "site/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/site/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "quotation",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/quotation"))
+                  .default,
+              }),
+            },
+            {
+              path: "quotation/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/quotation/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "quotation/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/quotation/form"))
+                  .default,
+              }),
             },
             {
               path: "sales-order",
@@ -84,34 +293,139 @@ const protectedRoutes = {
                   .default,
               }),
             },
+            {
+              path: "schedule",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/schedule"))
+                  .default,
+              }),
+            },
+            {
+              path: "schedule/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/schedule/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "schedule/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/schedule/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "delivery-challan",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/delivery-challan"))
+                  .default,
+              }),
+            },
+            {
+              path: "delivery-challan/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/delivery-challan/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "delivery-challan/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/delivery-challan/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "sales-invoice",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/sales-invoice"))
+                  .default,
+              }),
+            },
+            {
+              path: "sales-invoice/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/sales-invoice/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "sales-invoice/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/sales/sales-invoice/form"))
+                  .default,
+              }),
+            },
 
           ]
         },
         {
-          path: "case-master",
+          path: "labs",
           children: [
             {
               index: true,
-              element: <Navigate to="/case-master/agency" />,
+              element: <Navigate to="/labs/recipe" />,
             },
             {
-              path: "agency",
+              path: "recipe",
               lazy: async () => ({
-                Component: (await import("app/pages/case-master/agency"))
+                Component: (await import("app/pages/labs/recipe"))
                   .default,
               }),
             },
             {
-              path: "agency/add-new",
+              path: "recipe/add-new",
               lazy: async () => ({
-                Component: (await import("app/pages/case-master/agency/form"))
+                Component: (await import("app/pages/labs/recipe/form"))
                   .default,
               }),
             },
             {
-              path: "agency/edit/:id",
+              path: "recipe/edit/:id",
               lazy: async () => ({
-                Component: (await import("app/pages/case-master/agency/form"))
+                Component: (await import("app/pages/labs/recipe/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "grade",
+              lazy: async () => ({
+                Component: (await import("app/pages/labs/grade"))
+                  .default,
+              }),
+            },
+            {
+              path: "grade/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/labs/grade/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "grade/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/labs/grade/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "cube-testing-register",
+              lazy: async () => ({
+                Component: (await import("app/pages/labs/cube-testing-register"))
+                  .default,
+              }),
+            },
+            {
+              path: "cube-testing-register/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/labs/cube-testing-register/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "cube-testing-register/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/labs/cube-testing-register/form"))
                   .default,
               }),
             },

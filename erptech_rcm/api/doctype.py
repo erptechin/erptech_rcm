@@ -154,7 +154,10 @@ def single_data():
         frappe.log_error(frappe.get_traceback(), "Error in fetching item list")
         create_response(500, ex)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fd2a4fab63f8652f767eb6da93766dc1d8acecaa
 @frappe.whitelist()
 def delete_data():
     try:

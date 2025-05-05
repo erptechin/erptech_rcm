@@ -3,5 +3,5 @@
  * https://github.com/pinia-studio/jwt-api-node
 **/
 
-export const JWT_HOST_API = "https://jke.erptech.in";
+export const JWT_HOST_API = "";
 export const company = "";
