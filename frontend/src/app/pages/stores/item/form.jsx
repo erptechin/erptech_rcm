@@ -1,10 +1,11 @@
 // Import Dependencies
 import { useNavigate, useParams } from "react-router";
-import { Skeleton } from "components/ui";
+import { Skeleton, Input } from "components/ui";
 import { useThemeContext } from "app/contexts/theme/context";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { DocumentPlusIcon } from "@heroicons/react/24/outline";
+import { Controller } from 'react-hook-form';
 
 // Local Imports
 import { Schema } from "app/components/form/schema";
@@ -13,10 +14,11 @@ import { Button, Card } from "components/ui";
 import DynamicForms from 'app/components/form/dynamicForms';
 import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApiHook";
 
-const pageName = "Sales Orders"
-const doctype = "Sales Order"
-const fields = ['customer_name', 'order_type']
-const subFields = ['delivery_date']
+const pageName = "Item List"
+const doctype = "Item"
+const fields = ['item_name', 'item_group']
+const subFields = ['stock_uom']
+const extraFields = ['item_code', 'gst_hsn_code']
 
 // ----------------------------------------------------------------------
 
@@ -28,8 +30,8 @@ export default function AddEditFrom() {
   const { isDark, darkColorScheme, lightColorScheme } = useThemeContext();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...fields, ...subFields]) });
-  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: JSON.stringify([...fields, ...subFields]) });
+  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...fields, ...subFields, ...extraFields]) });
+  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: JSON.stringify([...fields, ...subFields, ...extraFields]) });
 
   const mutationAdd = useAddData((data) => {
     if (data) {
@@ -109,12 +111,39 @@ export default function AddEditFrom() {
             <div className="col-span-12 lg:col-span-8">
               <Card className="p-4 sm:px-5">
                 <div className="mt-5 space-y-5">
+                  <Controller
+                    render={({ field: { value } }) => (
+                      <Input
+                        value={value ? String(value) : ''}
+                        readOnly={id ? true : false}
+                        label="Item Code"
+                        placeholder={`Enter Item Code`}
+                        {...register('item_code')}
+                        error={errors?.item_code?.message}
+                      />
+                    )}
+                    control={control}
+                    {...register('item_code')}
+                  />
                   <DynamicForms
                     infos={info?.fields}
                     fields={fields}
                     register={register}
                     control={control}
                     errors={errors}
+                  />
+                  <Controller
+                    render={({ field: { value } }) => (
+                      <Input
+                        value={value ? String(value) : '38245010'}
+                        label="GST HSN"
+                        placeholder={`Enter the GST HSN`}
+                        {...register('gst_hsn_code')}
+                        error={errors?.gst_hsn_code?.message}
+                      />
+                    )}
+                    control={control}
+                    {...register('gst_hsn_code')}
                   />
                 </div>
               </Card>

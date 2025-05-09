@@ -20,16 +20,16 @@ def list_info():
                         subMeta = frappe.get_meta(field.options)
                         subFields = ["name"]
                         subTitel = None
-                        # if subMeta.as_dict()['title_field']:
-                        #     subTitel = subMeta.as_dict()['title_field']
-                        #     subFields.append(subTitel)
-                        # options_lists = frappe.get_all(field.options, fields=subFields)
+                        if subMeta.as_dict()['title_field']:
+                            subTitel = subMeta.as_dict()['title_field']
+                            subFields.append(subTitel)
+                        options_lists = frappe.get_all(field.options, fields=subFields)
                         converted_options_lists = []
-                        # for item in options_lists:
-                        #     converted_options_lists.append({
-                        #         'value': item['name'],
-                        #         'label': item[subTitel]
-                        #     })
+                        for item in options_lists:
+                            converted_options_lists.append({
+                                'value': item['name'],
+                                'label':  item[subTitel] if subTitel else item['name']
+                            })
                         field_dict['options_list'] = converted_options_lists
                         field_dict['title_field'] = subTitel
                     if field_dict.fieldtype == 'Table':
@@ -57,7 +57,7 @@ def list_info():
                         for item in options_lists:
                             converted_options_lists.append({
                                 'value': item['name'],
-                                'label': item[subTitel]
+                                'label':  item[subTitel] if subTitel else item['name']
                             })
                         field_dict['options_list'] = converted_options_lists
                         field_dict['title_field'] = subTitel

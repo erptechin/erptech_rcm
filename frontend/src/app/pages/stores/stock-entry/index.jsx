@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Stock Entry List"
 const doctype = "Stock Entry"
-const fields = ['stock_entry_type', 'posting_date']
+const fields = ['posting_date', 'stock_entry_type']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();
