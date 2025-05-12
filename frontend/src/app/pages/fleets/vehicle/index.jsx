@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Vehicle List"
 const doctype = "Vehicle"
-const fields = ['license_plate', 'model', 'last_odometer', 'vehicle_value', 'fuel_type']
+const fields = ['license_plate', 'model', 'make', 'last_odometer', 'custom_driver_name', 'custom_tare_weight']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();

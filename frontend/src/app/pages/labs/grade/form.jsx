@@ -15,8 +15,13 @@ import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApi
 
 const pageName = "Grade List"
 const doctype = "BOM"
-const fields = ['item', 'custom_mix_description', 'custom_recipe_code', 'custom_customer']
-const subFields = ['custom_site', 'item_name', 'qty', 'uom']
+const fields = ['custom_customer', 'custom_site', 'custom_recipe_code', 'item_name', 'custom_mix_description', 'items']
+const subFields = ['custom_recipe_code', 'quantity']
+
+const tableFields = {
+  "items": { "item_code": true, "qty": true, "uom": true, "rate": true, "amount": true }
+}
+
 
 // ----------------------------------------------------------------------
 
@@ -112,6 +117,7 @@ export default function AddEditFrom() {
                   <DynamicForms
                     infos={info?.fields}
                     fields={fields}
+                    tables={tableFields}
                     register={register}
                     control={control}
                     errors={errors}

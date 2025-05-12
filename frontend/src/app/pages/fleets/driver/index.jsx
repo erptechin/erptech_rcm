@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Driver List"
 const doctype = "Driver"
-const fields = ['full_name', 'status', 'employee']
+const fields = ['full_name', 'license_number', 'issuing_date', 'expiry_date', 'cell_number', 'status']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();

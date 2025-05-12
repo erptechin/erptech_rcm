@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Schedule List"
 const doctype = "Production Plan"
-const fields = ['posting_date', 'company']
+const fields = ['posting_date', 'customer', 'custom_site']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();

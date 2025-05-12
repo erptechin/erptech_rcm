@@ -89,7 +89,7 @@ export default function SubValues({ onClose, id, doctype }) {
           <div className="grid grid-cols-12 place-content-start gap-4 sm:gap-5 lg:gap-6">
             <div className="col-span-12 lg:col-span-12">
               <Card className="p-4 sm:px-5">
-                <div className="mt-5 space-y-5">
+                <div className="mt-5 space-y-5 h-[75vh] overflow-y-auto">
                   <DynamicForms
                     infos={info?.fields}
                     fields={fields}

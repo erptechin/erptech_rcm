@@ -42,9 +42,9 @@ import { useInfo, useFeachData } from "hooks/useApiHook";
 
 const isSafari = getUserAgentBrowser() === "Safari";
 
-const pageName = "Sales Invoice List"
-const doctype = "Sales Invoice"
-const fields = ['posting_date', 'customer', 'company']
+const pageName = "Delivery Challan List"
+const doctype = "Delivery Note"
+const fields = ['posting_date', 'customer', 'custom_site', 'custom_vehicle', 'driver']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();

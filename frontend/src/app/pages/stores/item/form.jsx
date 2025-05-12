@@ -16,9 +16,9 @@ import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApi
 
 const pageName = "Item List"
 const doctype = "Item"
-const fields = ['item_name', 'item_group']
-const subFields = ['stock_uom']
-const extraFields = ['item_code', 'gst_hsn_code']
+const fields = ['item_name', 'item_group', 'is_stock_item', 'stock_uom', 'opening_stock', 'standard_rate']
+const subFields = ['item_code']
+const extraFields = ['gst_hsn_code']
 
 // ----------------------------------------------------------------------
 
@@ -111,20 +111,6 @@ export default function AddEditFrom() {
             <div className="col-span-12 lg:col-span-8">
               <Card className="p-4 sm:px-5">
                 <div className="mt-5 space-y-5">
-                  <Controller
-                    render={({ field: { value } }) => (
-                      <Input
-                        value={value ? String(value) : ''}
-                        readOnly={id ? true : false}
-                        label="Item Code"
-                        placeholder={`Enter Item Code`}
-                        {...register('item_code')}
-                        error={errors?.item_code?.message}
-                      />
-                    )}
-                    control={control}
-                    {...register('item_code')}
-                  />
                   <DynamicForms
                     infos={info?.fields}
                     fields={fields}
@@ -132,31 +118,31 @@ export default function AddEditFrom() {
                     control={control}
                     errors={errors}
                   />
-                  <Controller
-                    render={({ field: { value } }) => (
-                      <Input
-                        value={value ? String(value) : '38245010'}
-                        label="GST HSN"
-                        placeholder={`Enter the GST HSN`}
-                        {...register('gst_hsn_code')}
-                        error={errors?.gst_hsn_code?.message}
-                      />
-                    )}
-                    control={control}
-                    {...register('gst_hsn_code')}
-                  />
                 </div>
               </Card>
             </div>
             <div className="col-span-12 space-y-4 sm:space-y-5 lg:col-span-4 lg:space-y-6">
               <Card className="space-y-5 p-4 sm:px-5">
-
                 <DynamicForms
                   infos={info?.fields}
                   fields={subFields}
+                  readOnly={true}
                   register={register}
                   control={control}
                   errors={errors}
+                />
+                <Controller
+                  render={({ field: { value } }) => (
+                    <Input
+                      value={value ? String(value) : '38245010'}
+                      label="GST HSN"
+                      placeholder={`Enter the GST HSN`}
+                      {...register('gst_hsn_code')}
+                      error={errors?.gst_hsn_code?.message}
+                    />
+                  )}
+                  control={control}
+                  {...register('gst_hsn_code')}
                 />
               </Card>
             </div>
