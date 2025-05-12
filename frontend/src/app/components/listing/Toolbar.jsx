@@ -14,6 +14,7 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
+import { jsPDF } from 'jspdf';
 
 // Local Imports
 import { TableConfig } from "./TableConfig";
@@ -21,6 +22,76 @@ import { Button, Input } from "components/ui";
 
 export function Toolbar({ table }) {
   const enableFullScreen = table.getState().tableSettings.enableFullScreen;
+
+  const tableData = table.getRowModel().rows.map(row =>
+    row.getVisibleCells().reduce((acc, cell) => {
+      if (cell.column.id != 'select' && cell.column.id != 'actions') {
+        acc[cell.column.id] = cell.getValue();
+      }
+      return acc;
+    }, {})
+  );
+
+  const exportPDF = () => {
+    const doc = new jsPDF();
+
+    if (!tableData || tableData.length === 0) {
+      doc.text("No data available.", 10, 10);
+      doc.save('data.pdf');
+      return;
+    }
+
+    const keys = Object.keys(tableData[0]);
+    let y = 10;
+
+    // Header row
+    doc.setFont(undefined, 'bold');
+    keys.forEach((key, i) => {
+      doc.text(key, 10 + i * 50, y); // adjust spacing (50) as needed
+    });
+
+    doc.setFont(undefined, 'normal');
+    y += 10;
+
+    // Data rows
+    tableData.forEach(row => {
+      keys.forEach((key, i) => {
+        const value = String(row[key] ?? '');
+        doc.text(value, 10 + i * 50, y);
+      });
+      y += 10;
+    });
+
+    doc.save('data.pdf');
+  };
+
+  const exportCSV = () => {
+    if (!tableData || tableData.length === 0) return;
+    const keys = Object.keys(tableData[0]);
+    const csvRows = [];
+
+    // Header
+    csvRows.push(keys.join(','));
+
+    // Rows
+    tableData.forEach(obj => {
+      const row = keys.map(key => {
+        let val = obj[key] ?? '';
+        if (typeof val === 'string') val = val.replace(/"/g, '""');
+        return `"${val}"`;
+      });
+      csvRows.push(row.join(','));
+    });
+
+    const csvContent = csvRows.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div
@@ -32,13 +103,6 @@ export function Toolbar({ table }) {
       <SearchInput table={table} />
       <div className={clsx("flex", enableFullScreen && "ltr:-mr-2 rtl:-ml-2")}>
         <TableConfig table={table} />
-        <Button
-          variant="outlined"
-          className="h-8 space-x-2 rounded-md px-3 text-xs "
-        >
-          <PrinterIcon className="size-4" />
-          <span>Print</span>
-        </Button>
         <Menu
           as="div"
           className="relative inline-block whitespace-nowrap text-left ml-2"
@@ -65,6 +129,7 @@ export function Toolbar({ table }) {
             <MenuItem>
               {({ focus }) => (
                 <button
+                  onClick={exportPDF}
                   className={clsx(
                     "flex h-9 w-full items-center px-3 tracking-wide outline-hidden transition-colors",
                     focus &&
@@ -78,6 +143,7 @@ export function Toolbar({ table }) {
             <MenuItem>
               {({ focus }) => (
                 <button
+                  onClick={exportCSV}
                   className={clsx(
                     "flex h-9 w-full items-center px-3 tracking-wide outline-hidden transition-colors",
                     focus &&

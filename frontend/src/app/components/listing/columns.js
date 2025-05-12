@@ -3,6 +3,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 
 // Local Imports
 import { RowActions } from "./RowActions";
+import { RowPrints } from "./RowPrints";
 import {
     SelectCell,
     SelectHeader,
@@ -18,7 +19,7 @@ import {
 
 const columnHelper = createColumnHelper();
 
-export function Columns(fields = []) {
+export function Columns(fields = [], isPrint = false) {
     let returnColumns = []
 
     // Check box
@@ -111,6 +112,15 @@ export function Columns(fields = []) {
                 cell: DateCell,
             }))
         }
+    }
+
+    if (isPrint) {
+        returnColumns.push(columnHelper.display({
+            id: "print",
+            label: "Row Print",
+            header: "Print",
+            cell: RowPrints
+        }))
     }
 
     returnColumns.push(columnHelper.display({

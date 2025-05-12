@@ -19,6 +19,13 @@ import SubValues from "./subValues";
 
 // ----------------------------------------------------------------------
 
+function randerField(str) {
+  return String(str ?? '')
+    .replace(/_/g, ' ')
+    .replace(/custom/gi, '')
+    .trim();
+}
+
 const Table = forwardRef(({ onChange, values, label, rootItem, tableFields, error }, ref) => {
   const [listData, setListData] = useState([]);
   const [newValues, setNewValues] = useState([]);
@@ -107,12 +114,13 @@ const Table = forwardRef(({ onChange, values, label, rootItem, tableFields, erro
         </div>
 
         <div className="relative mt-1.5">
-          <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+          <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-6">
             {newValues.map((item, key) => {
+
               let html = ``
               Object.keys(tableFields).map((field, k) => {
                 if (typeof (tableFields[field]) === 'boolean' && item[field]) {
-                  html += `<h2 class="line-clamp-1 mb-2 text-lg font-bold tracking-wide">${item[field]}</h2>`
+                  html += `<h2 class="line-clamp-1 mb-2 text-lg font-bold tracking-wide">${randerField(field)}: ${item[field]}</h2>`
                 }
                 if (field === 'image' && item[field]) {
                   html += `<img class="avatar-image avatar-display relative h-30 w-full before:absolute before:inset-0 before:rounded-[inherit] before:bg-gray-150 dark:before:bg-dark-600 rounded-lg" alt="avatar" loading="lazy" src="${JWT_HOST_API + item[field]}" />`
@@ -124,7 +132,7 @@ const Table = forwardRef(({ onChange, values, label, rootItem, tableFields, erro
                   let selItem = listData[field] ? listData[field].find((list) => list.name === item[field]) : {}
                   Object.keys(tableFields[field]).map((k) => {
                     let keyName = tableFields[field][k]
-                    html += `<p class="line-clamp-1 mb-1 font-medium tracking-wide">${selItem ? selItem[keyName] : ''}</p>`
+                    html += `<p class="line-clamp-1 mb-1 font-medium tracking-wide">${randerField(field)}: ${selItem ? selItem[keyName] : ''}</p>`
                   })
                 }
               })

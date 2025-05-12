@@ -7,7 +7,7 @@ def create_stock_entry(doc, method):
     host = frappe.request.host
     parts = host.split(".")
     subdomain = parts[0]
-    if subdomain == "jke" or subdomain == "balaji" or subdomain == "biharrmc" or subdomain == "greystoneinfra":
+    if subdomain == "localhost:8000" or subdomain == "jke" or subdomain == "balaji" or subdomain == "biharrmc" or subdomain == "greystoneinfra":
         pass
     else:
         # Check some conditions or add any custom validation logic before creating a Stock Entry
@@ -82,3 +82,12 @@ def create_stock_entry(doc, method):
         frappe.msgprint(
             f"Stock Entry {stock_entry.name} has been created successfully."
         )
+    
+
+    # Create Installation Note
+    db_name = "Installation Note"
+    exists = frappe.db.exists(db_name, {"custom_delivery_note": doc.name})
+    if exists:
+        pass
+    else:
+        pass

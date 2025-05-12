@@ -23,7 +23,7 @@ import { Button } from "components/ui";
 import { useDeleteData } from "hooks/useApiHook";
 // ----------------------------------------------------------------------
 
-export function RowActions({ row, table }) {
+export function RowActions({ row, table, isPrint }) {
   const navigate = useNavigate();
   const doctype = table.options.doctype
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);

@@ -96,7 +96,7 @@ export default function ListData() {
 
   const table = useReactTable({
     data: orders,
-    columns: Columns(info?.fields),
+    columns: Columns(info?.fields, true),
     doctype,
     state: {
       globalFilter,

@@ -25,7 +25,7 @@ export default function SubValues({ onClose, id, doctype }) {
 
   useEffect(() => {
     if (info?.fields) {
-      const fields = (info.fields).filter(item => item.read_only === 0).map(item => item.fieldname)
+      const fields = (info.fields).filter(item => item.read_only === 0 && item.reqd === 1).map(item => item.fieldname)
       setFields(fields)
     }
   }, [info])
