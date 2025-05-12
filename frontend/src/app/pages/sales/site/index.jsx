@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Address List"
 const doctype = "Address"
-const fields = ['address_title', 'email_id', 'phone', 'city']
+const fields = ['address_title', 'address_type', 'address_line1', 'pincode', 'email_id', 'phone', 'city']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();

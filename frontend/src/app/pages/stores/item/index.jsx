@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Item List"
 const doctype = "Item"
-const fields = ['item_name', 'item_group', 'is_stock_item', 'stock_uom', 'gst_hsn_code']
+const fields = ['item_name', 'item_group', 'is_stock_item', 'stock_uom', 'gst_hsn_code', 'opening_stock', 'standard_rate']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();

@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Recipe List"
 const doctype = "Recipe"
-const fields = ['recipe_name']
+const fields = ['recipe_code', 'recipe_name', 'density']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();

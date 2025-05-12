@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Controller } from 'react-hook-form';
 import { SketchPicker } from 'react-color';
 import { Input, Textarea, Checkbox, Button, Upload, Avatar } from "components/ui";
+import { DatePicker } from "components/shared/form/Datepicker";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { TextEditor } from "components/shared/form/TextEditor";
 import { htmlToDelta } from "utils/quillUtils";
@@ -27,7 +28,7 @@ const editorModules = {
     ],
 };
 
-export default function DynamicForms({ infos, fields, register, control, errors, tables }) {
+export default function DynamicForms({ infos, fields, register, control, errors, tables, readOnly }) {
     const uploadRef = useRef();
     return (
         <div className="space-y-4">
@@ -89,6 +90,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                             render={({ field: { value } }) => (
                                                 <Input
                                                     value={value}
+                                                    readOnly={readOnly ?? false}
                                                     label={item.label}
                                                     placeholder={`Enter the ${item.label}`}
                                                     {...register(item.fieldname)}
@@ -99,6 +101,64 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                             {...register(item.fieldname)}
                                         />
                                     );
+
+
+                                case 'Currency':
+                                    return (
+                                        <Controller
+                                            render={({ field: { value } }) => (
+                                                <Input
+                                                    type="number"
+                                                    readOnly={readOnly ?? false}
+                                                    value={value}
+                                                    label={item.label}
+                                                    placeholder={`Enter the ${item.label}`}
+                                                    {...register(item.fieldname)}
+                                                    error={errors[item.fieldname]?.message}
+                                                />
+                                            )}
+                                            control={control}
+                                            {...register(item.fieldname)}
+                                        />
+                                    );
+
+                                case 'Float':
+                                    return (
+                                        <Controller
+                                            render={({ field: { value } }) => (
+                                                <Input
+                                                    type="number"
+                                                    readOnly={readOnly ?? false}
+                                                    value={value}
+                                                    label={item.label}
+                                                    placeholder={`Enter the ${item.label}`}
+                                                    {...register(item.fieldname)}
+                                                    error={errors[item.fieldname]?.message}
+                                                />
+                                            )}
+                                            control={control}
+                                            {...register(item.fieldname)}
+                                        />
+                                    );
+
+                                case 'Int':
+                                    return (
+                                        <Controller
+                                            render={({ field: { value } }) => (
+                                                <Input
+                                                    type="number"
+                                                    value={value}
+                                                    label={item.label}
+                                                    placeholder={`Enter the ${item.label}`}
+                                                    {...register(item.fieldname)}
+                                                    error={errors[item.fieldname]?.message}
+                                                />
+                                            )}
+                                            control={control}
+                                            {...register(item.fieldname)}
+                                        />
+                                    );
+
 
                                 case 'Check':
                                     return (
@@ -210,6 +270,34 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                                     {...rest}
                                                 />
                                             )}
+                                            control={control}
+                                            name={item.fieldname}
+                                            {...register(item.fieldname)}
+                                        />
+                                    );
+
+                                case 'Date':
+                                    return (
+                                        <Controller
+                                            render={({ field: { onChange, value, ...rest } }) => {
+
+                                                const onChangeDate = (obj) => {
+                                                    const date = new Date(obj[0]);
+                                                    date.setDate(date.getDate() + 1);
+                                                    const formatted = new Date(date).toISOString().split('T')[0];
+                                                    onChange(formatted)
+                                                }
+
+                                                return <DatePicker
+                                                    onChange={onChangeDate}
+                                                    value={value || ""}
+                                                    label={item.label}
+                                                    error={errors[item.fieldname]?.message}
+                                                    options={{ disableMobile: true }}
+                                                    placeholder={`Enter the ${item.label}`}
+                                                    {...rest}
+                                                />
+                                            }}
                                             control={control}
                                             name={item.fieldname}
                                             {...register(item.fieldname)}

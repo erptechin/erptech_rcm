@@ -13,10 +13,15 @@ import { Button, Card } from "components/ui";
 import DynamicForms from 'app/components/form/dynamicForms';
 import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApiHook";
 
-const pageName = "Sales Orders"
-const doctype = "Sales Order"
-const fields = ['customer_name', 'order_type']
-const subFields = ['delivery_date']
+const pageName = "Stock Entry List"
+const doctype = "Stock Entry"
+const fields = ['posting_date', 'posting_time', 'items']
+const subFields = ['stock_entry_type']
+
+const tableFields = {
+  "items": { "item_name": true, "qty": true, "uom": true, "basic_rate": true, "basic_amount": true, "amount": true }
+}
+
 
 // ----------------------------------------------------------------------
 
@@ -112,6 +117,7 @@ export default function AddEditFrom() {
                   <DynamicForms
                     infos={info?.fields}
                     fields={fields}
+                    tables={tableFields}
                     register={register}
                     control={control}
                     errors={errors}

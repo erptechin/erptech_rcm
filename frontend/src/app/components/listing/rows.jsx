@@ -78,9 +78,15 @@ export function CustomerCell({ row, getValue, column, table }) {
   );
 }
 
+
 export function TotalCell({ getValue }) {
   return (
-    <p className="text-sm-plus font-medium text-gray-800 dark:text-dark-100">
+    <p
+      className={clsx(
+        "text-sm-plus font-medium text-green-800 dark:text-dark-100 ",
+        getValue() < 0 && "text-red-800",
+      )}
+    >
       ${getValue().toFixed(1)}
     </p>
   );
