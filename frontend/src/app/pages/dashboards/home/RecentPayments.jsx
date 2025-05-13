@@ -1,61 +1,35 @@
 // Local Imports
 import { Avatar, Card } from "components/ui";
-
+import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
+import { useInfo, useFeachData } from "hooks/useApiHook";
 // ----------------------------------------------------------------------
 
-const payments = [
-  {
-    uid: "1",
-    name: "Konnor Guzman",
-    avatar: "/images/200x200.png",
-    time: "Dec 21, 2021 - 08:05",
-    amount: "$660.22",
-  },
-  {
-    uid: "2",
-    name: "Henry Curtis",
-    avatar: "/images/200x200.png",
-    time: "Dec 19, 2021 - 11:55",
-    amount: "$33.63",
-  },
-  {
-    uid: "3",
-    name: "Derrick Simmons",
-    avatar: null,
-    time: "Dec 16, 2021 - 14:45",
-    amount: "$674.63",
-  },
-  {
-    uid: "4",
-    name: "Kartina West",
-    avatar: "/images/200x200.png",
-    time: "Dec 13, 2021 - 11:30",
-    amount: "$547.63",
-  },
-  {
-    uid: "5",
-    name: "Samantha Shelton",
-    avatar: "/images/200x200.png",
-    time: "Dec 10, 2021 - 09:41",
-    amount: "$736.24",
-  },
-  {
-    uid: "6",
-    name: "Joe Perkins",
-    avatar: null,
-    time: "Dec 06, 2021 - 11:41",
-    amount: "$369.6",
-  },
-  {
-    uid: "7",
-    name: "John Parker",
-    avatar: "/images/200x200.png",
-    time: "Dec 09, 2021 - 23:20",
-    amount: "$231.0",
-  },
-];
+const doctype = "Sales Invoice"
+const fields = ['posting_date', 'custom_site', 'total', 'grand_total']
 
 export function RecentPayments() {
+
+  const navigate = useNavigate();
+  const [lists, setLists] = useState([]);
+
+  const { data: info } = useInfo({ doctype, fields: JSON.stringify(fields) });
+  const [search, setSearch] = useState({ doctype, page: 1, page_length: 10, fields: null });
+  const { data } = useFeachData(search);
+
+  useEffect(() => {
+    if (info?.fields) {
+      const fieldnames = info?.fields.map(field => field.fieldname);
+      setSearch({ ...search, fields: JSON.stringify([...fieldnames, "name"]) })
+    }
+  }, [info])
+
+  useEffect(() => {
+    if (data?.data) {
+      setLists(data?.data)
+    }
+  }, [data])
+
   return (
     <Card className="px-4 pb-4 sm:px-5">
       <div className="flex h-14 min-w-0 items-center justify-between py-3">
@@ -63,16 +37,16 @@ export function RecentPayments() {
           Recent Payments
         </h2>
         <a
-          href="##"
+          onClick={() => navigate('/sales/sales-invoice')}
           className="border-b border-dotted border-current pb-0.5 text-xs-plus font-medium text-primary-600 outline-hidden transition-colors duration-300 hover:text-primary-600/70 focus:text-primary-600/70 dark:text-primary-400 dark:hover:text-primary-400/70 dark:focus:text-primary-400/70"
         >
           View All
         </a>
       </div>
       <div className="space-y-3.5">
-        {payments.map((payment) => (
+        {lists.map((payment) => (
           <div
-            key={payment.uid}
+            key={payment.id}
             className="flex items-center justify-between gap-3"
           >
             <div className="flex items-center gap-3">
@@ -80,19 +54,19 @@ export function RecentPayments() {
                 size={10}
                 name={payment.name}
                 initialColor="auto"
-                src={payment.avatar}
+                src={payment.custom_site}
               />
               <div className="flex flex-col">
                 <span className="text-sm font-medium text-gray-800 dark:text-dark-100">
                   {payment.name}
                 </span>
                 <span className="text-xs text-gray-400 dark:text-dark-300">
-                  {payment.time}
+                  {payment.custom_site}
                 </span>
               </div>
             </div>
             <span className="text-sm font-medium text-gray-800 dark:text-dark-100">
-              {payment.amount}
+              {payment.total}
             </span>
           </div>
         ))}

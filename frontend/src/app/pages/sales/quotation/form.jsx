@@ -11,12 +11,18 @@ import { Schema } from "app/components/form/schema";
 import { Page } from "components/shared/Page";
 import { Button, Card } from "components/ui";
 import DynamicForms from 'app/components/form/dynamicForms';
+
+import { useAuthContext } from "app/contexts/auth/context";
 import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApiHook";
 
-const pageName = "Sales Orders"
-const doctype = "Sales Order"
-const fields = ['customer_name', 'order_type']
+const pageName = "Quotation List"
+const doctype = "Quotation"
+const fields = ['quotation_to', 'transaction_date', 'order_type', 'company', 'custom_site', 'items']
 const subFields = ['delivery_date']
+
+const tableFields = {
+  "items": { "item_name": true, "qty": true, "uom": true, "custom_bom_no": true, "custom_produced_qty": true, "custom_cumulative_qty": true }
+}
 
 // ----------------------------------------------------------------------
 
@@ -27,9 +33,11 @@ const initialState = Object.fromEntries(
 export default function AddEditFrom() {
   const { isDark, darkColorScheme, lightColorScheme } = useThemeContext();
   const navigate = useNavigate();
+  const { user } = useAuthContext();
   const { id } = useParams();
-  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...fields, ...subFields]) });
-  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: JSON.stringify([...fields, ...subFields]) });
+  const branch = user.settings.is_enable_branch ? ['custom_branch'] : []
+  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...branch, ...fields, ...subFields]) });
+  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: JSON.stringify([...branch, ...fields, ...subFields]) });
 
   const mutationAdd = useAddData((data) => {
     if (data) {
@@ -112,6 +120,7 @@ export default function AddEditFrom() {
                   <DynamicForms
                     infos={info?.fields}
                     fields={fields}
+                    tables={tableFields}
                     register={register}
                     control={control}
                     errors={errors}
@@ -121,7 +130,13 @@ export default function AddEditFrom() {
             </div>
             <div className="col-span-12 space-y-4 sm:space-y-5 lg:col-span-4 lg:space-y-6">
               <Card className="space-y-5 p-4 sm:px-5">
-
+                <DynamicForms
+                  infos={info?.fields}
+                  fields={branch}
+                  register={register}
+                  control={control}
+                  errors={errors}
+                />
                 <DynamicForms
                   infos={info?.fields}
                   fields={subFields}

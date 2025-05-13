@@ -5,6 +5,7 @@ import DualApplicationsIcon from 'assets/dualicons/applications.svg?react'
 import DualFormsIcon from 'assets/dualicons/forms.svg?react'
 import DualElementsIcon from 'assets/dualicons/elements.svg?react'
 import DualsStatsUpIcon from 'assets/dualicons/stats-up.svg?react'
+import DualLampIcon from 'assets/dualicons/lamp.svg?react'
 
 export const baseNavigation = [
     {
@@ -54,5 +55,13 @@ export const baseNavigation = [
         title: 'Fleets',
         transKey: 'nav.fleets.fleets',
         Icon: DualsStatsUpIcon,
+    },
+     {
+        id: 'employee',
+        type: NAV_TYPE_ITEM,
+        path: '/employee/expense-claim',
+        title: 'Employee',
+        transKey: 'nav.employee.expense-claim',
+        Icon: DualLampIcon,
     }
 ]

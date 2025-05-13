@@ -4,6 +4,7 @@ import { purchases } from "./purchases";
 import { sales } from "./sales";
 import { labs } from "./labs";
 import { fleets } from "./fleets";
+import { employee } from "./employee";
 
 export const navigation = [
     dashboards,
@@ -12,6 +13,7 @@ export const navigation = [
     sales,
     labs,
     fleets,
+    employee,
 ]
 
 export { baseNavigation } from './baseNavigation'

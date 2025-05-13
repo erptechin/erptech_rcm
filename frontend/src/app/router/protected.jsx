@@ -32,28 +32,7 @@ const protectedRoutes = {
               lazy: async () => ({
                 Component: (await import("app/pages/dashboards/home")).default,
               }),
-            },
-            {
-              path: "charge-entry",
-              lazy: async () => ({
-                Component: (await import("app/pages/dashboards/charge-entry"))
-                  .default,
-              }),
-            },
-            {
-              path: "charge-entry/add-new",
-              lazy: async () => ({
-                Component: (await import("app/pages/dashboards/charge-entry/form"))
-                  .default,
-              }),
-            },
-            {
-              path: "charge-entry/edit/:id",
-              lazy: async () => ({
-                Component: (await import("app/pages/dashboards/charge-entry/form"))
-                  .default,
-              }),
-            },
+            }
           ],
         },
         {
@@ -482,11 +461,73 @@ const protectedRoutes = {
             },
           ]
         },
+        {
+          path: "employee",
+          children: [
+            {
+              index: true,
+              element: <Navigate to="/employee/expense-claim" />,
+            },
+            {
+              path: "expense-claim",
+              lazy: async () => ({
+                Component: (await import("app/pages/employee/expense-claim"))
+                  .default,
+              }),
+            },
+            {
+              path: "expense-claim/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/employee/expense-claim/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "expense-claim/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/employee/expense-claim/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "leave-application",
+              lazy: async () => ({
+                Component: (await import("app/pages/employee/leave-application"))
+                  .default,
+              }),
+            },
+            {
+              path: "leave-application/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/employee/leave-application/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "leave-application/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/employee/leave-application/form"))
+                  .default,
+              }),
+            },
+          ]
+        },
       ]
     },
     {
       Component: AppLayout,
       children: [
+         {
+          path: "dashboards",
+          children: [
+            {
+              path: "task",
+              lazy: async () => ({
+                Component: (await import("app/pages/dashboards/task")).default,
+              }),
+            },
+          ],
+        },
         {
           path: "settings",
           lazy: async () => ({

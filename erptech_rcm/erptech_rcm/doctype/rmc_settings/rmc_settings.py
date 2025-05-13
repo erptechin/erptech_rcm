@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class ThemeSettings(Document):
+class RMCSettings(Document):
 	pass

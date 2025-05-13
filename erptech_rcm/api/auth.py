@@ -116,7 +116,7 @@ def sign_up():
 @frappe.whitelist()
 def profile():
     user = frappe.get_doc("User", frappe.session.user)
-    print('user ', user)
+    settings = frappe.get_cached_doc('RMC Settings')
     frappe.response["user"] = {
         "id": escape_html(user.name or ""),
         "first_name": escape_html(user.first_name or ""),
@@ -128,6 +128,7 @@ def profile():
         "full_name": user.full_name or "",
         "email": user.email or "",
         "user_image": user.user_image,
+        "settings": settings,
     }
     return
 

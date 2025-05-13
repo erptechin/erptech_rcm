@@ -20,7 +20,7 @@ no_cache = True
 def get_context(context):
 	redirect_to = frappe.local.request.args.get("redirect-to")
 	
-	themeSettings = frappe.get_cached_doc('Theme Settings')
+	themeSettings = frappe.get_cached_doc('RMC Settings')
 
 	if frappe.session.user != "Guest":
 		if not redirect_to:

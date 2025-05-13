@@ -23,13 +23,13 @@ export const dashboards = {
             transKey: 'nav.dashboards.home',
             Icon: StatisticIcon,
         },
-        // {
-        //     id: 'dashboards.charge-entry',
-        //     path: path(ROOT_DASHBOARDS, '/charge-entry'),
-        //     type: NAV_TYPE_ITEM,
-        //     title: 'Case',
-        //     transKey: 'nav.dashboards.charge-entry',
-        //     Icon: PeopleIcon,
-        // },
+        {
+            id: 'dashboards.task',
+            path: path(ROOT_DASHBOARDS, '/task'),
+            type: NAV_TYPE_ITEM,
+            title: 'Task',
+            transKey: 'nav.dashboards.task',
+            Icon: PeopleIcon,
+        },
     ]
 }

@@ -440,4 +440,4 @@ def get_workspace_sidebar_items():
 #Settings Page
 @frappe.whitelist(allow_guest=True)
 def get_theme_settings():
-    return frappe.get_cached_doc('Theme Settings')
+    return frappe.get_cached_doc('RMC Settings')

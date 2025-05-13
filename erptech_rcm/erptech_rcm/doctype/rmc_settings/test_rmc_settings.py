@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestThemeSettings(FrappeTestCase):
+class TestRMCSettings(FrappeTestCase):
 	pass

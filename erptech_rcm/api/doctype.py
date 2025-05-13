@@ -113,7 +113,7 @@ def list_data():
                         link_data = frappe.db.get_value(linked_doctype,value,["*"],as_dict=True)
                         if link_data:
                             enhanced_record[linked_doctype] = link_data
-                            enhanced_record['bb'] = field_meta
+                            # enhanced_record['bb'] = field_meta
 
             enhanced_record["id"] = enhanced_record.name
             enhanced_data.append(enhanced_record)

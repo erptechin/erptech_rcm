@@ -6,12 +6,13 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
+import { useNavigate } from "react-router";
 import {
   ChevronDownIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import { Fragment } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import {
   FaComment,
   FaEllipsisH,
@@ -31,73 +32,63 @@ import {
   Card,
 } from "components/ui";
 
+import { useInfo, useFeachData } from "hooks/useApiHook";
 // ----------------------------------------------------------------------
 
-const contacts = [
-  {
-    uid: "1",
-    name: "Konnor Guzman",
-    phone: "(01) 22 888 4444",
-    avatar: "/images/200x200.png",
-  },
-  {
-    uid: "2",
-    name: "Alfredo Elliott",
-    phone: "(095)-800-8313",
-    avatar: "/images/200x200.png",
-  },
-  {
-    uid: "3",
-    name: "Derrick Simmons",
-    phone: "(350)-813-3861",
-    avatar: null,
-  },
-  {
-    uid: "4",
-    name: "Henry Curtis",
-    phone: "(675)-975-0083",
-    avatar: "/images/200x200.png",
-  },
-  {
-    uid: "5",
-    name: "John Doe",
-    phone: "(727)-810-3880",
-    avatar: "/images/200x200.png",
-  },
-  {
-    uid: "6",
-    name: "Emilie Clarke",
-    phone: "(675)-531-2599",
-    avatar: null,
-  },
-];
+const doctype = "Quotation"
+const fields = ['quotation_to', 'transaction_date', 'order_type', 'company', 'custom_site']
 
 export function ContactList() {
+  const navigate = useNavigate();
+  const [lists, setLists] = useState([]);
+
+  const { data: info } = useInfo({ doctype, fields: JSON.stringify(fields) });
+  const [search, setSearch] = useState({ doctype, page: 1, page_length: 10, fields: null });
+  const { data } = useFeachData(search);
+
+  useEffect(() => {
+    if (info?.fields) {
+      const fieldnames = info?.fields.map(field => field.fieldname);
+      setSearch({ ...search, fields: JSON.stringify([...fieldnames, "name"]) })
+    }
+  }, [info])
+
+  useEffect(() => {
+    if (data?.data) {
+      setLists(data?.data)
+    }
+  }, [data])
+
   return (
     <Card className="px-4 pb-4 sm:px-5">
       <div className="flex h-14 items-center justify-between py-3">
         <h2 className="truncate text-sm-plus font-medium tracking-wide text-gray-800 dark:text-dark-100">
           Contact List
         </h2>
-        <ActionMenu />
+        <a
+          onClick={() => navigate('/sales/quotation')}
+          className="border-b border-dotted border-current pb-0.5 text-xs-plus font-medium text-primary-600 outline-hidden transition-colors duration-300 hover:text-primary-600/70 focus:text-primary-600/70 dark:text-primary-400 dark:hover:text-primary-400/70 dark:focus:text-primary-400/70"
+        >
+          View All
+        </a>
       </div>
 
       <Accordion className="space-y-4" defaultValue="contact-1">
-        {contacts.map((contact) => (
-          <AccordionItem key={contact.uid} value={`contact-${contact.uid}`}>
+        {lists.map((contact) => (
+          <AccordionItem key={contact.id} value={`contact-${contact.id}`}>
             <div className="flex items-center justify-between gap-2">
               <div className="flex min-w-0 gap-3">
                 <Avatar
                   size={10}
                   name={contact.name}
-                  src={contact.avatar}
+                  src={contact.company}
                   initialColor="auto"
                 />
                 <div className="min-w-0">
                   <h3 className="truncate font-medium text-gray-800 dark:text-dark-100">
                     {contact.name}
                   </h3>
-                  <p className="mt-1 truncate text-xs">{contact.phone}</p>
+                  <p className="mt-1 truncate text-xs">{contact.company}</p>
                 </div>
               </div>
               <AccordionButton
@@ -194,7 +185,7 @@ function ActionMenu() {
                 className={clsx(
                   "flex h-9 w-full items-center px-3 tracking-wide outline-hidden transition-colors",
                   focus &&
-                    "bg-gray-100 text-gray-800 dark:bg-dark-600 dark:text-dark-100",
+                  "bg-gray-100 text-gray-800 dark:bg-dark-600 dark:text-dark-100",
                 )}
               >
                 <span>Action</span>
@@ -207,7 +198,7 @@ function ActionMenu() {
                 className={clsx(
                   "flex h-9 w-full items-center px-3 tracking-wide outline-hidden transition-colors",
                   focus &&
-                    "bg-gray-100 text-gray-800 dark:bg-dark-600 dark:text-dark-100",
+                  "bg-gray-100 text-gray-800 dark:bg-dark-600 dark:text-dark-100",
                 )}
               >
                 <span>Another action</span>
@@ -220,7 +211,7 @@ function ActionMenu() {
                 className={clsx(
                   "flex h-9 w-full items-center px-3 tracking-wide outline-hidden transition-colors",
                   focus &&
-                    "bg-gray-100 text-gray-800 dark:bg-dark-600 dark:text-dark-100",
+                  "bg-gray-100 text-gray-800 dark:bg-dark-600 dark:text-dark-100",
                 )}
               >
                 <span>Other action</span>
@@ -236,7 +227,7 @@ function ActionMenu() {
                 className={clsx(
                   "flex h-9 w-full items-center px-3 tracking-wide outline-hidden transition-colors",
                   focus &&
-                    "bg-gray-100 text-gray-800 dark:bg-dark-600 dark:text-dark-100",
+                  "bg-gray-100 text-gray-800 dark:bg-dark-600 dark:text-dark-100",
                 )}
               >
                 <span>Separated action</span>

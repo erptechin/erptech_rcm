@@ -2,7 +2,8 @@
   "nav": {
     "dashboards": {
       "dashboards": "Home",
-      "home": "Home"
+      "home": "Home",
+      "task": "My Task"
     },
     "stores": {
       "stores": "Stores",
@@ -36,6 +37,11 @@
       "fleets": "Fleets",
       "driver": "Driver",
       "vehicle": "Vehicle"
+    },
+    "employee": {
+      "employee": "Employee",
+      "expense-claim": "Expense Claim",
+      "leave-application": "Leave Application"
     },
     "settings": {
       "settings": "Settings",

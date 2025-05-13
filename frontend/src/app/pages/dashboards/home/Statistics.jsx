@@ -8,9 +8,14 @@ import {
   ShieldCheckIcon,
   TicketIcon,
 } from "@heroicons/react/24/outline";
+import { useState, useEffect } from "react";
 
 // Local Imports
-import { Avatar, Badge, Box, Card } from "components/ui";
+import { Avatar, Badge, Box, Card, Button } from "components/ui";
+import { useInfo, useFeachData, useAddData } from "hooks/useApiHook";
+
+const doctype = "Employee Checkin"
+const fields = ['employee', 'log_type', 'time']
 
 // ----------------------------------------------------------------------
 
@@ -120,34 +125,41 @@ function DollarCoin(props) {
 }
 
 export function Statistics() {
+
+  const [lists, setLists] = useState([]);
+
+  const mutationAdd = useAddData((data) => { });
+
+  const { data: info } = useInfo({ doctype, fields: JSON.stringify(fields) });
+  const [search, setSearch] = useState({ doctype, page: 1, page_length: 1, fields: null });
+  const { data } = useFeachData(search);
+
+  useEffect(() => {
+    if (info?.fields) {
+      const fieldnames = info?.fields.map(field => field.fieldname);
+      setSearch({ ...search, fields: JSON.stringify([...fieldnames, "name"]) })
+    }
+  }, [info])
+
+  useEffect(() => {
+    if (data?.data) {
+      setLists(data?.data)
+    }
+  }, [data])
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5 lg:gap-6">
       <Box className="relative flex flex-col rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 px-5 pb-5">
-        <div className="ax-transparent-gridline mt-5 w-1/2">
-          <Chart
-            type="line"
-            height="60"
-            series={series}
-            options={chartConfig}
-          />
-        </div>
-        <p className="mt-3 text-base font-medium tracking-wide text-white/80">
-          Earnings
+        <p className="mt-10 text-center font-medium tracking-wide text-white/80">
+          Attendance - {lists[0]?.Employee?.first_name}
         </p>
-        <p className="mt-4 text-2xl font-semibold">
-          <span className="text-white/80">$</span>
-          <span className="text-white">31.313</span>
+        <p className="mt-5 text-center text-2xl font-semibold">
+          <span className="text-white">{lists[0]?.log_type ? lists[0]?.log_type : 'IN'}</span>
         </p>
-        <div className="mt-2">
-          <Badge
-            unstyled
-            className="h-6 rounded-full bg-black/20 px-2 text-xs-plus text-white"
-          >
-            13 Members
-          </Badge>
-        </div>
-        <div className="absolute bottom-0 right-0 overflow-hidden rounded-lg">
-          <DollarCoin className="w-24 translate-x-1/4 translate-y-1/4 opacity-50" />
+        <div className="mt-5 text-center">
+          <Button type="submit" onClick={() => mutationAdd.mutate({ doctype, body: { log_type: lists[0]?.log_type == 'OUT' ? "IN" : 'OUT' } })} color="secondary" className="min-w-[8rem]">
+            {lists[0]?.log_type == "OUT" ? "Login" : "Log Out"}
+          </Button>
         </div>
       </Box>
       <div className="grid grid-cols-1 gap-4 sm:col-span-2 sm:grid-cols-2 sm:gap-5 lg:gap-6">
