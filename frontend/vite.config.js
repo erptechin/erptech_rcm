@@ -23,7 +23,7 @@ export default defineConfig(({ command, mode }) => {
       manifest: {
         name: 'RMC APP',
         short_name: 'RMC',
-        start_url: '/',
+        start_url: '/rmc',
         display: 'standalone',
         background_color: '#ffffff',
         theme_color: '#e34444',
