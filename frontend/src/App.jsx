@@ -9,6 +9,7 @@ import { LocaleProvider } from "app/contexts/locale/Provider";
 import { SidebarProvider } from "app/contexts/sidebar/Provider";
 import { ThemeProvider } from "app/contexts/theme/Provider";
 import router from "app/router/router";
+import InstallPrompt from './InstallPrompt';
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ function App() {
             <BreakpointProvider>
               <SidebarProvider>
                 <RouterProvider router={router} />
+                <InstallPrompt />
               </SidebarProvider>
             </BreakpointProvider>
           </LocaleProvider>
