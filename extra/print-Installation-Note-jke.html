@@ -165,15 +165,15 @@
 
         <tbody>
 
-            <tr>
-                <td style="background:#F9EBD6;color: rgb(0, 0, 255);border: 1.0px solid #80808073"><b>Batch No</b></td>
-                <td style="background:#F9EBD6;color: rgb(0, 0, 255);border: 1.0px solid #80808073"><b>Cycle Time</b>
+            <tr class="data_table_heading">
+                <td><b>Batch No</b></td>
+                <td><b>Cycle Time</b>
                 </td>
                 {%- for row in doc.custom_installation_note_recipe -%}
-                <td style="background:#F9EBD6;color: rgb(0, 0, 255);border: 1.0px solid #80808073"><b>{{ row.item_name
+                <td><b>{{ row.item_name
                         }}</b></td>
                 {%- endfor -%}
-                <td style="background:#F9EBD6;color: rgb(0, 0, 255);border: 1.0px solid #80808073"><b>TOTAL KG</b></td>
+                <td><b>TOTAL KG</b></td>
             </tr>
 
             {% set customNoOfBatch = (doc.items[0].custom_no_of_batch) | int %}
@@ -208,17 +208,17 @@
             {% endif %}
 
             <tr>
-                <td style="border: 1.0px solid #80808073">{{i}}</td>
+                <td style="">{{i}}</td>
                 {% if (i-1) % 2 == 0 %}
-                <td style="border: 1.0px solid #80808073">{{"%.0f"|format(70 + (to.randomValue)| float)}}</td>
+                <td style="">{{"%.0f"|format(70 + (to.randomValue)| float)}}</td>
                 {% else %}
-                <td style="border: 1.0px solid #80808073">{{"%.0f"|format(70 - (to.randomValue)| float)}}</td>
+                <td style="">{{"%.0f"|format(70 - (to.randomValue)| float)}}</td>
                 {% endif %}
                 {% set to = namespace(totalM=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
                 {% set qtys = row.qtys.strip('[]').split(',') %}
                 {% set to.totalM = to.totalM + qtys[i-1] | float %}
-                <td style="border: 1.0px solid #80808073">
+                <td style="">
                     {% if row.decimal %}
                     {{ "%.2f"|format(qtys[i-1] | float) }}
                     {% else %}
@@ -226,21 +226,21 @@
                     {% endif %}
                 </td>
                 {%- endfor %}
-                <td style="border: 1.0px solid #80808073">{{ to.totalM }}</td>
+                <td style="">{{ to.totalM }}</td>
             </tr>
 
             {%- endfor -%}
 
             <tr>
-                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Moi & ABS</b></td>
+                <td colspan="2" style="text-align: left;"><b>Moi & ABS</b></td>
                 {%- for row in doc.custom_installation_note_recipe -%}
-                <td style="border: 1.0px solid #80808073" class="text-center">0%</td>
+                <td style="" class="text-center">0%</td>
                 {%- endfor -%}
-                <td style="border: 1.0px solid #80808073"></td>
+                <td style=""></td>
             </tr>
 
             <tr>
-                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Actual Total</b></td>
+                <td colspan="2" style="text-align: left;"><b>Actual Total</b></td>
                 {% set toa = namespace(totalA=0) %}
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
@@ -250,7 +250,7 @@
                 {% set to.total = to.total + qty | float %}
                 {% endfor %}
                 {% set toa.totalA = (toa.totalA + to.total) %}
-                <td style="border: 1.0px solid #80808073">
+                <td style="">
                     {% if row.decimal %}
                     {{ "%.2f"|format(to.total) }}
                     {% else %}
@@ -259,16 +259,16 @@
                 </td>
                 {% set ns.tars = ns.tars + to.total %}
                 {%- endfor -%}
-                <td style="border: 1.0px solid #80808073">{{ toa.totalA }}</td>
+                <td style="">{{ toa.totalA }}</td>
             </tr>
 
             <tr>
-                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Target Total</b></td>
+                <td colspan="2" style="text-align: left;"><b>Target Total</b></td>
                 {% set tob = namespace(totalB=0) %}
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
                 {% set tob.totalB = (tob.totalB + (row.qty * customNoOfBatch)) %}
-                <td style="border: 1.0px solid #80808073">
+                <td style="">
                     {% if row.decimal %}
                     {{ "%.2f"|format(row.qty * customNoOfBatch) }}
                     {% else %}
@@ -277,12 +277,12 @@
                 </td>
                 {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
                 {%- endfor -%}
-                <td style="border: 1.0px solid #80808073">{{ tob.totalB }}</td>
+                <td style="">{{ tob.totalB }}</td>
             </tr>
 
 
             <tr>
-                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Average</b></td>
+                <td colspan="2" style="text-align: left;"><b>Average</b></td>
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
                 {% set qtys = row.qtys.strip('[]').split(',') %}
@@ -290,7 +290,7 @@
                 {% for qty in qtys %}
                 {% set to.total = to.total + qty | float %}
                 {% endfor %}
-                <td style="border: 1.0px solid #80808073">
+                <td style="">
                     {% if row.decimal %}
                     {{ "%.2f"|format(to.total/10) }}
                     {% else %}
@@ -299,14 +299,14 @@
                 </td>
                 {% set ns.tars = ns.tars + to.total %}
                 {%- endfor -%}
-                <td style="border: 1.0px solid #80808073"></td>
+                <td style=""></td>
             </tr>
 
             <tr>
-                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Target</b></td>
+                <td colspan="2" style="text-align: left;"><b>Target</b></td>
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
-                <td style="border: 1.0px solid #80808073">
+                <td style="">
                     {% if row.decimal %}
                     {{ "%.2f"|format((row.qty * customNoOfBatch)/10) }}
                     {% else %}
@@ -315,13 +315,13 @@
                 </td>
                 {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
                 {%- endfor -%}
-                <td style="border: 1.0px solid #80808073"></td>
+                <td style=""></td>
             </tr>
 
             <tr>
-                <td colspan="2" style="text-align: left;border: 1.0px solid #80808073"><b>Recipe Design</b></td>
+                <td colspan="2" style="text-align: left;"><b>Recipe Design</b></td>
                 {%- for row in doc.custom_installation_note_recipe -%}
-                <td style="border: 1.0px solid #80808073">
+                <td style="">
                     {% if row.decimal %}
                     {{ "%.2f"|format(row.qty) }}
                     {% else %}
@@ -329,7 +329,7 @@
                     {% endif %}
                 </td>
                 {%- endfor -%}
-                <td style="border: 1.0px solid #80808073"></td>
+                <td style=""></td>
             </tr>
 
 

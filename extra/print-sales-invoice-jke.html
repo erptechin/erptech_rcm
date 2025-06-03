@@ -1,104 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <title>Sales Invoice</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #000;
+    }
 
-  <div class="header">
-    <img src="your-logo-url.png" alt="Company Logo" height="80">
-    <h2>Your Company Name</h2>
-    <p>Your Company Address Line 1<br>City, State - Zip Code</p>
+    .container {
+      width: 100%;
+      border: 1px solid #000;
+      padding: 24px 32px;
+      background: #fff;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #000;
+      padding-bottom: 10px;
+    }
+
+    .header .logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .company-details {
+      text-align: left;
+    }
+
+    .company-details h2 {
+      margin: 0 0 5px 0;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .company-details p {
+      margin: 2px 0;
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .details-table,
+    .product-table,
+    .totals-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .details-table td,
+    .details-table th,
+    .product-table td,
+    .product-table th,
+    .totals-table td,
+    .totals-table th {
+      border: 1px solid #000;
+      padding: 6px 8px;
+      font-size: 14px;
+    }
+
+    .details-table th {
+      background: #f2f2f2;
+      font-weight: bold;
+    }
+
+    .product-table th {
+      background: #f2f2f2;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .product-table td {
+      text-align: center;
+    }
+
+    .totals-table {
+      margin-top: 0;
+    }
+
+    .totals-table td {
+      text-align: right;
+    }
+
+    .totals-table .label {
+      text-align: left;
+    }
+
+    .bank-details {
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .signatory {
+      text-align: right;
+    }
+
+    .jurisdiction {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .words {
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    .small {
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="company-details">
+        {% set company = frappe.get_doc("Company", doc.company) %}
+        {% set links = frappe.get_all('Dynamic Link', filters={'link_doctype': 'Company', 'link_name':
+        doc.company, 'parenttype': 'Address'}, fields=['parent']) %}
+        {% set address = frappe.get_doc("Address", links[0].parent) if links else None %}
+
+        <h2>{{ company.company_name }}</h2>
+        {% if address %}
+        <p>
+          Address :
+          {{ address.address_line1 or "" }},
+          {% if address.address_line2 %}{{ address.address_line2 }}, {% endif %}
+          {{ address.city or "" }}{% if address.state %}, {{ address.state }}{% endif %},
+          {% if address.pincode %}{{ address.pincode }},{% endif %}
+          {{ address.country or "" }}
+        </p>
+        {% endif %}
+        {% if address.email_id %}<p><strong>Mail</strong> :- {{ address.email_id }}</p>{% endif %}
+        {% if address.phone %}<p><strong>Mobile</strong>:- {{ address.phone }}</p>{% endif %}
+      </div>
+      <img src="https://i.imgur.com/2yaf2wb.png" alt="Company Logo" class="logo">
+    </div>
+
+    <div class="section">
+      <table class="details-table">
+        <tr>
+          <th colspan="2">Company GST Details :</th>
+          <th>Invoice No :</th>
+          <td>GST/25-26/0001</td>
+        </tr>
+        <tr>
+          <td>GSTIN</td>
+          <td>10AAPCP0205L1ZP</td>
+          <td>Invoice Date :</td>
+          <td>24-May-2025</td>
+        </tr>
+        <tr>
+          <td>PAN NO</td>
+          <td>AAPCP0205L</td>
+          <td>PO No. :</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>STATE CODE</td>
+          <td>10</td>
+          <td>PO Date :</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <table class="details-table">
+        <tr>
+          <th>Name & Address of Consignee / SITE :</th>
+          <th>Name & Address of Buyer :</th>
+          <th>Abstract No.</th>
+        </tr>
+        <tr>
+          <td>
+            <b>MAN MARDAN SHUKLA CONSTRUCTION PVT LTD</b><br>
+            L S COLLAGE MUZAFFARPUR<br>
+            GST No.: <b>10AAECM5923D1Z1</b><br>
+            PAN No.:<br>
+            State :
+          </td>
+          <td>
+            <b>MAN MARDAN SHUKLA CONSTRUCTION PVT LTD</b><br>
+            SPEAKER LANE, NAYA TOLA<br>
+            MUZAFFARPUR BIHARAYA TOLA<br>
+            MUZAFFARPUR BIHAR, MUZAFFARPUR, BIHAR<br>
+            GST No.: <b>10AAECM5923D1Z1</b><br>
+            PAN No.:<br>
+            State :
+          </td>
+          <td rowspan="2">
+            Transporter:<br>
+            Ch. No/Date: AS Per Abstract Sheet<br>
+            Delivery at: L S COLLAGE MUZAFFARPUR
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <table class="product-table">
+        <tr>
+          <th>Sr.</th>
+          <th>Product Description</th>
+          <th>HSN Code</th>
+          <th>Qty</th>
+          <th>Rate in ₹</th>
+          <th>Amount In ₹</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td style="text-align:left;">
+            <b>Ready Mix Concrete M-25</b><br>
+            <span class="small">With Pump</span>
+          </td>
+          <td>38245010</td>
+          <td>6.50 CBM</td>
+          <td>5,805.08</td>
+          <td>37,733.02</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <table class="totals-table">
+        <tr>
+          <td class="label" colspan="4">TOTAL</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td class="label" colspan="4">CGST9</td>
+          <td colspan="2">3,395.97 <span class="words">Words : Three thousand three hundred ninety-five and ninety-seven
+              paisa on.</span></td>
+        </tr>
+        <tr>
+          <td class="label" colspan="4">SGST9</td>
+          <td colspan="2">3,395.97 <span class="words">Words : Three thousand three hundred ninety-five and ninety-seven
+              paisa on.</span></td>
+        </tr>
+      </table>
+      <table style="width:100%; border-collapse:collapse; margin-top:0;">
+        <tr>
+          <td style="vertical-align:top; border:1px solid #000; width:65%; padding:10px 8px;">
+            <div style="font-weight:bold; font-size:18px; margin-bottom:2px;">Inv. Value : Forty-Four Thousand Five
+              Hundred Twenty-Five Only</div>
+            <div style="margin-bottom:2px;">Payment Terms: ADVANCE Due Date 24-May-2025</div>
+            <div style="margin-bottom:2px;">GST NO. : 10AAPCP0205L1ZP</div>
+            <div style="margin-bottom:2px;">GST STSTE CODE : 10</div>
+            <div style="height:70px;"></div>
+          </td>
+          <td style="vertical-align:top; border:1px solid #000; width:35%; padding:10px 8px;">
+            <b>Banks :</b><br>
+            COMPANY : PATNA CONCRETO PRIVATE LIMITED<br>
+            BANK : ICICI BANK<br>
+            A/C.NO : 133305500842<br>
+            IFSC CODE : ICIC0001333<br>
+            BRANCH : ANISABAD PATNA
+          </td>
+        </tr>
+        <tr>
+          <td
+            style="border:1px solid #000; border-top:none; text-align:left; padding:8px 8px; font-size:15px; width:33%;">
+            Received By</td>
+          <td colspan="1"
+            style="border:1px solid #000; border-top:none; border-left:none; text-align:center; padding:8px 8px; font-size:15px; width:34%; font-weight:bold;">
+            SUBJECT TO PATNA JURISDICTION</td>
+          <td
+            style="border:1px solid #000; border-top:none; text-align:right; padding:8px 8px; font-size:15px; width:33%;">
+            For, {{ company.company_name }}<br><br>Authorised Signatory</td>
+        </tr>
+      </table>
+    </div>
   </div>
+</body>
 
-  <table class="invoice-info">
-    <tr>
-      <td><strong>Invoice No:</strong> INV-00123</td>
-      <td><strong>Invoice Date:</strong> 26-Apr-2025</td>
-    </tr>
-  </table>
-
-  <table class="billing-shipping">
-    <tr>
-      <td><strong>Billing Address</strong><br>
-        John Doe<br>
-        123 Street Name<br>
-        City, State, Zip Code
-      </td>
-      <td><strong>Shipping Address</strong><br>
-        John Doe<br>
-        123 Street Name<br>
-        City, State, Zip Code
-      </td>
-    </tr>
-  </table>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Sr</th>
-        <th>HSN/SAC</th>
-        <th>Description</th>
-        <th>Quantity</th>
-        <th>Rate</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>9987</td>
-        <td>Consulting Services</td>
-        <td>1</td>
-        <td>12,600.00</td>
-        <td>12,600.00</td>
-      </tr>
-      <!-- Add more items here if needed -->
-    </tbody>
-  </table>
-
-  <table class="summary">
-    <tr>
-      <td class="total">Total</td>
-      <td>₹ 12,600.00</td>
-    </tr>
-    <tr>
-      <td class="total">SGST</td>
-      <td>₹ 1,134.00</td>
-    </tr>
-    <tr>
-      <td class="total">CGST</td>
-      <td>₹ 1,134.00</td>
-    </tr>
-    <tr class="grand-total">
-      <td class="total">Grand Total</td>
-      <td>₹ 14,868.00</td>
-    </tr>
-    <tr>
-      <td class="total">Rounded Total</td>
-      <td>₹ 14,868.00</td>
-    </tr>
-  </table>
-
-  <div class="in-words">
-    <strong>In Words:</strong> Fourteen Thousand Eight Hundred Sixty-Eight Only
-  </div>
-
-  <h3>HSN/SAC Wise Tax Summary</h3>
-  <table class="tax-summary">
-    <thead>
-      <tr>
-        <th>HSN/SAC</th>
-        <th>Taxable Amount</th>
-        <th>CGST</th>
-        <th>SGST</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>9987</td>
-        <td>₹ 12,600.00</td>
-        <td>₹ 1,134.00</td>
-        <td>₹ 1,134.00</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="footer">
-    <p><strong>Our GSTIN:</strong> 27DEGPK6114G1ZL</p>
-  </div>
+</html>

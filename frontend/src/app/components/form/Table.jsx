@@ -170,7 +170,7 @@ const Table = forwardRef(({ onChange, values, label, rootItem, tableFields, erro
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <DialogPanel className="fixed right-0 top-0 flex h-full w-150 transform-gpu flex-col bg-white transition-transform duration-200 dark:bg-dark-700">
+            <DialogPanel className="fixed right-0 top-0 flex h-full sm:w-[95%] md:w-[600px] transform-gpu flex-col bg-white transition-transform duration-200 dark:bg-dark-700">
               {isOpen && (<SubValues onClose={(data) => closePopup(data)} id={null} doctype={rootItem.options} />)}
             </DialogPanel>
           </TransitionChild>
