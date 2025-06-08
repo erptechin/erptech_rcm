@@ -8,7 +8,7 @@ import { TextEditor } from "components/shared/form/TextEditor";
 import { htmlToDelta } from "utils/quillUtils";
 import { JWT_HOST_API } from 'configs/auth.config';
 import { SearchSelect } from "./SearchSelect";
-import { Table } from "./Table";
+import { TableBox } from "./TableBox";
 
 const editorModules = {
     toolbar: [
@@ -30,10 +30,11 @@ const editorModules = {
 
 export default function DynamicForms({ infos, fields, register, control, errors, tables, readOnly }) {
     const uploadRef = useRef();
+
     return (
         <div className="space-y-4">
-            {fields.map((info) => {
-                let item = infos && infos.find((item) => item.fieldname == info)
+            {fields && fields.map((info) => {
+                let item = infos && infos.find((item) => item.fieldname == info && !tables?.ignorFields[info])
                 if (item) {
                     return <div key={"field.name"} className="form-group">
                         {(() => {
@@ -85,6 +86,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                     );
 
                                 case 'Data':
+                                case 'Autocomplete':
                                     return (
                                         <Controller
                                             render={({ field: { value } }) => (
@@ -259,7 +261,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                     return (
                                         <Controller
                                             render={({ field: { onChange, value, ...rest } }) => (
-                                                <Table
+                                                <TableBox
                                                     onChange={onChange}
                                                     values={value}
                                                     label={item.label}
@@ -306,7 +308,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
 
                                 default:
                                     return (
-                                        <></>
+                                        <>New...</>
                                     );
                             }
                         })()}

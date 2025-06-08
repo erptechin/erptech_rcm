@@ -6,10 +6,9 @@ import {
   Dialog
 } from "@headlessui/react";
 import { useDisclosure } from "hooks";
-import { Button } from "components/ui";
+import { Button, Table, THead, TBody, Th, Tr, Td } from "components/ui";
 import { forwardRef, Fragment, useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
-import PropTypes from "prop-types";
 import { ConfirmModal } from "components/shared/ConfirmModal";
 import { JWT_HOST_API } from 'configs/auth.config';
 
@@ -19,14 +18,7 @@ import SubValues from "./subValues";
 
 // ----------------------------------------------------------------------
 
-function randerField(str) {
-  return String(str ?? '')
-    .replace(/_/g, ' ')
-    .replace(/custom/gi, '')
-    .trim();
-}
-
-const Table = forwardRef(({ onChange, values, label, rootItem, tableFields, error }, ref) => {
+const TableBox = forwardRef(({ onChange, values, label, rootItem, tableFields, error }, ref) => {
   const [listData, setListData] = useState([]);
   const [newValues, setNewValues] = useState([]);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -50,9 +42,13 @@ const Table = forwardRef(({ onChange, values, label, rootItem, tableFields, erro
     for (let item of rootItem.sub_fields) {
       if (item.fieldtype === "Link") {
         const doctype = item.options
-        const fields = tableFields[item.fieldname]
+        const fields = tableFields[item.fieldname] || []
         const filters = values ? values.map(value => value[item.fieldname]) : []
-        let res = await getListData({ doctype, filters: JSON.stringify([[doctype, "name", "in", filters]]), fields: JSON.stringify(["name", ...fields]) })
+        let res = await getListData({
+          doctype,
+          filters: JSON.stringify([[doctype, "name", "in", filters]]),
+          fields: JSON.stringify(["name", ...(Array.isArray(fields) ? fields : [])])
+        })
         data[item.fieldname] = res.data
       }
     }
@@ -105,6 +101,11 @@ const Table = forwardRef(({ onChange, values, label, rootItem, tableFields, erro
     },
   };
 
+  // Add getDisplayValue helper function
+  const getDisplayValue = (item, fieldName) => {
+    return item[fieldName];
+  };
+
   return (
     <>
       <div>
@@ -114,39 +115,52 @@ const Table = forwardRef(({ onChange, values, label, rootItem, tableFields, erro
         </div>
 
         <div className="relative mt-1.5">
-          <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-6">
-            {newValues.map((item, key) => {
-
-              let html = ``
-              Object.keys(tableFields).map((field, k) => {
-                if (typeof (tableFields[field]) === 'boolean' && item[field]) {
-                  html += `<h2 class="line-clamp-1 mb-2 text-lg font-bold tracking-wide">${randerField(field)}: ${item[field]}</h2>`
-                }
-                if (field === 'image' && item[field]) {
-                  html += `<img class="avatar-image avatar-display relative h-30 w-full before:absolute before:inset-0 before:rounded-[inherit] before:bg-gray-150 dark:before:bg-dark-600 rounded-lg" alt="avatar" loading="lazy" src="${JWT_HOST_API + item[field]}" />`
-                }
-                if (field === 'color' && item[field]) {
-                  html += `<div class="badge-base badge this:error text-this-darker bg-this-darker/[0.07] dark:text-this-lighter dark:bg-this-lighter/10 border border-this-darker/20 dark:border-this-lighter/20" style="border: solid 1px #ff4f19; color:#fff; background: ${item[field]};">${item[field]}</div>`
-                }
-                if (typeof (tableFields[field]) === 'object') {
-                  let selItem = listData[field] ? listData[field].find((list) => list.name === item[field]) : {}
-                  Object.keys(tableFields[field]).map((k) => {
-                    let keyName = tableFields[field][k]
-                    html += `<p class="line-clamp-1 mb-1 font-medium tracking-wide">${randerField(field)}: ${selItem ? selItem[keyName] : ''}</p>`
-                  })
-                }
-              })
-              return <div key={key} className="relative">
-                <Button onClick={() => { setDeleteModalOpen(true); setState({ status: "pending", key }) }} color="error" isIcon className="size-6 rounded-full absolute z-11 top-[-10px] right-[-10px]"><TiDelete className="size-5" /></Button>
-                <div className="relative break-words print:border rounded-lg bg-primary-600 px-4 py-4 text-white dark:bg-primary-500 sm:px-5" dangerouslySetInnerHTML={{ __html: html }} />
-              </div>
-            }
-            )}
+          <div className="hide-scrollbar w-full max-w-[300px] sm:max-w-[400px] md:max-w-full overflow-x-auto overflow-y-hidden scroll-smooth">
+            <Table hoverable className="w-full text-left rtl:text-right">
+              <THead>
+                <Tr>
+                  <Th className="w-16 bg-gray-200 font-semibold uppercase text-gray-800 dark:bg-dark-800 dark:text-dark-100">#</Th>
+                  {rootItem?.sub_fields?.map((field, index) => {
+                    if (field.fieldname in tableFields) {
+                      return <Th
+                        key={field.fieldname}
+                        className="bg-gray-200 font-semibold uppercase text-gray-800 dark:bg-dark-800 dark:text-dark-100"
+                      >
+                        {field.label || field.fieldname}
+                      </Th>
+                    }
+                  })}
+                  <Th className="w-16 bg-gray-200 font-semibold uppercase text-gray-800 dark:bg-dark-800 dark:text-dark-100">Action</Th>
+                </Tr>
+              </THead>
+              <TBody>
+                {newValues.map((item, index) => (
+                  <Tr key={index} className="border-y border-transparent border-b-gray-200 dark:border-b-dark-500">
+                    <Td>{index + 1}</Td>
+                    {rootItem?.sub_fields?.map((field) => {
+                      if (field.fieldname in tableFields) {
+                        return <Td key={field.fieldname}>
+                          {getDisplayValue(item, field.fieldname)}
+                        </Td>
+                      }
+                    })}
+                    <Td>
+                      <Button
+                        onClick={() => { setDeleteModalOpen(true); setState({ status: "pending", key: index }) }}
+                        color="error"
+                        isIcon
+                        className="size-6 rounded-full"
+                      >
+                        <TiDelete className="size-5" />
+                      </Button>
+                    </Td>
+                  </Tr>
+                ))}
+              </TBody>
+            </Table>
           </div>
-          <span className="input-text-error mt-1 text-xs text-error dark:text-error-lighter"> {error}</span>
-
+          <span className="input-text-error mt-1 text-xs text-error dark:text-error-lighter">{error}</span>
         </div>
-
       </div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-100" onClose={close}>
@@ -190,14 +204,6 @@ const Table = forwardRef(({ onChange, values, label, rootItem, tableFields, erro
   );
 });
 
-Table.displayName = "Table";
+TableBox.displayName = "TableBox";
 
-Table.propTypes = {
-  onChange: PropTypes.func,
-  values: PropTypes.string,
-  label: PropTypes.string,
-  rootItem: PropTypes.object,
-  tableFields: PropTypes.array,
-};
-
-export { Table };
+export { TableBox };

@@ -14,7 +14,7 @@ import { toast } from "sonner";
 
 // Local Imports
 import { Highlight } from "components/shared/Highlight";
-import { Avatar, Badge, Tag } from "components/ui";
+import { Avatar, Badge, Tag, Circlebar } from "components/ui";
 import { useLocaleContext } from "app/contexts/locale/context";
 import { ensureString } from "utils/ensureString";
 import { orderStatusOptions } from "./orderStatusOptions";
@@ -31,6 +31,30 @@ export const statusOptions = [
     color: 'error'
   },
 ];
+
+const getStatusColor = (status) => {
+  switch (status) {
+    case 'Draft':
+    case 'Sales':
+      return 'secondary';
+    case 'On Hold':
+      return 'warning';
+    case 'To Deliver and Bill':
+      return 'info';
+    case 'To Bill':
+      return 'primary';
+    case 'To Deliver':
+      return 'info';
+    case 'Completed':
+      return 'success';
+    case 'Cancelled':
+      return 'error';
+    case 'Closed':
+      return 'secondary';
+    default:
+      return 'neutral';
+  }
+};
 
 // ----------------------------------------------------------------------
 
@@ -49,8 +73,8 @@ export function DateCell({ getValue }) {
   const time = dayjs(timestapms).locale(locale).format("hh:mm A");
   return (
     <>
-      <p className="font-medium">{date}</p>
-      <p className="mt-0.5 text-xs text-gray-400 dark:text-dark-300">{time}</p>
+      <p className="font-medium">{timestapms ? date : '-'}</p>
+      <p className="mt-0.5 text-xs text-gray-400 dark:text-dark-300">{timestapms ? time : ''}</p>
     </>
   );
 }
@@ -87,7 +111,10 @@ export function TotalCell({ getValue }) {
         getValue() < 0 && "text-red-800",
       )}
     >
-      ${getValue().toFixed(1)}
+      ₹{getValue().toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })}
     </p>
   );
 }
@@ -186,6 +213,27 @@ export function RoleCell({ getValue }) {
   );
 }
 
+export function ProgressCell({ getValue }) {
+  return (
+    <Circlebar size={15} color="primary" value={getValue()}>
+      <span className="text-sm font-sm text-primary-light dark:text-primary-100">
+        {getValue()}%
+      </span>
+    </Circlebar>
+  );
+}
+
+export function BadgeCell({ getValue }) {
+  return (
+    <Badge
+      color={getStatusColor(getValue())}
+      className="capitalize"
+    >
+      {getValue()}
+    </Badge>
+  );
+}
+
 OrderIdCell.propTypes = {
   getValue: PropTypes.func,
 };
@@ -217,6 +265,10 @@ AddressCell.propTypes = {
 };
 
 RoleCell.propTypes = {
+  getValue: PropTypes.func
+};
+
+BadgeCell.propTypes = {
   getValue: PropTypes.func
 };
 

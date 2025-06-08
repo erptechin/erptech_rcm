@@ -12,6 +12,8 @@ import {
     OrderIdCell,
     DateCell,
     TotalCell,
+    BadgeCell,
+    ProgressCell,
     RoleCell
 } from "./rows";
 
@@ -19,8 +21,20 @@ import {
 
 const columnHelper = createColumnHelper();
 
-export function Columns(fields = [], isPrint = false) {
+export function Columns(fields = [], fields_order = [], isPrint = false) {
     let returnColumns = []
+
+    // Sort fields based on fields_order array
+    const sortedFields = [...fields].sort((a, b) => {
+        const indexA = fields_order.indexOf(a.fieldname);
+        const indexB = fields_order.indexOf(b.fieldname);
+
+        // If field is not in fields_order, put it at the end
+        if (indexA === -1) return 1;
+        if (indexB === -1) return -1;
+
+        return indexA - indexB;
+    });
 
     // Check box
     returnColumns.push(columnHelper.display({
@@ -30,7 +44,19 @@ export function Columns(fields = [], isPrint = false) {
         cell: SelectCell,
     }))
 
-    for (let item of fields) {
+    for (let item of sortedFields) {
+
+
+        // Percent
+        if (item.fieldtype == 'Percent') {
+            returnColumns.push(columnHelper.accessor((row) => row[item.fieldname], {
+                id: item.fieldname,
+                label: item.label,
+                header: item.label,
+                cell: ProgressCell
+            }))
+        }
+
 
         // Data
         if (item.fieldtype == 'Data') {
@@ -72,10 +98,12 @@ export function Columns(fields = [], isPrint = false) {
         // Select
         if (item.fieldtype == 'Select') {
             const options = item.options ? (item.options).split("\n").map(item => ({ label: item, value: item })) : [];
+
             returnColumns.push(columnHelper.accessor((row) => row[item.fieldname], {
                 id: item.fieldname,
                 label: item.label,
                 header: item.label,
+                cell: BadgeCell,
                 filter: options.length ? "select" : "",
                 filterFn: options.length ? "arrIncludesSome" : "includesString",
                 options: options,

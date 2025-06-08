@@ -29,7 +29,7 @@ export default function InstallPrompt() {
     if (!showButton) return null;
 
     return (
-        <button onClick={handleInstall} className="fixed w-100 left-0 bottom-0 bg-blue-600 text-white px-4 py-2 rounded">
+        <button onClick={handleInstall} className="fixed w-full md:w-auto left-0 md:left-[35%] bottom-0 bg-blue-600 text-white px-4 py-2 rounded">
             Install App
         </button>
     );

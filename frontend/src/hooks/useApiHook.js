@@ -31,7 +31,7 @@ export const useFeachSingle = (params) => {
     const { isAuthenticated } = useAuthContext();
     return useQuery({
         queryFn: () => getSingleData(params),
-        enabled: isAuthenticated && !!params.id,
+        enabled: isAuthenticated && !!params.id && !!params.fields,
         select: (data) => {
             return data
         },

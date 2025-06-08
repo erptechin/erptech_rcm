@@ -1,4 +1,5 @@
 // Import Dependencies
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Skeleton } from "components/ui";
 import { useThemeContext } from "app/contexts/theme/context";
@@ -17,8 +18,7 @@ import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApi
 
 const pageName = "Quotation List"
 const doctype = "Quotation"
-const fields = ['quotation_to', 'transaction_date', 'order_type', 'company', 'custom_site', 'items']
-const subFields = ['delivery_date']
+const fields_list = ['quotation_to', 'transaction_date', 'order_type', 'company', 'custom_site', 'items']
 
 const tableFields = {
   "items": { "item_name": true, "qty": true, "uom": true, "custom_bom_no": true, "custom_produced_qty": true, "custom_cumulative_qty": true }
@@ -26,18 +26,29 @@ const tableFields = {
 
 // ----------------------------------------------------------------------
 
-const initialState = Object.fromEntries(
-  [...fields, ...subFields].map(field => [field, ""])
-);
+// const initialState = Object.fromEntries(
+//   [...fields, ...subFields].map(field => [field, ""])
+// );
 
 export default function AddEditFrom() {
   const { isDark, darkColorScheme, lightColorScheme } = useThemeContext();
   const navigate = useNavigate();
+  const [fields, setFields] = useState(null)
+  const [initialState, setInitialState] = useState({})
   const { user } = useAuthContext();
   const { id } = useParams();
   const branch = user.settings.is_enable_branch ? ['custom_branch'] : []
-  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...branch, ...fields, ...subFields]) });
-  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: JSON.stringify([...branch, ...fields, ...subFields]) });
+  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...branch, ...fields_list, ...fields_list]) });
+  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: JSON.stringify(fields) });
+
+
+  useEffect(() => {
+    if (info?.fields) {
+      let fields = info?.fields.map(item => item.fieldname)
+      setFields(fields)
+      setInitialState(Object.fromEntries(fields.map(field => [field, ""])))
+    }
+  }, [info?.fields])
 
   const mutationAdd = useAddData((data) => {
     if (data) {
@@ -137,13 +148,13 @@ export default function AddEditFrom() {
                   control={control}
                   errors={errors}
                 />
-                <DynamicForms
+                {/* <DynamicForms
                   infos={info?.fields}
                   fields={subFields}
                   register={register}
                   control={control}
                   errors={errors}
-                />
+                /> */}
               </Card>
             </div>
           </div>

@@ -27,7 +27,7 @@ frappe.ui.form.on("Weight Bridge", {
                 }
             }
 
-            doc = await frappe.db.get_doc('RCM Settings', 'enable_weigh_scale')
+            doc = await frappe.db.get_doc('RMC Settings', 'enable_weigh_scale')
             if (doc.enable_weigh_scale == 1) {
 
                 // TEST START

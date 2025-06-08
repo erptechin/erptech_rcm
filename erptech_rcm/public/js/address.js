@@ -1,35 +1,11 @@
-function isValidGST(gstin) {
-    const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
-
-    if (!gstRegex.test(gstin)) {
-        return false; // Basic format check failed
-    }
-
-    // Checksum validation (simplified version)
-    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let factor = 2, sum = 0, checkCodePoint = 0;
-
-    for (let i = gstin.length - 2; i >= 0; i--) {
-        const codePoint = chars.indexOf(gstin[i]);
-        const addend = factor * codePoint;
-
-        factor = (factor == 2) ? 1 : 2;
-        sum += Math.floor(addend / chars.length) + addend % chars.length;
-    }
-
-    const checksum = (chars.length - (sum % chars.length)) % chars.length;
-    return gstin[gstin.length - 1] === chars[checksum];
-}
-
 frappe.ui.form.on('Address', {
     gstin: async function (frm) {
-        if (frm.doc.gstin && isValidGST(frm.doc.gstin)) {
+        if (frm.doc.gstin) {
             let gstin = frm.doc.gstin;
             frappe.call({
                 method: 'erptech_rcm.api.custom.gst_info',
                 args: {
-                    'keyword': gstin,
-                    'uniqueId': "CFk1mgVfd8Dx2bcTuRuILOE4DAV169",
+                    'keyword': gstin
                 },
                 callback: function (r) {
                     if (r.message) {

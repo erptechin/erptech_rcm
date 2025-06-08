@@ -15,7 +15,7 @@ import { useDisclosure } from "hooks";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Button } from "components/ui";
 import clsx from "clsx";
-import { forwardRef, Fragment, useMemo, useState } from "react";
+import { forwardRef, Fragment, useEffect, useMemo, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import PropTypes from "prop-types";
 
@@ -28,24 +28,27 @@ import AddEditSubFrom from "./subForm";
 const SearchSelect = forwardRef(({ lists, onChange, value, name, error, label, placeholder, isAddNew, rootItem }, ref) => {
   const [isOpen, { open, close }] = useDisclosure(false);
   const [query, setQuery] = useState("");
-  const [listData, setListData] = useState(lists);
   const [newValue, setNewValue] = useState(value);
 
+  useEffect(() => {
+    setNewValue(value)
+  }, [value]);
+
   const filteredData = useMemo(() => {
+    if (!lists || lists.length === 0) return [];
+
     return query === ""
-      ? listData
-      : listData.filter((list) =>
+      ? lists
+      : lists.filter((list) =>
         list.label
           .toLowerCase()
           .replace(/\s+/g, "")
           .includes(query.toLowerCase().replace(/\s+/g, "")),
       );
-  }, [query]);
-
+  }, [query, lists]);
 
   const closePopup = (data) => {
     if (data) {
-      setListData([...listData, data])
       setNewValue(data.value)
       onChange(data.value)
     }
@@ -56,7 +59,7 @@ const SearchSelect = forwardRef(({ lists, onChange, value, name, error, label, p
     <>
       <Combobox
         as="div"
-        value={listData.find((list) => list.value === newValue) || null}
+        value={lists.find((list) => list.value === newValue) || null}
         onChange={(value) => { onChange(value); setNewValue(value) }}
         name={name}
         ref={ref}

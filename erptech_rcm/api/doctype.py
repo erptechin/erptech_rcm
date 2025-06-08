@@ -67,7 +67,7 @@ def list_info():
         create_response(
             200,
             f"{doctype} field info fetched!",
-            {"fields": filtered_fields},
+            {"fields": filtered_fields, "field_order": meta.field_order, "is_submittable": meta.is_submittable},
         )
 
     except Exception as ex:
@@ -87,7 +87,12 @@ def list_data():
         order_by = frappe.local.form_dict.get("order_by") or "modified desc"
 
         # Fetch data
-        counts = frappe.db.count(doctype, filters=filters)
+        counts = frappe.get_all(
+            doctype,
+            filters=filters,
+            or_filters=or_filters,
+            fields=["count(name)"]
+        )
 
         data = frappe.get_all(
             doctype,
@@ -122,7 +127,7 @@ def list_data():
         create_response(
             200,
             f"{doctype} list successfully fetched!",
-            {"counts": counts, "data": enhanced_data},
+            {"counts": counts[0]['count(name)'], "data": enhanced_data},
         )
 
     except Exception as ex:
@@ -132,22 +137,61 @@ def list_data():
 @frappe.whitelist()
 def single_data():
     try:
-        # Fetch doctype, fields, and filters from the request
+        # Fetch doctype and id from the request
         doctype = frappe.local.form_dict.get("doctype")
         id = frappe.local.form_dict.get("id")
-        getFields = frappe.local.form_dict.get("fields") or None
 
+        if not id:
+            create_response(400, "ID is required", {})
+            return
+
+        # Get the complete document
         record = frappe.get_doc(doctype, id)
-        filtered_fields = {}
-        for field, value in record.as_dict().items():
-            if field in getFields:
-                filtered_fields[field] = value
+        result = record.as_dict()
+
+        # Get meta information for the doctype
+        meta = frappe.get_meta(doctype)
+        
+        # Process each field
+        for field in meta.fields:
+            field_value = result.get(field.fieldname)
+            
+            # Handle Link type fields
+            if field.fieldtype == "Link" and field_value:
+                linked_doctype = field.options
+                if linked_doctype:
+                    link_data = frappe.db.get_value(linked_doctype, field_value, ["*"], as_dict=True)
+                    if link_data:
+                        result[field.fieldname + "_data"] = link_data
+            
+            # Handle Table type fields
+            elif field.fieldtype == "Table" and field_value:
+                table_doctype = field.options
+                if table_doctype:
+                    table_meta = frappe.get_meta(table_doctype)
+                    table_records = []
+                    
+                    for row in record.get(field.fieldname):
+                        row_data = row.as_dict()
+                        
+                        # Process Link fields within table
+                        for table_field in table_meta.fields:
+                            if table_field.fieldtype == "Link" and row_data.get(table_field.fieldname):
+                                linked_value = row_data.get(table_field.fieldname)
+                                linked_doctype = table_field.options
+                                link_data = frappe.db.get_value(linked_doctype, linked_value, ["*"], as_dict=True)
+                                if link_data:
+                                    row_data[table_field.fieldname + "_data"] = link_data
+                                    
+                        table_records.append(row_data)
+                    
+                    result[field.fieldname] = table_records
 
         # Send response
         create_response(
             200,
             f"{doctype} fetched successfully!",
-            {"data": filtered_fields},
+            {"data": result},
         )
 
     except Exception as ex:

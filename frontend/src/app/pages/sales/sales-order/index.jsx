@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Sales Order List"
 const doctype = "Sales Order"
-const fields = ['transaction_date', 'delivery_date', 'po_no', 'po_date', 'customer', 'custom_site']
+const fields = ['customer', 'custom_site', 'status', 'per_delivered', 'per_billed', 'delivery_date', 'total', 'po_no', 'po_date']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();
@@ -96,7 +96,7 @@ export default function ListData() {
 
   const table = useReactTable({
     data: orders,
-    columns: Columns(info?.fields),
+    columns: Columns(info?.fields, fields),
     doctype,
     state: {
       globalFilter,

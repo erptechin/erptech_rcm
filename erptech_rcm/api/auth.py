@@ -111,12 +111,16 @@ def sign_up():
             {"time": synced_time, "customer": customer.name},
         )
 
-
-
 @frappe.whitelist()
 def profile():
     user = frappe.get_doc("User", frappe.session.user)
     settings = frappe.get_cached_doc('RMC Settings')
+    
+    # Get employee details if exists
+    employee = None
+    if frappe.db.exists("Employee", {"user_id": frappe.session.user}):
+        employee = frappe.get_doc("Employee", {"user_id": frappe.session.user})
+    
     frappe.response["user"] = {
         "id": escape_html(user.name or ""),
         "first_name": escape_html(user.first_name or ""),
@@ -129,6 +133,7 @@ def profile():
         "email": user.email or "",
         "user_image": user.user_image,
         "settings": settings,
+        "employeeId":employee.name if employee else None
     }
     return
 

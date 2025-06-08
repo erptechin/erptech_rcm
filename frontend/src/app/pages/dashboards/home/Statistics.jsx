@@ -9,6 +9,7 @@ import {
   TicketIcon,
 } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
+import { useAuthContext } from "app/contexts/auth/context";
 
 // Local Imports
 import { Avatar, Badge, Box, Card, Button } from "components/ui";
@@ -125,13 +126,13 @@ function DollarCoin(props) {
 }
 
 export function Statistics() {
-
+  const { user } = useAuthContext();
   const [lists, setLists] = useState([]);
 
   const mutationAdd = useAddData((data) => { });
 
   const { data: info } = useInfo({ doctype, fields: JSON.stringify(fields) });
-  const [search, setSearch] = useState({ doctype, page: 1, page_length: 1, fields: null });
+  const [search, setSearch] = useState({ doctype, page: 1, page_length: 1, filters: user?.employeeId ? JSON.stringify([["Employee Checkin", "employee", "=", user?.employeeId]]) : null });
   const { data } = useFeachData(search);
 
   useEffect(() => {
