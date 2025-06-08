@@ -17,7 +17,6 @@ import { Button } from "components/ui";
 import clsx from "clsx";
 import { forwardRef, Fragment, useEffect, useMemo, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
-import PropTypes from "prop-types";
 
 // Local Imports
 import { Input } from "components/ui";
@@ -25,7 +24,7 @@ import AddEditSubFrom from "./subForm";
 
 // ----------------------------------------------------------------------
 
-const SearchSelect = forwardRef(({ lists, onChange, value, name, error, label, placeholder, isAddNew, rootItem }, ref) => {
+const SearchSelect = forwardRef(({ lists, onChange, value, name, error, label, placeholder, isAddNew, rootItem, readOnly }, ref) => {
   const [isOpen, { open, close }] = useDisclosure(false);
   const [query, setQuery] = useState("");
   const [newValue, setNewValue] = useState(value);
@@ -60,7 +59,12 @@ const SearchSelect = forwardRef(({ lists, onChange, value, name, error, label, p
       <Combobox
         as="div"
         value={lists.find((list) => list.value === newValue) || null}
-        onChange={(value) => { onChange(value); setNewValue(value) }}
+        onChange={(value) => {
+          if (!readOnly) {
+            onChange(value);
+            setNewValue(value);
+          }
+        }}
         name={name}
         ref={ref}
       >
@@ -68,7 +72,7 @@ const SearchSelect = forwardRef(({ lists, onChange, value, name, error, label, p
           <>
             <div className="flex items-center">
               <Label>{label}</Label>
-              {isAddNew && (<Button onClick={open} color="secondary" isIcon className="size-6 rounded-full ml-auto"><FaPlusCircle className="size-3" /></Button>)}
+              {isAddNew && !readOnly && (<Button onClick={open} color="secondary" isIcon className="size-6 rounded-full ml-auto"><FaPlusCircle className="size-3" /></Button>)}
             </div>
 
             <div className="relative mt-1.5">
@@ -84,15 +88,17 @@ const SearchSelect = forwardRef(({ lists, onChange, value, name, error, label, p
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={placeholder}
                   suffix={
-                    <ComboboxButton>
-                      <ChevronDownIcon
-                        className={clsx(
-                          "size-5 transition-transform",
-                          openArrow && "rotate-180",
-                        )}
-                        aria-hidden="true"
-                      />
-                    </ComboboxButton>
+                    !readOnly && (
+                      <ComboboxButton>
+                        <ChevronDownIcon
+                          className={clsx(
+                            "size-5 transition-transform",
+                            openArrow && "rotate-180",
+                          )}
+                          aria-hidden="true"
+                        />
+                      </ComboboxButton>
+                    )
                   }
                 />
               </div>
@@ -175,17 +181,5 @@ const SearchSelect = forwardRef(({ lists, onChange, value, name, error, label, p
 });
 
 SearchSelect.displayName = "SearchSelect";
-
-SearchSelect.propTypes = {
-  onChange: PropTypes.func,
-  value: PropTypes.string,
-  label: PropTypes.string,
-  lists: PropTypes.array,
-  placeholder: PropTypes.string,
-  name: PropTypes.string,
-  isAddNew: PropTypes.bool,
-  rootItem: PropTypes.object,
-  error: PropTypes.node,
-};
 
 export { SearchSelect };

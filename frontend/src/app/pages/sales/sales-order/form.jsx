@@ -200,6 +200,7 @@ export default function AddEditFrom() {
                       lists={sites}
                       placeholder={`Select Site`}
                       error={errors['custom_site']?.message}
+                      readOnly={info?.is_submittable && data?.docstatus}
                       {...rest}
                     />
                   }}

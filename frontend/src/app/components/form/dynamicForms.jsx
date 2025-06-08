@@ -271,6 +271,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                                     values={value}
                                                     label={item.label}
                                                     isAddNew={true}
+                                                    readOnly={readOnly ?? false}
                                                     rootItem={item}
                                                     tableFields={tables ? tables[item.fieldname] : {}}
                                                     error={errors[item.fieldname]?.message}
@@ -298,6 +299,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                                 return <DatePicker
                                                     onChange={onChangeDate}
                                                     value={value || ""}
+                                                    readOnly={readOnly ?? false}
                                                     label={item.label}
                                                     error={errors[item.fieldname]?.message}
                                                     options={{ disableMobile: true }}

@@ -18,12 +18,13 @@ import SubValues from "./subValues";
 
 // ----------------------------------------------------------------------
 
-const TableBox = forwardRef(({ onChange, values, label, rootItem, tableFields, error }, ref) => {
+const TableBox = forwardRef(({ onChange, values, label, rootItem, tableFields, error, readOnly }, ref) => {
   const [listData, setListData] = useState([]);
   const [newValues, setNewValues] = useState([]);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [state, setState] = useState({ status: "pending" });
+
 
   useEffect(() => {
     if (values) {
@@ -111,7 +112,7 @@ const TableBox = forwardRef(({ onChange, values, label, rootItem, tableFields, e
       <div>
         <div className="flex items-center">
           <label className="input-label"><span className="input-label">{label}</span></label>
-          <Button onClick={open} color="secondary" className="ml-auto">ADD NEW</Button>
+          {!readOnly && <Button onClick={open} color="secondary" className="ml-auto">ADD NEW</Button>}
         </div>
 
         <div className="relative mt-1.5">
@@ -145,14 +146,16 @@ const TableBox = forwardRef(({ onChange, values, label, rootItem, tableFields, e
                       }
                     })}
                     <Td>
-                      <Button
-                        onClick={() => { setDeleteModalOpen(true); setState({ status: "pending", key: index }) }}
-                        color="error"
-                        isIcon
-                        className="size-6 rounded-full"
-                      >
-                        <TiDelete className="size-5" />
-                      </Button>
+                      {!readOnly && (
+                        <Button
+                          onClick={() => { setDeleteModalOpen(true); setState({ status: "pending", key: index }) }}
+                          color="error"
+                          isIcon
+                          className="size-6 rounded-full"
+                        >
+                          <TiDelete className="size-5" />
+                        </Button>
+                      )}
                     </Td>
                   </Tr>
                 ))}
@@ -185,7 +188,7 @@ const TableBox = forwardRef(({ onChange, values, label, rootItem, tableFields, e
             leaveTo="translate-x-full"
           >
             <DialogPanel className="fixed right-0 top-0 flex h-full sm:w-[95%] md:w-[600px] transform-gpu flex-col bg-white transition-transform duration-200 dark:bg-dark-700">
-              {isOpen && (<SubValues onClose={(data) => closePopup(data)} id={null} doctype={rootItem.options} />)}
+              {isOpen && !readOnly && (<SubValues onClose={(data) => closePopup(data)} id={null} doctype={rootItem.options} readOnly={readOnly} />)}
             </DialogPanel>
           </TransitionChild>
         </Dialog>
