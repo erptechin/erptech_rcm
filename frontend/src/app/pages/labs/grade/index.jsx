@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Grade List"
 const doctype = "BOM"
-const fields = ['custom_customer', 'custom_site', 'custom_recipe_code', 'item_name', 'custom_mix_description', 'custom_recipe_code', 'quantity', 'uom']
+const fields = ['custom_customer', 'custom_site', 'item_code', 'is_active', 'is_default', 'has_variants', 'total_cost']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();

@@ -1,10 +1,12 @@
 // Import Dependencies
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Skeleton } from "components/ui";
 import { useThemeContext } from "app/contexts/theme/context";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { DocumentPlusIcon } from "@heroicons/react/24/outline";
+import { SearchSelect } from "app/components/form/SearchSelect";
 
 // Local Imports
 import { Schema } from "app/components/form/schema";
@@ -12,29 +14,96 @@ import { Page } from "components/shared/Page";
 import { Button, Card } from "components/ui";
 import DynamicForms from 'app/components/form/dynamicForms';
 import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApiHook";
+import { getCustomData } from 'utils/apis';
+import { useAuthContext } from "app/contexts/auth/context";
 
-const pageName = "Grade List"
+const pageName = "Grade"
 const doctype = "BOM"
-const fields = ['custom_customer', 'custom_site', 'custom_recipe_code', 'item_name', 'custom_mix_description', 'items']
-const subFields = ['custom_recipe_code', 'quantity']
+const fields_list = ['item', 'uom', 'custom_recipe_code', 'custom_mix_description', 'quantity', 'custom_customer', 'custom_site', 'items']
+const subFields = ['is_active', 'is_default', 'set_rate_of_sub_assembly_item_based_on_bom']
 
 const tableFields = {
-  "items": { "item_code": true, "qty": true, "uom": true, "rate": true, "amount": true }
+  "items": { "assessment": true, "score": true },
+  "ignorFields": { "custom_site": true }
 }
-
 
 // ----------------------------------------------------------------------
 
-const initialState = Object.fromEntries(
-  [...fields, ...subFields].map(field => [field, ""])
-);
-
 export default function AddEditFrom() {
   const { isDark, darkColorScheme, lightColorScheme } = useThemeContext();
+  const { user } = useAuthContext();
+  const branch = user.settings.is_enable_branch ? ['custom_branch'] : []
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...fields, ...subFields]) });
-  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: JSON.stringify([...fields, ...subFields]) });
+  const [fields, setFields] = useState(null)
+  const [initialState, setInitialState] = useState({})
+  const [sites, setSites] = useState([]);
+  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...branch, ...fields_list, ...subFields]) });
+  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: fields ? JSON.stringify(fields) : null });
+
+  useEffect(() => {
+    if (info?.fields) {
+      let fields = info?.fields.map(item => item.fieldname)
+      setFields(fields);
+      setInitialState(Object.fromEntries(fields.map(field => [field, ""])))
+    }
+  }, [info?.fields])
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+    reset,
+    setValue,
+  } = useForm({
+    resolver: yupResolver(Schema(info?.fields)),
+    values: id ? data : initialState,
+  });
+
+  // Watch course field
+  const customer = useWatch({
+    control,
+    name: "custom_customer",
+  });
+
+  // Effect to handle course changes
+  useEffect(() => {
+    const fetchCustomerSites = async () => {
+      if (customer) {
+        try {
+          // Fetch sites for the selected customer
+          const response = await getCustomData({
+            url: `erptech_rcm.api.custom.get_customer_address?customer_name=${customer}`
+          });
+
+          if (response) {
+            const siteOptions = response.map(site => ({
+              label: site.site_name || site.name,
+              value: site.name
+            }));
+            setSites(siteOptions);
+
+            // If there's only one site, auto-select it
+            if (siteOptions.length === 1) {
+              setValue('custom_site', siteOptions[0].value);
+            } else if (siteOptions.length === 0) {
+              setValue('custom_site', ''); // Clear selection if no sites
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching customer sites:', error);
+          setSites([]);
+          setValue('custom_site', '');
+        }
+      } else {
+        setSites([]);
+        setValue('custom_site', '');
+      }
+    };
+
+    fetchCustomerSites();
+  }, [customer, setValue]);
 
   const mutationAdd = useAddData((data) => {
     if (data) {
@@ -50,19 +119,11 @@ export default function AddEditFrom() {
     }
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-    reset,
-  } = useForm({
-    resolver: yupResolver(Schema(info?.fields)),
-    values: id ? data : initialState,
-  });
-
   const onSubmit = (data) => {
     if (id) {
+      if (data?.status === "Draft" && info?.is_submittable) {
+        data['docstatus'] = 1
+      }
       mutationUpdate.mutate({ doctype, body: { ...data, id } })
     } else {
       mutationAdd.mutate({ doctype, body: data })
@@ -76,6 +137,7 @@ export default function AddEditFrom() {
       }}
     />
   }
+
   return (
     <Page title={(id ? 'Edit ' : "New ") + pageName}>
       <div className="transition-content px-(--margin-x) pb-6">
@@ -97,11 +159,11 @@ export default function AddEditFrom() {
             </Button>
             <Button
               className="min-w-[7rem]"
-              color="primary"
+              color={data?.status === "Draft" && info?.is_submittable ? "success" : "primary"}
               type="submit"
               form="new-post-form"
             >
-              Save
+              {data?.status === "Draft" && info?.is_submittable ? "Submit" : "Save"}
             </Button>
           </div>
         </div>
@@ -116,24 +178,43 @@ export default function AddEditFrom() {
                 <div className="mt-5 space-y-5">
                   <DynamicForms
                     infos={info}
-                    fields={fields}
+                    fields={fields_list}
                     tables={tableFields}
                     register={register}
                     control={control}
                     errors={errors}
+                    readOnly={info?.is_submittable && data?.docstatus}
                   />
                 </div>
               </Card>
             </div>
             <div className="col-span-12 space-y-4 sm:space-y-5 lg:col-span-4 lg:space-y-6">
               <Card className="space-y-5 p-4 sm:px-5">
-
+                <Controller
+                  render={({ field: { onChange, value, ...rest } }) => {
+                    return <SearchSelect
+                      onChange={onChange}
+                      value={value}
+                      label={'Site'}
+                      lists={sites}
+                      placeholder={`Select Site`}
+                      error={errors['custom_site']?.message}
+                      readOnly={info?.is_submittable && data?.docstatus}
+                      {...rest}
+                    />
+                  }}
+                  control={control}
+                  name={'custom_site'}
+                  {...register('custom_site')}
+                />
                 <DynamicForms
-                  infos={info?.fields}
+                  infos={info}
                   fields={subFields}
+                  tables={tableFields}
                   register={register}
                   control={control}
                   errors={errors}
+                  readOnly={info?.is_submittable && data?.docstatus}
                 />
               </Card>
             </div>
