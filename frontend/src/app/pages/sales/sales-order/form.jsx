@@ -121,7 +121,10 @@ export default function AddEditFrom() {
 
   const onSubmit = (data) => {
     if (id) {
-      mutationUpdate.mutate({ doctype, body: { ...data, id, docstatus: data?.status === "Draft" && info?.is_submittable ? 1 : 0 } })
+      if (data?.status === "Draft" && info?.is_submittable) {
+        data['docstatus'] = 1
+      }
+      mutationUpdate.mutate({ doctype, body: { ...data, id } })
     } else {
       mutationAdd.mutate({ doctype, body: data })
     }
