@@ -21,7 +21,8 @@ const doctype = "Quotation"
 const fields_list = ['quotation_to', 'transaction_date', 'order_type', 'company', 'custom_site', 'items']
 
 const tableFields = {
-  "items": { "item_name": true, "qty": true, "uom": true, "custom_bom_no": true, "custom_produced_qty": true, "custom_cumulative_qty": true }
+  "items": { "item_name": true, "qty": true, "uom": true, "custom_bom_no": true, "custom_produced_qty": true, "custom_cumulative_qty": true },
+  "ignorFields": { }
 }
 
 // ----------------------------------------------------------------------
@@ -142,14 +143,14 @@ export default function AddEditFrom() {
             <div className="col-span-12 space-y-4 sm:space-y-5 lg:col-span-4 lg:space-y-6">
               <Card className="space-y-5 p-4 sm:px-5">
                 <DynamicForms
-                  infos={info?.fields}
+                  infos={info}
                   fields={branch}
                   register={register}
                   control={control}
                   errors={errors}
                 />
                 {/* <DynamicForms
-                  infos={info?.fields}
+                  infos={info}
                   fields={subFields}
                   register={register}
                   control={control}

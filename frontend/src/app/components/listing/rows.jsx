@@ -2,6 +2,7 @@
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import clsx from "clsx";
+import { useNavigate } from "react-router";
 import {
   Listbox,
   ListboxButton,
@@ -62,6 +63,15 @@ export function OrderIdCell({ getValue }) {
   return (
     <span className="font-medium text-primary-600 dark:text-primary-400">
       {getValue()}
+    </span>
+  );
+}
+
+export function SelectLink({ getValue }) {
+  const navigate = useNavigate();
+  return (
+    <span className="font-medium text-primary-600 dark:text-primary-400">
+      <div className="cursor-pointer" onClick={() => navigate(`edit/${getValue()}`)}>{getValue()}</div>
     </span>
   );
 }

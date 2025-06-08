@@ -15,6 +15,11 @@ frappe.ui.form.on('BOM', {
             };
         });
     },
+    custom_customer: function(frm) {
+        if(frm.doc.custom_customer && frm.doc.custom_recipe_code) {
+            frm.trigger('custom_recipe_code');
+        }
+    },
     custom_recipe_code: async function (frm, cdt, cdn) {
         if (frm.doc.custom_recipe_code) {
             frappe.call({
@@ -23,6 +28,7 @@ frappe.ui.form.on('BOM', {
                     parent: "Recipe",
                     child: "Recipe Items",
                     parent_name: frm.doc.custom_recipe_code,
+                    custom_customer: frm.doc.custom_customer
                 },
                 callback: function (res) {
                     frm.doc.items = []

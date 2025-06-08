@@ -20,7 +20,8 @@ const subFields = ['custom_structure']
 
 const tableFields = {
   "po_items": { "sales_order": true, "sales_order_date": true, "grand_total": true, "customer": true },
-  "mr_items": { "item_name": true, "planned_qty": true, "stock_uom": true, "bom_no": true, "produced_qty": true, "pending_qty": true }
+  "mr_items": { "item_name": true, "planned_qty": true, "stock_uom": true, "bom_no": true, "produced_qty": true, "pending_qty": true },
+  "ignorFields": { }
 }
 
 // ----------------------------------------------------------------------
@@ -129,7 +130,7 @@ export default function AddEditFrom() {
               <Card className="space-y-5 p-4 sm:px-5">
 
                 <DynamicForms
-                  infos={info?.fields}
+                  infos={info}
                   fields={subFields}
                   register={register}
                   control={control}

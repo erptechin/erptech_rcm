@@ -158,9 +158,8 @@ export default function AddEditFrom() {
             </div>
             <div className="col-span-12 space-y-4 sm:space-y-5 lg:col-span-4 lg:space-y-6">
               <Card className="space-y-5 p-4 sm:px-5">
-
                 <DynamicForms
-                  infos={info?.fields}
+                  infos={info}
                   fields={subFields}
                   register={register}
                   control={control}

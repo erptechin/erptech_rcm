@@ -101,7 +101,7 @@ export default function General() {
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 [&_.prefix]:pointer-events-none">
           <div className="space-y-4">
             <DynamicForms
-              infos={info?.fields}
+              infos={info}
               fields={field1}
               register={register}
               control={control}
@@ -111,7 +111,7 @@ export default function General() {
           </div>
           <div className="space-y-4">
             <DynamicForms
-              infos={info?.fields}
+              infos={info}
               fields={field2}
               register={register}
               control={control}

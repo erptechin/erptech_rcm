@@ -19,7 +19,8 @@ const fields = ['posting_date', 'customer', 'custom_site', 'tax_category', 'taxe
 const subFields = ['total_taxes_and_charges', 'total', 'grand_total']
 
 const tableFields = {
-  "items": { "item_name": true, "gst_hsn_code": true, "qty": true, "uom": true, "rate": true, "amount": true }
+  "items": { "item_name": true, "gst_hsn_code": true, "qty": true, "uom": true, "rate": true, "amount": true },
+  "ignorFields": { }
 }
 
 // ----------------------------------------------------------------------
@@ -127,7 +128,7 @@ export default function AddEditFrom() {
             <div className="col-span-12 space-y-4 sm:space-y-5 lg:col-span-4 lg:space-y-6">
               <Card className="space-y-5 p-4 sm:px-5">
                 <DynamicForms
-                  infos={info?.fields}
+                  infos={info}
                   fields={subFields}
                   register={register}
                   control={control}

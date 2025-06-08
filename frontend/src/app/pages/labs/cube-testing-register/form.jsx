@@ -123,7 +123,7 @@ export default function AddEditFrom() {
               <Card className="space-y-5 p-4 sm:px-5">
 
                 <DynamicForms
-                  infos={info?.fields}
+                  infos={info}
                   fields={subFields}
                   register={register}
                   control={control}

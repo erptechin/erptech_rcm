@@ -19,7 +19,8 @@ const fields = ['posting_date', 'posting_time', 'items']
 const subFields = ['stock_entry_type']
 
 const tableFields = {
-  "items": { "item_name": true, "qty": true, "uom": true, "basic_rate": true, "basic_amount": true, "amount": true }
+  "items": { "item_name": true, "qty": true, "uom": true, "basic_rate": true, "basic_amount": true, "amount": true },
+  "ignorFields": { }
 }
 
 
@@ -129,7 +130,7 @@ export default function AddEditFrom() {
               <Card className="space-y-5 p-4 sm:px-5">
 
                 <DynamicForms
-                  infos={info?.fields}
+                  infos={info}
                   fields={subFields}
                   register={register}
                   control={control}

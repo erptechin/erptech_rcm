@@ -10,6 +10,7 @@ import {
 } from "components/shared/table/SelectCheckbox";
 import {
     OrderIdCell,
+    SelectLink,
     DateCell,
     TotalCell,
     BadgeCell,
@@ -43,6 +44,14 @@ export function Columns(fields = [], fields_order = [], isPrint = false) {
         header: SelectHeader,
         cell: SelectCell,
     }))
+
+    // ID Link
+    returnColumns.push(columnHelper.accessor((row) => row['name'], {
+        id: 'name',
+        filter: "",
+        cell: SelectLink
+    }))
+
 
     for (let item of sortedFields) {
 

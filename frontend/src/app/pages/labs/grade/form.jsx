@@ -19,11 +19,12 @@ import { useAuthContext } from "app/contexts/auth/context";
 
 const pageName = "Grade"
 const doctype = "BOM"
-const fields_list = ['item', 'uom', 'custom_recipe_code', 'custom_mix_description', 'quantity', 'custom_customer', 'custom_site', 'items']
+const fields_list = ['item', 'uom', 'custom_recipe_code', 'custom_mix_description', 'quantity', 'custom_customer', 'custom_site', 'items', "custom_items_2"]
 const subFields = ['is_active', 'is_default', 'set_rate_of_sub_assembly_item_based_on_bom']
 
 const tableFields = {
-  "items": { "assessment": true, "score": true },
+  "items": { "item_code": true, "source_warehouse": true, "qty": true, "uom": true, "rate": true },
+  "custom_items_2": { "item_code": true, "qty": true, "uom": true, "rate": true },
   "ignorFields": { "custom_site": true }
 }
 
@@ -104,6 +105,59 @@ export default function AddEditFrom() {
 
     fetchCustomerSites();
   }, [customer, setValue]);
+
+
+  // Watch recipe code field
+  const recipeCode = useWatch({
+    control,
+    name: "custom_recipe_code",
+  });
+
+  // Effect to handle recipe code changes
+  useEffect(() => {
+    const fetchChildItems = async () => {
+      if (recipeCode) {
+        try {
+          const response = await getCustomData({
+            url: `erptech_rcm.api.custom.get_child_items?parent=Recipe&child=Recipe Items&parent_name=${recipeCode}&custom_customer=${customer}`
+          });
+
+          if (response) {
+
+            // Reset both item arrays
+            const items = [];
+            const items2 = [];
+
+            // Map each item from the response to both tables
+            response.forEach((item) => {
+              const itemData = {
+                item_code: item.item_code,
+                item_name: item.item_name,
+                qty: item.qty,
+                rate: item.rate,
+                uom: item.uom,
+                amount: item.amount
+              };
+
+              items.push(itemData);
+              items2.push(itemData);
+            });
+
+            // Set values for both tables
+            setValue('items', items);
+            setValue('custom_items_2', items2);
+          }
+        } catch (error) {
+          console.error('Error fetching child items:', error);
+          setValue('items', []);
+          setValue('custom_items_2', []);
+        }
+      }
+    };
+
+    fetchChildItems();
+  }, [recipeCode, setValue, customer]);
+
 
   const mutationAdd = useAddData((data) => {
     if (data) {
