@@ -113,7 +113,7 @@ export default function AddEditSubFrom({ onClose, id, rootData }) {
               <Card className="p-4 sm:px-5 overflow-y-auto max-h-screen">
                 <div className="mt-5 space-y-5">
                   <DynamicForms
-                    infos={info?.fields}
+                    infos={info}
                     fields={fields}
                     register={register}
                     control={control}

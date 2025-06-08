@@ -34,7 +34,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
     return (
         <div className="space-y-4">
             {fields && fields.map((info) => {
-                let item = infos && infos.find((item) => item.fieldname == info && !tables?.ignorFields[info])
+                let item = infos?.fields && infos.fields.find((item) => item.fieldname == info && !tables?.ignorFields[info])
                 if (item) {
                     return <div key={"field.name"} className="form-group">
                         {(() => {
@@ -150,6 +150,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                                 <Input
                                                     type="number"
                                                     value={value}
+                                                    readOnly={readOnly ?? false}
                                                     label={item.label}
                                                     placeholder={`Enter the ${item.label}`}
                                                     {...register(item.fieldname)}
@@ -184,6 +185,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                     return (
                                         <Textarea
                                             rows={4}
+                                            readOnly={readOnly ?? false}
                                             label={item.label}
                                             placeholder={`Enter the ${item.label}`}
                                             {...register(item.fieldname)}
@@ -201,6 +203,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                                 return <TextEditor
                                                     label={item.label}
                                                     value={htmlToDelta(html)}
+                                                    readOnly={readOnly ?? false}
                                                     // onChange={(val) => onChange(val)}
                                                     placeholder={`Enter ${item.label}`}
                                                     className="mt-1.5 [&_.ql-editor]:max-h-80 [&_.ql-editor]:min-h-[12rem]"
@@ -222,6 +225,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                                 return <SearchSelect
                                                     onChange={onChange}
                                                     value={value}
+                                                    readOnly={readOnly ?? false}
                                                     label={item.label}
                                                     lists={options}
                                                     placeholder={`${item.label}`}
@@ -242,6 +246,7 @@ export default function DynamicForms({ infos, fields, register, control, errors,
                                                 <SearchSelect
                                                     onChange={onChange}
                                                     value={value}
+                                                    readOnly={readOnly ?? false}
                                                     label={item.label}
                                                     lists={item.options_list}
                                                     placeholder={`${item.label}`}

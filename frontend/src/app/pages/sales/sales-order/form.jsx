@@ -178,12 +178,13 @@ export default function AddEditFrom() {
               <Card className="p-4 sm:px-5">
                 <div className="mt-5 space-y-5">
                   <DynamicForms
-                    infos={info?.fields}
+                    infos={info}
                     fields={fields}
                     tables={tableFields}
                     register={register}
                     control={control}
                     errors={errors}
+                    readOnly={info?.is_submittable && data?.docstatus}
                   />
                 </div>
               </Card>

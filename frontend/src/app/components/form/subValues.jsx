@@ -91,7 +91,7 @@ export default function SubValues({ onClose, id, doctype }) {
               <Card className="p-4 sm:px-5">
                 <div className="mt-5 space-y-5 h-[75vh] overflow-y-auto">
                   <DynamicForms
-                    infos={info?.fields}
+                    infos={info}
                     fields={fields}
                     register={register}
                     control={control}
