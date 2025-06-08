@@ -1,4 +1,5 @@
 // Import Dependencies
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Skeleton } from "components/ui";
 import { useThemeContext } from "app/contexts/theme/context";
@@ -12,24 +13,33 @@ import { Page } from "components/shared/Page";
 import { Button, Card } from "components/ui";
 import DynamicForms from 'app/components/form/dynamicForms';
 import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApiHook";
+import { useAuthContext } from "app/contexts/auth/context";
 
-const pageName = "Driver List"
+const pageName = "Driver"
 const doctype = "Driver"
-const fields = ['full_name', 'license_number', 'issuing_date', 'expiry_date']
+const fields_list = ['full_name', 'employee', 'license_number', 'issuing_date', 'expiry_date']
 const subFields = ['cell_number', 'status']
 
 // ----------------------------------------------------------------------
 
-const initialState = Object.fromEntries(
-  [...fields, ...subFields].map(field => [field, ""])
-);
-
 export default function AddEditFrom() {
   const { isDark, darkColorScheme, lightColorScheme } = useThemeContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...fields, ...subFields]) });
-  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: JSON.stringify([...fields, ...subFields]) });
+  const [fields, setFields] = useState(null)
+  const [initialState, setInitialState] = useState({})
+  const branch = user.settings.is_enable_branch ? ['custom_branch'] : []
+  const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...branch, ...fields_list, ...subFields]) });
+  const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: fields ? JSON.stringify(fields) : null });
+
+  useEffect(() => {
+    if (info?.fields) {
+      let fields = info?.fields.map(item => item.fieldname)
+      setFields(fields);
+      setInitialState(Object.fromEntries(fields.map(field => [field, ""])))
+    }
+  }, [info?.fields])
 
   const mutationAdd = useAddData((data) => {
     if (data) {
@@ -58,6 +68,9 @@ export default function AddEditFrom() {
 
   const onSubmit = (data) => {
     if (id) {
+      if (data?.status === "Draft" && info?.is_submittable) {
+        data['docstatus'] = 1
+      }
       mutationUpdate.mutate({ doctype, body: { ...data, id } })
     } else {
       mutationAdd.mutate({ doctype, body: data })
@@ -71,6 +84,7 @@ export default function AddEditFrom() {
       }}
     />
   }
+
   return (
     <Page title={(id ? 'Edit ' : "New ") + pageName}>
       <div className="transition-content px-(--margin-x) pb-6">
@@ -92,11 +106,11 @@ export default function AddEditFrom() {
             </Button>
             <Button
               className="min-w-[7rem]"
-              color="primary"
+              color={data?.status === "Draft" && info?.is_submittable ? "success" : "primary"}
               type="submit"
               form="new-post-form"
             >
-              Save
+              {data?.status === "Draft" && info?.is_submittable ? "Submit" : "Save"}
             </Button>
           </div>
         </div>
@@ -111,23 +125,24 @@ export default function AddEditFrom() {
                 <div className="mt-5 space-y-5">
                   <DynamicForms
                     infos={info}
-                    fields={fields}
+                    fields={fields_list}
                     register={register}
                     control={control}
                     errors={errors}
+                    readOnly={info?.is_submittable && data?.docstatus}
                   />
                 </div>
               </Card>
             </div>
             <div className="col-span-12 space-y-4 sm:space-y-5 lg:col-span-4 lg:space-y-6">
               <Card className="space-y-5 p-4 sm:px-5">
-
                 <DynamicForms
-                  infos={info?.fields}
-                  fields={subFields}
+                  infos={info}
+                  fields={[...branch, ...subFields]}
                   register={register}
                   control={control}
                   errors={errors}
+                  readOnly={info?.is_submittable && data?.docstatus}
                 />
               </Card>
             </div>
