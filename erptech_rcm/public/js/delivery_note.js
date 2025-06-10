@@ -110,6 +110,15 @@ frappe.ui.form.on('Delivery Note', {
 
 
 frappe.ui.form.on('Delivery Note Item', {
+    setup: function (frm) {
+        frm.set_query('item_code', function () {
+            return {
+                filters: {
+                    'item_group': 'Raw Material'
+                }
+            };
+        });
+    },
     qty: function (frm, cdt, cdn) {
         let row = locals[cdt][cdn];
         if (row.qty) {
