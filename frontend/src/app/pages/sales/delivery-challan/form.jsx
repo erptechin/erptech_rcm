@@ -366,7 +366,7 @@ export default function AddEditFrom() {
       custom_bom_no: item.bom_no,
       against_sales_order: order.name,
       so_detail: item.name,
-      custom_cumulative_qty: preItem.custom_cumulative_qty
+      custom_cumulative_qty: preItem?.custom_cumulative_qty || 0
     };
     setValue('items', [newItem]);
   };
