@@ -57,6 +57,7 @@ export default function AddEditFrom() {
     formState: { errors },
     control,
     reset,
+    setValue,
   } = useForm({
     resolver: yupResolver(Schema(info?.fields)),
     values: id ? data : initialState,
@@ -96,14 +97,49 @@ export default function AddEditFrom() {
             >
               Back
             </Button>
-            <Button
-              className="min-w-[7rem]"
-              color="primary"
-              type="submit"
-              form="new-post-form"
-            >
-              Save
-            </Button>
+            {info?.is_submittable ? (
+              <>
+                <Button
+                  className="min-w-[7rem]"
+                  color="primary"
+                  type="submit"
+                  form="new-post-form"
+                  disabled={data?.docstatus > 1}
+                  onClick={() => setValue('docstatus', 0)}
+                >
+                  Save
+                </Button>
+                {data?.docstatus === 1 ? <Button
+                  className="min-w-[7rem]"
+                  color="error"
+                  type="submit"
+                  form="new-post-form"
+                  onClick={() => setValue('docstatus', 2)}
+                >
+                  Cancel
+                </Button> : <Button
+                  className="min-w-[7rem]"
+                  color="success"
+                  type="submit"
+                  form="new-post-form"
+                  disabled={data?.docstatus > 1}
+                  onClick={() => setValue('docstatus', 1)}
+                >
+                  Submit
+                </Button>
+                }
+
+              </>
+            ) : (
+              <Button
+                className="min-w-[7rem]"
+                color="primary"
+                type="submit"
+                form="new-post-form"
+              >
+                Save
+              </Button>
+            )}
           </div>
         </div>
         <form

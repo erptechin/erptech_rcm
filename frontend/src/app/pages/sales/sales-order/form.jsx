@@ -19,7 +19,7 @@ import { useAuthContext } from "app/contexts/auth/context";
 
 const pageName = "Sales Order List"
 const doctype = "Sales Order"
-const fields_list = ['customer', 'delivery_date', 'po_no', 'po_date', 'items']
+const fields_list = ['customer', 'status', 'delivery_date', 'po_no', 'po_date', 'items']
 const subFields = ['custom_site']
 
 const tableFields = {
@@ -121,9 +121,6 @@ export default function AddEditFrom() {
 
   const onSubmit = (data) => {
     if (id) {
-      if (data?.status === "Draft" && info?.is_submittable) {
-        data['docstatus'] = 1
-      }
       mutationUpdate.mutate({ doctype, body: { ...data, id } })
     } else {
       mutationAdd.mutate({ doctype, body: data })
@@ -158,14 +155,49 @@ export default function AddEditFrom() {
             >
               Back
             </Button>
-            <Button
-              className="min-w-[7rem]"
-              color={data?.status === "Draft" && info?.is_submittable ? "success" : "primary"}
-              type="submit"
-              form="new-post-form"
-            >
-              {data?.status === "Draft" && info?.is_submittable ? "Submit" : "Save"}
-            </Button>
+            {info?.is_submittable ? (
+              <>
+                <Button
+                  className="min-w-[7rem]"
+                  color="primary"
+                  type="submit"
+                  form="new-post-form"
+                  disabled={data?.docstatus > 1}
+                  onClick={() => setValue('docstatus', 0)}
+                >
+                  Save
+                </Button>
+                {data?.docstatus === 1 ? <Button
+                  className="min-w-[7rem]"
+                  color="error"
+                  type="submit"
+                  form="new-post-form"
+                  onClick={() => setValue('docstatus', 2)}
+                >
+                  Cancel
+                </Button> : <Button
+                  className="min-w-[7rem]"
+                  color="success"
+                  type="submit"
+                  form="new-post-form"
+                  disabled={data?.docstatus > 1}
+                  onClick={() => setValue('docstatus', 1)}
+                >
+                  Submit
+                </Button>
+                }
+
+              </>
+            ) : (
+              <Button
+                className="min-w-[7rem]"
+                color="primary"
+                type="submit"
+                form="new-post-form"
+              >
+                Save
+              </Button>
+            )}
           </div>
         </div>
         <form

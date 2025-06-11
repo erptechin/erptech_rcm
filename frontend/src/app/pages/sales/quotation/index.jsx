@@ -44,7 +44,7 @@ const isSafari = getUserAgentBrowser() === "Safari";
 
 const pageName = "Quotation List"
 const doctype = "Quotation"
-const fields = ['quotation_to', 'transaction_date', 'order_type', 'company', 'custom_site']
+const fields = ['quotation_to', 'status', 'transaction_date', 'order_type', 'company', 'custom_site']
 
 export default function ListData() {
   const { cardSkin } = useThemeContext();
