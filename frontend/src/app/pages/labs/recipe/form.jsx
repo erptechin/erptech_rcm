@@ -20,7 +20,8 @@ const fields = ['recipe_code', 'recipe_name', 'recipe_items']
 const subFields = ['density']
 
 const tableFields = {
-  "recipe_items": { "item_code": true, "qty": true, "uom": true }
+  "recipe_items": { "item_code": true, "qty": true, "uom": true },
+  "ignorFields": { }
 }
 
 // ----------------------------------------------------------------------

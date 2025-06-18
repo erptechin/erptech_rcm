@@ -24,11 +24,11 @@ export const dashboards = {
             Icon: StatisticIcon,
         },
         {
-            id: 'dashboards.task',
-            path: path(ROOT_DASHBOARDS, '/task'),
+            id: 'dashboards.opportunity',
+            path: path(ROOT_DASHBOARDS, '/opportunity'),
             type: NAV_TYPE_ITEM,
-            title: 'Task',
-            transKey: 'nav.dashboards.task',
+            title: 'opportunity',
+            transKey: 'nav.dashboards.opportunity',
             Icon: PeopleIcon,
         },
     ]

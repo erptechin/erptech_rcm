@@ -132,11 +132,11 @@ export function Statistics() {
   const mutationAdd = useAddData((data) => { });
 
   const { data: info } = useInfo({ doctype, fields: JSON.stringify(fields) });
-  const [search, setSearch] = useState({ doctype, page: 1, page_length: 1, filters: user?.employeeId ? JSON.stringify([["Employee Checkin", "employee", "=", user?.employeeId]]) : null });
+  const [search, setSearch] = useState({ doctype, page: 1, page_length: 1, fields: null, filters: user?.employeeId ? JSON.stringify([[doctype, "employee", "=", user?.employeeId]]) : null });
   const { data } = useFeachData(search);
 
   useEffect(() => {
-    if (info?.fields) {
+    if (info?.fields && user?.employeeId) {
       const fieldnames = info?.fields.map(field => field.fieldname);
       setSearch({ ...search, fields: JSON.stringify([...fieldnames, "name"]) })
     }

@@ -32,7 +32,7 @@ const tableFields = {
 export default function AddEditFrom() {
   const { isDark, darkColorScheme, lightColorScheme } = useThemeContext();
   const { user } = useAuthContext();
-  const branch = user.settings.is_enable_branch ? ['custom_branch'] : []
+  const branch = user?.settings?.is_enable_branch ? ['custom_branch'] : []
   const navigate = useNavigate();
   const { id } = useParams();
   const [fields, setFields] = useState(null)
@@ -211,7 +211,7 @@ export default function AddEditFrom() {
                 <div className="mt-5 space-y-5">
                   <DynamicForms
                     infos={info}
-                    fields={fields}
+                    fields={fields_list}
                     tables={tableFields}
                     register={register}
                     control={control}

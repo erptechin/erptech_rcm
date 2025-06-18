@@ -521,9 +521,9 @@ const protectedRoutes = {
           path: "dashboards",
           children: [
             {
-              path: "task",
+              path: "opportunity",
               lazy: async () => ({
-                Component: (await import("app/pages/dashboards/task")).default,
+                Component: (await import("app/pages/dashboards/opportunity")).default,
               }),
             },
           ],

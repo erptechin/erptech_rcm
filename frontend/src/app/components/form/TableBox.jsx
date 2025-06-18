@@ -25,7 +25,6 @@ const TableBox = forwardRef(({ onChange, values, label, rootItem, tableFields, e
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [state, setState] = useState({ status: "pending" });
 
-
   useEffect(() => {
     if (values) {
       setNewValues(values)

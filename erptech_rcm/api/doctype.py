@@ -64,10 +64,11 @@ def list_info():
                 filtered_fields.append(field_dict)
 
         # Send response
+        meta_dict = meta.as_dict()
         create_response(
             200,
             f"{doctype} field info fetched!",
-            {"fields": filtered_fields, "field_order": meta.field_order, "is_submittable": meta.is_submittable},
+            {"fields": filtered_fields, "field_order": meta_dict.get("field_order"), "is_submittable": meta_dict.get("is_submittable")},
         )
 
     except Exception as ex:

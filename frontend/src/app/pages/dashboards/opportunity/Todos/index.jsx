@@ -9,8 +9,8 @@ import { getItemPosition } from "../utils";
 import { useInfo, useFeachData } from "hooks/useApiHook";
 
 // ----------------------------------------------------------------------
-const doctype = "Task"
-const fields = ['subject', 'project', 'status', 'priority', 'color', 'exp_end_date', 'progress']
+const doctype = "Opportunity"
+const fields = ['opportunity_from', 'opportunity_type', 'party_name', 'source', 'status', 'probability', 'industry']
 
 export function Todos() {
   const { todos, searchQuery } = useTodoContext();

@@ -203,22 +203,16 @@
 
             {% for i in range(1, customNoOfBatch + 1) %}
             {% set second = total_seconds/customNoOfBatch %}
-            {% if (i-1) % 2 == 0 %}
-            {% set to.randomValue = (random_values[i-1]|int) / 100 %}
-            {% endif %}
+            {% set to.randomValue = range(1, 11) | random %}
 
             <tr>
-                <td style="">{{i}}</td>
-                {% if (i-1) % 2 == 0 %}
-                <td style="">{{"%.0f"|format(70 + (to.randomValue)| float)}}</td>
-                {% else %}
-                <td style="">{{"%.0f"|format(70 - (to.randomValue)| float)}}</td>
-                {% endif %}
+                <td >{{i}}</td>
+                <td >{{"%.0f"|format((second - 10) + (to.randomValue)| float)}}</td>
                 {% set to = namespace(totalM=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
                 {% set qtys = row.qtys.strip('[]').split(',') %}
                 {% set to.totalM = to.totalM + qtys[i-1] | float %}
-                <td style="">
+                <td >
                     {% if row.decimal %}
                     {{ "%.2f"|format(qtys[i-1] | float) }}
                     {% else %}
@@ -226,7 +220,7 @@
                     {% endif %}
                 </td>
                 {%- endfor %}
-                <td style="">{{ to.totalM }}</td>
+                <td >{{ to.totalM }}</td>
             </tr>
 
             {%- endfor -%}
@@ -234,9 +228,9 @@
             <tr>
                 <td colspan="2" style="text-align: left;"><b>Moi & ABS</b></td>
                 {%- for row in doc.custom_installation_note_recipe -%}
-                <td style="" class="text-center">0%</td>
+                <td  class="text-center">0%</td>
                 {%- endfor -%}
-                <td style=""></td>
+                <td ></td>
             </tr>
 
             <tr>
@@ -250,7 +244,7 @@
                 {% set to.total = to.total + qty | float %}
                 {% endfor %}
                 {% set toa.totalA = (toa.totalA + to.total) %}
-                <td style="">
+                <td >
                     {% if row.decimal %}
                     {{ "%.2f"|format(to.total) }}
                     {% else %}
@@ -259,7 +253,7 @@
                 </td>
                 {% set ns.tars = ns.tars + to.total %}
                 {%- endfor -%}
-                <td style="">{{ toa.totalA }}</td>
+                <td >{{ toa.totalA }}</td>
             </tr>
 
             <tr>
@@ -268,7 +262,7 @@
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
                 {% set tob.totalB = (tob.totalB + (row.qty * customNoOfBatch)) %}
-                <td style="">
+                <td >
                     {% if row.decimal %}
                     {{ "%.2f"|format(row.qty * customNoOfBatch) }}
                     {% else %}
@@ -277,7 +271,7 @@
                 </td>
                 {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
                 {%- endfor -%}
-                <td style="">{{ tob.totalB }}</td>
+                <td >{{ tob.totalB }}</td>
             </tr>
 
 
@@ -290,7 +284,7 @@
                 {% for qty in qtys %}
                 {% set to.total = to.total + qty | float %}
                 {% endfor %}
-                <td style="">
+                <td >
                     {% if row.decimal %}
                     {{ "%.2f"|format(to.total/10) }}
                     {% else %}
@@ -299,14 +293,14 @@
                 </td>
                 {% set ns.tars = ns.tars + to.total %}
                 {%- endfor -%}
-                <td style=""></td>
+                <td ></td>
             </tr>
 
             <tr>
                 <td colspan="2" style="text-align: left;"><b>Target</b></td>
                 {% set ns = namespace(tars=0) %}
                 {%- for row in doc.custom_installation_note_recipe -%}
-                <td style="">
+                <td >
                     {% if row.decimal %}
                     {{ "%.2f"|format((row.qty * customNoOfBatch)/10) }}
                     {% else %}
@@ -315,13 +309,13 @@
                 </td>
                 {% set ns.tars = ns.tars + (row.qty * customNoOfBatch) %}
                 {%- endfor -%}
-                <td style=""></td>
+                <td ></td>
             </tr>
 
             <tr>
                 <td colspan="2" style="text-align: left;"><b>Recipe Design</b></td>
                 {%- for row in doc.custom_installation_note_recipe -%}
-                <td style="">
+                <td >
                     {% if row.decimal %}
                     {{ "%.2f"|format(row.qty) }}
                     {% else %}
@@ -329,7 +323,7 @@
                     {% endif %}
                 </td>
                 {%- endfor -%}
-                <td style=""></td>
+                <td ></td>
             </tr>
 
 

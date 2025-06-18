@@ -10,7 +10,7 @@ import { Todos } from "./Todos";
 
 export default function Todo() {
   return (
-    <Page title="My Task">
+    <Page title="Opportunity">
       <TodoProvider>
         <MainHeader />
         <main className="main-content transition-content grid grid-cols-1 place-content-start px-(--margin-x) pb-6 pt-5">

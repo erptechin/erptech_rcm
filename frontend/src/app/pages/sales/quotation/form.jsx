@@ -38,7 +38,7 @@ export default function AddEditFrom() {
   const [initialState, setInitialState] = useState({})
   const { user } = useAuthContext();
   const { id } = useParams();
-  const branch = user.settings.is_enable_branch ? ['custom_branch'] : []
+  const branch = user?.settings?.is_enable_branch ? ['custom_branch'] : []
   const { data: info, isFetching: isFetchingInfo } = useInfo({ doctype, fields: JSON.stringify([...branch, ...fields_list, ...fields_list]) });
   const { data, isFetching: isFetchingData } = useFeachSingle({ doctype, id, fields: JSON.stringify(fields) });
 
