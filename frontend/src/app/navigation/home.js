@@ -24,11 +24,27 @@ export const dashboards = {
             Icon: StatisticIcon,
         },
         {
+            id: 'dashboards.task',
+            path: path(ROOT_DASHBOARDS, '/task'),
+            type: NAV_TYPE_ITEM,
+            title: 'Task',
+            transKey: 'nav.dashboards.task',
+            Icon: PeopleIcon,
+        },
+        {
             id: 'dashboards.opportunity',
             path: path(ROOT_DASHBOARDS, '/opportunity'),
             type: NAV_TYPE_ITEM,
             title: 'opportunity',
             transKey: 'nav.dashboards.opportunity',
+            Icon: PeopleIcon,
+        },
+        {
+            id: 'dashboards.crm',
+            path: path(ROOT_DASHBOARDS, '/crm'),
+            type: NAV_TYPE_ITEM,
+            title: 'Crm',
+            transKey: 'nav.dashboards.crm',
             Icon: PeopleIcon,
         },
     ]

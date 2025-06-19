@@ -1,21 +1,30 @@
 // Import Dependencies
+import { useEffect } from "react";
 import clsx from "clsx";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { ViewColumnsIcon } from "@heroicons/react/24/outline";
 
 // Local Imports
+import { useBoardContext } from "../../Board.context";
 import { useThemeContext } from "app/contexts/theme/context";
 import { Button, ScrollShadow } from "components/ui";
 import { Header } from "./Header";
 import { Navigation } from "./Navigation";
 import { Labels } from "./Labels";
-import { NewTask } from "../../Modals/NewTask";
-import { useDisclosure } from "hooks";
+import { useInfo } from "hooks/useApiHook";
 
 // ----------------------------------------------------------------------
 
 export function SidebarPanel() {
+  const { setInfo, doctype, fields } = useBoardContext();
   const { cardSkin } = useThemeContext();
-  const [isOpen, { open, close }] = useDisclosure();
+  const { data } = useInfo({ doctype, fields: JSON.stringify([...fields, ["notes"]]) });
+
+  useEffect(() => {
+    if (data?.fields) {
+      setInfo(data?.fields)
+    }
+  }, [data])
+
 
   return (
     <>
@@ -38,23 +47,19 @@ export function SidebarPanel() {
           <ScrollShadow className="hide-scrollbar grow overflow-y-auto">
             <div className="px-4 pt-2">
               <Button
-                onClick={open}
                 variant="outlined"
                 className="w-full gap-2 rounded-full"
               >
-                <PlusIcon className="size-4" />
-                <span>Add Task</span>
+                <ViewColumnsIcon className="size-4" />
+                <span>Opportunity</span>
               </Button>
             </div>
             <Navigation />
             <div className="mx-4 my-4 h-px bg-gray-200 dark:bg-dark-500" />
             <Labels />
           </ScrollShadow>
-          {/* <Footer /> */}
         </div>
       </div>
-
-      <NewTask isOpen={isOpen} close={close} />
     </>
   );
 }

@@ -1,48 +1,41 @@
-export const todoKey = Symbol("todo");
+// Import Dependencies
+import invariant from 'tiny-invariant';
 
-export function getTodoData({ todo, index, instanceId }) {
-    return {
-        [todoKey]: true,
-        todo,
-        index,
-        instanceId,
-    };
-}
+// ----------------------------------------------------------------------
 
-export function getItemRegistry() {
-    const registry = new Map();
+export function createRegistry() {
+    const cards = new Map();
+    const columns = new Map();
 
-    function register({ itemId, element }) {
-        registry.set(itemId, element);
+    function registerCard({ cardId, entry }) {
+        cards.set(cardId, entry);
 
-        return function unregister() {
-            registry.delete(itemId);
+        return function cleanup() {
+            cards.delete(cardId);
         };
     }
 
-    function getElement(itemId) {
-        return registry.get(itemId) ?? null;
+    function registerColumn({
+        columnId,
+        entry,
+    }) {
+        columns.set(columnId, entry);
+        return function cleanup() {
+            cards.delete(columnId);
+        };
     }
 
-    return { register, getElement };
-}
-
-export function isItemData(data, itemKey) {
-    return data[itemKey] === true;
-}
-
-export function getItemPosition({ index, items }) {
-    if (items.length === 1) {
-        return 'only';
+    function getCard(cardId) {
+        const entry = cards.get(cardId);
+        invariant(entry);
+        return entry;
     }
 
-    if (index === 0) {
-        return 'first';
+    function getColumn(columnId) {
+        const entry = columns.get(columnId);
+        invariant(entry);
+        return entry;
     }
 
-    if (index === items.length - 1) {
-        return 'last';
-    }
-
-    return 'middle';
+    return { registerCard, registerColumn, getCard, getColumn };
 }

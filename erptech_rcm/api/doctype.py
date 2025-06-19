@@ -32,6 +32,24 @@ def list_info():
                             })
                         field_dict['options_list'] = converted_options_lists
                         field_dict['title_field'] = subTitel
+                    if field_dict.fieldtype == 'Table MultiSelect':
+                        subMeta = frappe.get_meta(field.options)
+                        subFields = ["name"]
+                        subTitel = None
+                        if subMeta.as_dict()['title_field']:
+                            subTitel = subMeta.as_dict()['title_field']
+                            subFields.append(subTitel)
+                        doc_type = field.options 
+                        doc_type = doc_type.replace(" Detail", "")
+                        options_lists = frappe.get_all(doc_type, fields=subFields)
+                        converted_options_lists = []
+                        for item in options_lists:
+                            converted_options_lists.append({
+                                'value': item['name'],
+                                'label':  item[subTitel] if subTitel else item['name']
+                            })
+                        field_dict['options_list'] = converted_options_lists
+                        field_dict['title_field'] = subTitel
                     if field_dict.fieldtype == 'Table':
                         subMeta = frappe.get_meta(field.options)
                         sub_fields = subMeta.as_dict()['fields']
@@ -53,6 +71,24 @@ def list_info():
                             subTitel = subMeta.as_dict()['title_field']
                             subFields.append(subTitel)
                         options_lists = frappe.get_all(field.options, fields=subFields)
+                        converted_options_lists = []
+                        for item in options_lists:
+                            converted_options_lists.append({
+                                'value': item['name'],
+                                'label':  item[subTitel] if subTitel else item['name']
+                            })
+                        field_dict['options_list'] = converted_options_lists
+                        field_dict['title_field'] = subTitel
+                if field_dict.fieldtype == 'Table MultiSelect':
+                        subMeta = frappe.get_meta(field.options)
+                        subFields = ["name"]
+                        subTitel = None
+                        if subMeta.as_dict()['title_field']:
+                            subTitel = subMeta.as_dict()['title_field']
+                            subFields.append(subTitel)
+                        doc_type = field.options 
+                        doc_type = doc_type.replace(" Detail", "")
+                        options_lists = frappe.get_all(doc_type, fields=subFields)
                         converted_options_lists = []
                         for item in options_lists:
                             converted_options_lists.append({

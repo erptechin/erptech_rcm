@@ -1,16 +1,17 @@
 import { useRef } from "react";
-import { Controller } from 'react-hook-form';
+import { Controller,useWatch } from 'react-hook-form';
 import { SketchPicker } from 'react-color';
 import Cleave from "cleave.js/react";
 import TextareaAutosize from "react-textarea-autosize";
 import { ContextualHelp } from "components/shared/ContextualHelp";
-import { Input, Textarea, Checkbox, Button, Upload, Avatar } from "components/ui";
+import { Input, Textarea, Checkbox, Button, Upload, Avatar, Select } from "components/ui";
 import { DatePicker } from "components/shared/form/Datepicker";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { TextEditor } from "components/shared/form/TextEditor";
 import { htmlToDelta } from "utils/quillUtils";
 import { JWT_HOST_API } from 'configs/auth.config';
 import { SearchSelect } from "./SearchSelect";
+import { SearchSelectDynamic } from "./SearchSelectDynamic";
 import { TableBox } from "./TableBox";
 import clsx from "clsx";
 
@@ -166,6 +167,8 @@ export default function RenderField({ item, control, register, errors, tables })
                             />
                         );
 
+                    case 'Duration':
+                    case 'Percent':
                     case 'Currency':
                         return (
                             <Controller
@@ -222,11 +225,11 @@ export default function RenderField({ item, control, register, errors, tables })
                         return (
                             <Controller
                                 render={({ field: { value, onChange, ...rest } }) => {
-                                    let newValue = typeof value === 'object' ? value.ops[0].insert : (value ? value : '')
+                                    let newValue = (value && typeof value === 'object') ? value.ops[0].insert : (value ? value : '')
                                     const html = `${newValue}`;
                                     return <TextEditor
                                         label={item.label}
-                                        value={htmlToDelta(html)}
+                                        value={htmlToDelta(html ? html : '<p></p>')}
                                         placeholder={`Enter ${item.label}`}
                                         className="mt-1.5 [&_.ql-editor]:max-h-80 [&_.ql-editor]:min-h-[12rem]"
                                         modules={editorModules}
@@ -262,6 +265,38 @@ export default function RenderField({ item, control, register, errors, tables })
                             />
                         );
 
+                    case 'Table MultiSelect':
+                        return (
+                            <Controller
+                                render={({ field: { onChange, value, ...rest } }) => {
+                                    return <div className="max-w-full">
+                                        <Select
+                                            onChange={(obj) => {
+                                                const newValue = obj.target.value;
+                                                if (value.includes(newValue)) {
+                                                    onChange(value.filter(v => v !== newValue));
+                                                } else {
+                                                    onChange([...value, newValue]);
+                                                }
+                                            }}
+                                            value={value}
+                                            label={item.label}
+                                            multiple={true}
+                                            data={item?.options_list || []}
+                                            placeholder={`${item.label}`}
+                                            isAddNew={true}
+                                            rootItem={item}
+                                            error={errors[item.fieldname]?.message}
+                                            {...rest}
+                                        />
+                                    </div>
+                                }}
+                                control={control}
+                                name={item.fieldname}
+                                {...register(item.fieldname)}
+                            />
+                        );
+
                     case 'Link':
                         return (
                             <Controller
@@ -272,6 +307,31 @@ export default function RenderField({ item, control, register, errors, tables })
                                             value={value}
                                             label={item.label}
                                             lists={item.options_list}
+                                            placeholder={`${item.label}`}
+                                            isAddNew={true}
+                                            rootItem={item}
+                                            error={errors[item.fieldname]?.message}
+                                            {...rest}
+                                        />
+                                    </div>
+                                )}
+                                control={control}
+                                name={item.fieldname}
+                                {...register(item.fieldname)}
+                            />
+                        );
+
+                    case 'Dynamic Link':
+                        return (
+                            <Controller
+                                render={({ field: { onChange, value, ...rest } }) => (
+                                    <div className="max-w-full">
+                                        <SearchSelectDynamic
+                                            onChange={onChange}
+                                            value={value}
+                                            label={item.label}
+                                            option={item.options}
+                                            control={control}
                                             placeholder={`${item.label}`}
                                             isAddNew={true}
                                             rootItem={item}
@@ -356,7 +416,8 @@ export default function RenderField({ item, control, register, errors, tables })
 
                     default:
                         return (
-                            <>new ... {item.fieldname}</>
+                            <>new ... {item.fieldname} {item.fieldtype}</>
+                            // <></>
                         );
                 }
             })()}

@@ -45,8 +45,9 @@ export function Columns(fields = [], fields_order = [], isPrint = false) {
     }))
 
     // ID Link
-    returnColumns.push(columnHelper.accessor((row) => row['name'], {
+    returnColumns.push(columnHelper.display({
         id: 'name',
+        header: "Name",
         filter: "",
         cell: SelectLink
     }))

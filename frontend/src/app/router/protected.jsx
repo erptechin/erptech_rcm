@@ -32,7 +32,34 @@ const protectedRoutes = {
               lazy: async () => ({
                 Component: (await import("app/pages/dashboards/home")).default,
               }),
-            }
+            },
+            {
+              path: "crm",
+              lazy: async () => ({
+                Component: (await import("app/pages/dashboards/crm")).default,
+              }),
+            },
+            {
+              path: "crm/add-new",
+              lazy: async () => ({
+                Component: (await import("app/pages/dashboards/crm/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "crm/edit/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/dashboards/crm/form"))
+                  .default,
+              }),
+            },
+            {
+              path: "crm/details/:id",
+              lazy: async () => ({
+                Component: (await import("app/pages/dashboards/crm/details"))
+                  .default,
+              }),
+            },
           ],
         },
         {
@@ -517,13 +544,19 @@ const protectedRoutes = {
     {
       Component: AppLayout,
       children: [
-         {
+        {
           path: "dashboards",
           children: [
             {
               path: "opportunity",
               lazy: async () => ({
                 Component: (await import("app/pages/dashboards/opportunity")).default,
+              }),
+            },
+            {
+              path: "task",
+              lazy: async () => ({
+                Component: (await import("app/pages/dashboards/task")).default,
               }),
             },
           ],

@@ -3,7 +3,9 @@
     "dashboards": {
       "dashboards": "Home",
       "home": "Home",
-      "opportunity": "Opportunity"
+      "task": "Task",
+      "opportunity": "Opportunity",
+      "crm": "CRM"
     },
     "stores": {
       "stores": "Stores",

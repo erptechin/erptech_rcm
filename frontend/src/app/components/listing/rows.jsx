@@ -67,11 +67,11 @@ export function OrderIdCell({ getValue }) {
   );
 }
 
-export function SelectLink({ getValue }) {
+export function SelectLink({ row }) {
   const navigate = useNavigate();
   return (
     <span className="font-medium text-primary-600 dark:text-primary-400">
-      <div className="cursor-pointer" onClick={() => navigate(`edit/${getValue()}`)}>{getValue()}</div>
+      <div className="cursor-pointer" onClick={() => navigate(`${row.original.details ? 'details' : 'edit'}/${row.original.id}`)}>{row.original.id}</div>
     </span>
   );
 }

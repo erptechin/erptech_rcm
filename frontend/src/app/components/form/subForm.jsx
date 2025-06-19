@@ -26,7 +26,7 @@ export default function AddEditSubFrom({ onClose, id, rootData }) {
 
   useEffect(() => {
     if (info?.fields) {
-      const fields = (info.fields).filter(item => item.read_only === 0).map(item => item.fieldname)
+      const fields = (info.fields).filter(item => item.read_only === 0 && item.reqd).map(item => item.fieldname)
       setFields(fields)
     }
   }, [info])
@@ -75,6 +75,8 @@ export default function AddEditSubFrom({ onClose, id, rootData }) {
     />
   }
 
+  console.log(errors)
+
   return (
     <Page title="New Post Form">
       <div className="transition-content px-10 pb-6">
@@ -114,6 +116,7 @@ export default function AddEditSubFrom({ onClose, id, rootData }) {
                 <div className="mt-5 space-y-5">
                   <DynamicForms
                     infos={info}
+                    ignorFields={[]}
                     fields={fields}
                     register={register}
                     control={control}

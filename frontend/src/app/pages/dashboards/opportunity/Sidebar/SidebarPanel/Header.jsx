@@ -1,6 +1,6 @@
 // Import Dependencies
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { ViewColumnsIcon } from "@heroicons/react/24/outline";
 
 // Local Imports
 import { useSidebarContext } from "app/contexts/sidebar/context";
@@ -14,11 +14,11 @@ export function Header() {
   return (
     <div className="relative flex h-18 w-full shrink-0 items-center justify-between pl-4 pr-1 rtl:pl-1 rtl:pr-4">
       <div className="flex items-center gap-3">
-        <Avatar size={9} initialColor="info" initialVariant="soft">
-          <IoCheckmarkDoneOutline className="size-5 stroke-2" />
+        <Avatar size={9} initialColor="success" initialVariant="soft">
+          <ViewColumnsIcon className="size-4.5 stroke-2" />
         </Avatar>
         <p className="truncate text-base tracking-wider text-gray-800 dark:text-dark-100">
-          My Task
+          Kanban Board
         </p>
       </div>
       <Button

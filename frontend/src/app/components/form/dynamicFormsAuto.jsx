@@ -4,7 +4,7 @@ export default function DynamicFormsAuto({ infos, ignorFields, register, control
 
     // Split fields into columns based on Column Break and Section Break
     const columns = infos.fields.reduce((acc, info) => {
-        if (info.fieldtype == "HTML" || ignorFields.includes(info.fieldname)) return acc;
+        if (info.fieldtype == "HTML" || info.fieldtype == "Tab Break" || ignorFields.includes(info.fieldname)) return acc;
 
         if (info.fieldtype === 'Section Break') {
             acc.push({

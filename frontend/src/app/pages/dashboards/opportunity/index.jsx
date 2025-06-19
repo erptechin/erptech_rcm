@@ -1,24 +1,26 @@
 // Local Imports
 import { Page } from "components/shared/Page";
 import { Header as MainHeader } from "app/layouts/MainLayout/Header";
-import { TodoProvider } from "./TodoProvider";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
-import { Todos } from "./Todos";
+import { BoardProvider } from "./BoardProvider";
+import { Board } from "./Board";
 
 // ----------------------------------------------------------------------
 
-export default function Todo() {
+export default function Kanban() {
   return (
-    <Page title="Opportunity">
-      <TodoProvider>
+    <Page title="Kanban Board">
+      <div className="flex h-screen flex-col supports-[height:1dvh]:h-dvh">
         <MainHeader />
-        <main className="main-content transition-content grid grid-cols-1 place-content-start px-(--margin-x) pb-6 pt-5">
-          <Header />
-          <Todos />
-        </main>
-        <Sidebar />
-      </TodoProvider>
+        <BoardProvider>
+          <main className="main-content transition-content grid flex-1 grid-cols-1">
+            <Header />
+            <Board />
+          </main>
+          <Sidebar />
+        </BoardProvider>
+      </div>
     </Page>
   );
 }

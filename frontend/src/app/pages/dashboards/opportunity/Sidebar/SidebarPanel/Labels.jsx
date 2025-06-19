@@ -15,58 +15,60 @@ import {
 
 // Local Imports
 import { Button } from "components/ui";
+import { useBoardContext } from "../../Board.context";
 
 // ----------------------------------------------------------------------
 
-export const labels = [
-  {
-    id: '1',
+export const labels = {
+  'Maintenance': {
     color: 'success',
     text: 'Low'
   },
-  {
-    id: '2',
+  'Support': {
     color: 'warning',
     text: 'Medium'
   },
-  {
-    id: '3',
+  'Sales': {
     color: 'error',
     text: 'High'
   },
-  {
-    id: '4',
+  '4': {
     color: 'info',
     text: 'Urgent'
   }
-]
+}
 
 export function Labels() {
+
+  const { infos, searchQuery, setSearchQuery } = useBoardContext();
+
+  // opportunity_type
+  const opportunity_types = infos.find(info => info.fieldname === "opportunity_type");
+
   return (
     <div>
       <div className="flex min-w-0 items-center justify-between px-4">
         <span className="truncate text-tiny-plus font-medium uppercase">
-          Labels
+          Types
         </span>
-        {/* <div className="flex ltr:-mr-1.5 rtl:-ml-1.5">
-          <Button variant="flat" isIcon className="size-6 rounded-full">
-            <PlusIcon className="size-3.5 stroke-2" />
-          </Button>
-          <ActionMenu />
-        </div> */}
       </div>
       <ul className="space-y-1.5 px-2 pt-1 font-medium">
-        {labels.map((label) => (
-          <li key={label.id}>
+        {opportunity_types?.options_list && opportunity_types.options_list.map((label) => (
+          <li key={label}>
             <Button
-              variant="flat"
+              color={label.value === searchQuery?.opportunity_type ? "primary" : 'neutral'}
+              variant={label.value === searchQuery?.opportunity_type ? "soft" : "flat"}
               className="group w-full justify-between gap-2 p-2 text-xs-plus"
+              onClick={() => setSearchQuery({
+                ...searchQuery,
+                opportunity_type: searchQuery?.opportunity_type === label.value ? null : label.value
+              })}
             >
               <div className="flex gap-2">
                 <ListBulletIcon
-                  className={`size-4.5 stroke-2 text-this dark:text-this-light this:${label.color}`}
+                  className={`size-4.5 stroke-2 text-this dark:text-this-light this:${labels[label?.label]?.color}`}
                 />
-                <span>{label.text}</span>
+                <span>{label?.label}</span>
               </div>
             </Button>
           </li>
