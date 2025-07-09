@@ -44,7 +44,7 @@ import { useDisclosure } from "hooks";
 import { useThemeContext } from "app/contexts/theme/context";
 import { getUserAgentBrowser } from "utils/dom/getUserAgentBrowser";
 import { useInfo, useFeachData } from "hooks/useApiHook";
-import AddEditSubFrom from "app/components/form/subForm";
+import SubForm from "./subForm";
 // ----------------------------------------------------------------------
 
 const isSafari = getUserAgentBrowser() === "Safari";
@@ -365,7 +365,7 @@ export default function Lists({ tabData, customer }) {
             leaveTo="translate-x-full"
           >
             <DialogPanel className="fixed right-0 top-0 flex h-full sm:w-[95%] md:w-[600px] transform-gpu flex-col bg-white transition-transform duration-200 dark:bg-dark-700">
-              {isOpen && (<AddEditSubFrom onClose={(data) => closePopup(data)} id={null} rootData={{ options: tabData?.doctype, title_field: tabData?.title_field }} />)}
+              {isOpen && (<SubForm onClose={(data) => closePopup(data)} id={null} rootData={{ options: tabData?.doctype, title_field: tabData?.title_field }} />)}
             </DialogPanel>
           </TransitionChild>
         </Dialog>

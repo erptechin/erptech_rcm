@@ -14,7 +14,7 @@ import { useInfo, useAddData, useFeachSingle, useUpdateData } from "hooks/useApi
 
 // ----------------------------------------------------------------------
 
-export default function AddEditSubFrom({ onClose, id, rootData }) {
+export default function SubForm({ onClose, id, rootData }) {
   const { isDark, darkColorScheme, lightColorScheme } = useThemeContext();
   const doctype = rootData.options
   const [fields, setFields] = useState([])
@@ -26,7 +26,7 @@ export default function AddEditSubFrom({ onClose, id, rootData }) {
 
   useEffect(() => {
     if (info?.fields) {
-      const fields = (info.fields).filter(item => item.read_only === 0).map(item => item.fieldname)
+      const fields = (info.fields).filter(item => item.read_only === 0 && item.reqd).map(item => item.fieldname)
       setFields(fields)
     }
   }, [info])
@@ -74,6 +74,8 @@ export default function AddEditSubFrom({ onClose, id, rootData }) {
       }}
     />
   }
+
+  console.log(errors)
 
   return (
     <Page title="New Post Form">

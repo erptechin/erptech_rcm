@@ -291,7 +291,7 @@ export default function AddEditFrom() {
       }
       let custom_installation_note_recipe = []
       if (data.items[0].custom_bom_no) {
-        const recipes = bom.custom_items_2.length ? bom.custom_items_2 : []
+        const recipes = bom.items.length ? bom.items : []
         const materialMapping = await getListData({
           doctype: 'Raw Material Mapping',
           fields: JSON.stringify(["item_name", "item", "decimal"]),

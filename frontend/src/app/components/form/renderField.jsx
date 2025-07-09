@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Controller,useWatch } from 'react-hook-form';
+import { Controller, useWatch } from 'react-hook-form';
 import { SketchPicker } from 'react-color';
 import Cleave from "cleave.js/react";
 import TextareaAutosize from "react-textarea-autosize";
@@ -161,6 +161,42 @@ export default function RenderField({ item, control, register, errors, tables })
                                             </div>
                                         </div>
                                     }
+                                }}
+                                control={control}
+                                {...register(item.fieldname)}
+                            />
+                        );
+
+                    case 'Autocomplete':
+                        return (
+                            <Controller
+                                render={({ field: { onChange, value } }) => {
+                                    return <Input
+                                        value={value}
+                                        onChange={onChange}
+                                        label={item.label}
+                                        placeholder={`Enter the ${item.label}`}
+                                        error={errors[item.fieldname]?.message}
+                                    />
+
+                                }}
+                                control={control}
+                                {...register(item.fieldname)}
+                            />
+                        );
+
+                    case 'Read Only':
+                        return (
+                            <Controller
+                                render={({ field: { value } }) => {
+                                    return <Input
+                                        value={value}
+                                        readOnly={true}
+                                        label={item.label}
+                                        placeholder={`Enter the ${item.label}`}
+                                        error={errors[item.fieldname]?.message}
+                                    />
+
                                 }}
                                 control={control}
                                 {...register(item.fieldname)}
@@ -349,18 +385,20 @@ export default function RenderField({ item, control, register, errors, tables })
                     case 'Table':
                         return (
                             <Controller
-                                render={({ field: { onChange, value, ...rest } }) => (
-                                    <TableBox
-                                        onChange={onChange}
-                                        values={value}
-                                        label={item.label}
-                                        isAddNew={true}
-                                        rootItem={item}
-                                        tableFields={tables ? tables[item.fieldname] : {}}
-                                        error={errors[item.fieldname]?.message}
-                                        {...rest}
-                                    />
-                                )}
+                                render={({ field: { onChange, value, ...rest } }) => {
+                                    return <>
+                                        <TableBox
+                                            onChange={onChange}
+                                            values={value}
+                                            label={item.label}
+                                            isAddNew={true}
+                                            rootItem={item}
+                                            tableFields={tables ? tables[item.fieldname] : {}}
+                                            error={errors[item.fieldname]?.message}
+                                            {...rest}
+                                        />
+                                    </>
+                                }}
                                 control={control}
                                 name={item.fieldname}
                                 {...register(item.fieldname)}
@@ -412,6 +450,13 @@ export default function RenderField({ item, control, register, errors, tables })
                                 name={item.fieldname}
                                 {...register(item.fieldname)}
                             />
+                        );
+
+                    case 'Tab Break':
+                    case 'Section Break':
+                    case 'Column Break':
+                        return (
+                            <></>
                         );
 
                     default:

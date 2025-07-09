@@ -10,7 +10,6 @@ import { Button, Table, THead, TBody, Th, Tr, Td } from "components/ui";
 import { forwardRef, Fragment, useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { ConfirmModal } from "components/shared/ConfirmModal";
-import { JWT_HOST_API } from 'configs/auth.config';
 
 // Local Imports
 import { getListData } from 'utils/apis';
@@ -33,7 +32,7 @@ const TableBox = forwardRef(({ onChange, values, label, rootItem, tableFields, e
 
   useEffect(() => {
     if (rootItem?.sub_fields) {
-      filterData()
+      // filterData()
     }
   }, [newValues])
 

@@ -45,7 +45,7 @@ frappe.ui.form.on('Installation Note', {
                                     name: res.message.items[0].custom_bom_no
                                 },
                                 callback: function (res) {
-                                    const recipes = res.message.custom_items_2.length ? res.message.custom_items_2 : res.message.items
+                                    const recipes = res.message.items.length ? res.message.items : res.message.items
                                     frm.doc.custom_installation_note_recipe = []
                                     let tempIds = {}
                                     for (let i = 0; i <= materialMapping.length - 1; i++) {

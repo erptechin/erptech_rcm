@@ -19,11 +19,11 @@ import { useAuthContext } from "app/contexts/auth/context";
 
 const pageName = "Sales Order List"
 const doctype = "Sales Order"
-const fields_list = ['customer', 'status', 'delivery_date', 'po_no', 'po_date', 'items']
+const fields_list = ['customer', 'delivery_date', 'po_no', 'po_date', 'items']
 const subFields = ['custom_site']
 
 const tableFields = {
-  "items": { "item_code": true, "qty": true },
+  "items": { "item_code": true, "qty": true, "conversion_factor": true },
   "ignorFields": { "custom_site": true }
 }
 
@@ -121,6 +121,12 @@ export default function AddEditFrom() {
 
   const onSubmit = (data) => {
     if (id) {
+      data.items = data.items.map(item => ({
+        ...item,
+        conversion_factor: item.conversion_factor || 1,
+        item_code: item.item_code || null,
+        qty: Number(item.qty),
+      }))
       mutationUpdate.mutate({ doctype, body: { ...data, id } })
     } else {
       mutationAdd.mutate({ doctype, body: data })
@@ -163,11 +169,11 @@ export default function AddEditFrom() {
                   type="submit"
                   form="new-post-form"
                   disabled={data?.docstatus > 1}
-                  onClick={() => setValue('docstatus', 0)}
+                  onClick={() => setValue('docstatus', 1)}
                 >
                   Save
                 </Button>
-                {data?.docstatus === 1 ? <Button
+                {/* {data?.docstatus === 1 ? <Button
                   className="min-w-[7rem]"
                   color="error"
                   type="submit"
@@ -185,8 +191,7 @@ export default function AddEditFrom() {
                 >
                   Submit
                 </Button>
-                }
-
+                } */}
               </>
             ) : (
               <Button
