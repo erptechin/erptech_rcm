@@ -1,4 +1,5 @@
 import frappe
+import json
 from erptech_rcm.api.utils import create_response
 
 @frappe.whitelist()
@@ -253,4 +254,86 @@ def delete_data():
 
     except Exception as ex:
         frappe.log_error(frappe.get_traceback(), "Error in deleting data")
+        create_response(500, ex)
+
+@frappe.whitelist()
+def update_data():
+    try:
+        # Fetch doctype, name, and update data from the request
+        doctype = frappe.local.form_dict.get("doctype")
+        name = frappe.local.form_dict.get("name")
+        update_fields = frappe.local.form_dict.get("update_fields") or {}
+        
+        # Handle JSON stringified update_fields
+        if isinstance(update_fields, str):
+            try:
+                update_fields = json.loads(update_fields)
+            except json.JSONDecodeError:
+                create_response(400, "Invalid JSON format in update_fields", {})
+                return
+        
+        if not name:
+            create_response(400, "Name is required", {})
+            return
+            
+        if not update_fields:
+            create_response(400, "Update fields are required", {})
+            return
+
+        # Get table name from doctype
+        table_name = f"tab{doctype}"
+        
+        # Build the SET clause for the SQL query
+        set_clauses = []
+        values = []
+        
+        # Handle if update_fields is a list of dictionaries
+        if isinstance(update_fields, list):
+            for update_dict in update_fields:
+                for field_name, field_value in update_dict.items():
+                    set_clauses.append(f"`{field_name}` = %s")
+                    values.append(field_value)
+        else:
+            # Handle if update_fields is a single dictionary
+            for field_name, field_value in update_fields.items():
+                set_clauses.append(f"`{field_name}` = %s")
+                values.append(field_value)
+        
+        # Add modified timestamp
+        set_clauses.append("`modified` = %s")
+        values.append(frappe.utils.now())
+        
+        # Build the complete SQL query
+        sql_query = f"""
+            UPDATE `{table_name}` 
+            SET {', '.join(set_clauses)}
+            WHERE `name` = %s
+        """
+        
+        # Add the name parameter
+        values.append(name)
+        
+        # Execute the SQL query
+        frappe.db.sql(sql_query, values)
+        
+        # Commit the transaction
+        frappe.db.commit()
+
+        # Build list of updated field names for response
+        updated_field_names = []
+        if isinstance(update_fields, list):
+            for update_dict in update_fields:
+                updated_field_names.extend(update_dict.keys())
+        else:
+            updated_field_names = list(update_fields.keys())
+
+        # Send response
+        create_response(
+            200,
+            f"{doctype} {name} updated successfully using MySQL!",
+            {"success": True, "name": name, "data": updated_field_names},
+        )
+
+    except Exception as ex:
+        frappe.log_error(frappe.get_traceback(), "Error in updating data with MySQL")
         create_response(500, ex)

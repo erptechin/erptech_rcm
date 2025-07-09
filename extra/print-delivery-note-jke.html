@@ -34,7 +34,43 @@
 
     <hr style="border: 0.5px solid #000; margin: 5px 0;" />
 
-aaa
+    <table width="100%" class="data_table">
+        <tr>
+            <td>Challan No. : <strong>{{ doc.name }}</strong></td>
+            <td>Date : <strong>{{ doc.posting_date }}</strong></td>
+            <td>Batch No. : <strong>{{ doc.name[-5:] }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3">Client : <strong>{{ doc.customer }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3">Site : <strong>{{ doc.custom_site }}</strong></td>
+        </tr>
+        <tr>
+            <td>PO. No. : <strong>{{ doc.items[0].custom_pour_card }}</strong></td>
+            <td>Qty : <strong>{{ doc.items[0].qty }} {{ doc.items[0].uom }}</strong></td>
+            <td>Serial No. : <strong>{{ doc.items[0].custom_serial_count }}</strong></td>
+        </tr>
+        <tr>
+            <td>Grade : <strong>{{ doc.items[0].item_name }}</strong></td>
+            <td>Dump/Pump : <strong>{{ doc.custom_dumppump }}</strong></td>
+            <td>Opening Qty : <strong>{{ doc.items[0].custom_produced_qty }}</strong></td>
+        </tr>
+
+        <tr>
+            <td>TM No. : <strong>{{ doc.custom_vehicle }}</strong></td>
+            <td>Driver : <strong>{{ doc.driver_name }}</strong></td>
+            <td>Current Qty : <strong>{{ doc.items[0].qty }}</strong></td>
+        </tr>
+        <tr>
+            <td>Time Out : <strong>
+                {% set posting_time = frappe.utils.get_time(doc.posting_time) %}
+                {{ posting_time.strftime("%I:%M:%S %p") }}</strong></td>
+            <td>Transport Charges : __________________</td>
+            <td>Total Qty : <strong>{{ doc.items[0].custom_cumulative_qty }}</strong>
+            </td>
+        </tr>
+    </table>
 
     <hr style="border: 0.5px solid #000; margin: 5px 0 0 0;" />
 
@@ -135,12 +171,14 @@ aaa
         </tr>
 
         <tr>
-            <td>TM No. : <strong>PB06V6246</strong></td>
+            <td>TM No. : <strong>{{ doc.custom_vehicle }}</strong></td>
             <td>Driver : <strong>{{ doc.driver_name }}</strong></td>
             <td>Current Qty : <strong>{{ doc.items[0].qty }}</strong></td>
         </tr>
         <tr>
-            <td>Time Out : <strong>{{ doc.posting_time }}</strong></td>
+            <td>Time Out : <strong>
+                {% set posting_time = frappe.utils.get_time(doc.posting_time) %}
+                {{ posting_time.strftime("%I:%M:%S %p") }}</strong></td>
             <td>Transport Charges : __________________</td>
             <td>Total Qty : <strong>{{ doc.items[0].custom_cumulative_qty }}</strong>
             </td>
@@ -184,14 +222,3 @@ aaa
     </table>
 
 </div>
-
-<style>
-    .print-format .data_table td {
-        padding: 2px;
-        font-size: 12px;
-    }
-
-    .authorised p {
-        margin-bottom: 5px;
-    }
-</style>

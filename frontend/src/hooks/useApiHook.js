@@ -61,7 +61,7 @@ export const useUpdateData = (onSuccessCallback) => {
     return useMutation({
         mutationFn: (params) => {
             delete params.creation
-            delete params.modified
+            // delete params.modified  // Don't delete modified field - it's needed for version control
             return updateData(params)
         },
         onSuccess: (data, variable) => {

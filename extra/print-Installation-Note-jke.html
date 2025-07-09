@@ -82,7 +82,8 @@
                             </tr>
                             <tr>
                                 <td>Driver</td>
-                                <td>{{ doc.custom_driver_name }}</td>
+                                <td>{% set driver = frappe.get_doc("Driver", doc.custom_driver_name) %}
+                                    {{ driver.full_name }}</td>
                             </tr>
                             <tr>
                                 <td>TH volume</td>

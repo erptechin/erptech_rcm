@@ -121,7 +121,11 @@ export const deleteData = async (body) => {
 export const getCustomData = async (params) => {
   await getAuthorizationToken()
   const response = await axiosInstance.post(`method/${params.url}`, params.args)
-  return response?.data?.message ?? {};
+  if (response?.data?.data) { 
+    return response?.data?.data
+  } else {
+    return response?.data?.message ?? {};
+  }
 };
 
 // File Upload

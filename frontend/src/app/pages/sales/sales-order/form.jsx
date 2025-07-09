@@ -119,17 +119,22 @@ export default function AddEditFrom() {
     }
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (formData) => {
     if (id) {
-      data.items = data.items.map(item => ({
-        ...item,
-        conversion_factor: item.conversion_factor || 1,
-        item_code: item.item_code || null,
-        qty: Number(item.qty),
-      }))
-      mutationUpdate.mutate({ doctype, body: { ...data, id } })
+      if (data?.docstatus === 1) {
+        const response = await getCustomData({
+          url: `erptech_rcm.api.doctype.update_data?doctype=${doctype}&name=${id}&update_fields=${JSON.stringify([{ 'docstatus': 0 }])}`
+        });
+        if (response.success) {
+          delete formData.creation
+          delete formData.modified
+          mutationUpdate.mutate({ doctype, body: { ...formData, 'docstatus': 1, id } })
+        }
+      } else {
+        mutationUpdate.mutate({ doctype, body: { ...formData, id } })
+      }
     } else {
-      mutationAdd.mutate({ doctype, body: data })
+      mutationAdd.mutate({ doctype, body: formData })
     }
   };
 
@@ -169,11 +174,11 @@ export default function AddEditFrom() {
                   type="submit"
                   form="new-post-form"
                   disabled={data?.docstatus > 1}
-                  onClick={() => setValue('docstatus', 1)}
+                  onClick={() => setValue('docstatus', 0)}
                 >
                   Save
                 </Button>
-                {/* {data?.docstatus === 1 ? <Button
+                {data?.docstatus === 1 ? <Button
                   className="min-w-[7rem]"
                   color="error"
                   type="submit"
@@ -191,7 +196,8 @@ export default function AddEditFrom() {
                 >
                   Submit
                 </Button>
-                } */}
+                }
+
               </>
             ) : (
               <Button
