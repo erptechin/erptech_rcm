@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Raythan Trading Co. Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            color: #222;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #222;
+            padding-bottom: 8px;
+        }
+
+        .header .company-info {
+            max-width: 60%;
+            font-size: 15px;
+        }
+
+        .header .logo {
+            text-align: right;
+        }
+
+        .header .logo img {
+            height: 60px;
+        }
+
+        .header-ar {
+            text-align: right;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .invoice-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 12px 0 8px 0;
+        }
+
+        .meta-table,
+        .items-table,
+        .totals-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+        }
+
+        .meta-table td,
+        .meta-table th {
+            padding: 4px 8px;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+        }
+
+        .meta-table th {
+            background: #f5f5f5;
+        }
+
+        .items-table th,
+        .items-table td {
+            border-left: 1px solid #222;
+            border-right: 1px solid #222;
+            padding: 6px 4px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .items-table th {
+            background: #f5f5f5;
+        }
+
+        .totals-table td {
+            padding: 4px 8px;
+        }
+
+        .totals-table tr td:first-child {
+            text-align: right;
+        }
+
+        .footer {
+            margin-top: 18px;
+            font-size: 12px;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+
+        .signatures .sig-block {
+            width: 45%;
+            border-top: 1px solid #222;
+            text-align: center;
+            padding-top: 4px;
+        }
+
+        .amount-words {
+            margin: 10px 0 0 0;
+            font-weight: bold;
+        }
+
+        .green-bar {
+            background: #1b7e36;
+            color: #fff;
+            text-align: center;
+            padding: 6px 0 2px 0;
+            font-size: 12px;
+            position: relative;
+            bottom: -10px;
+        }
+
+        .qr-block {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .stamp {
+            border: 1px solid #aaa;
+            display: inline-block;
+            padding: 8px 18px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .footer-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        .footer-table td {
+            border: 1px solid #ccc;
+            padding: 4px 8px;
+        }
+
+        .footer-table th {
+            background: #f5f5f5;
+            font-weight: bold;
+        }
+
+        .footer-label {
+            font-weight: bold;
+        }
+
+        .footer-note {
+            margin-top: 8px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div class="company-info">
+                <span style="font-weight:bold; font-size:13px;">SAMA SALMA ESTABLISHMENT - OUTWEAR KSA</span><br>
+                <span>CR: 7032068764 - Mob: +966 55 518 8396</span><br>
+                <span>Branch: Ar Rawabi, Riyadh</span><br>
+                <span>Kingdom of Saudi Arabia</span><br>
+                <span>Email: info@outwearksa.com</span><br>
+                <span>Website: www.outwearksa.com</span><br>
+                <span style="font-weight:bold;">VAT NO.: 310144104100003</span>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <img src="/files/logo-new.png" style="width: 58px;">
+            </div>
+            <div class="header-ar">
+                <span>سماء سلمہ اسٹیبلشمنٹ - اوٹ ویئر KSA</span><br>
+                <span>س.ت: ١٠١٠٣٥٨٦٩٠ - جوال: ٠٥٠٠٣٣٧٢٠٣</span><br>
+                <span>فرع: الروابي - شارع عنيزة</span><br>
+                <span>الرياض - المملكة العربية السعودية</span><br>
+                <span style="font-weight:bold;">الرقم الضريبي: ٣١١٢٨٦١٥٠٨٠٠٠٠٣</span>
+            </div>
+        </div>
+        <div class="invoice-title">Simplified Tax Invoice - فاتورة ضريبية مبسطة</div>
+        <table style="width:100%; border-collapse:collapse; margin-bottom:12px; font-size:13px;">
+            <tr>
+                <th style="background:#e5e5e5; border:1px solid #888; text-align:left; padding:4px 8px;">Sold To</th>
+                <th style="background:#e5e5e5; border:1px solid #888; text-align:left; padding:4px 8px;">اسم العميل</th>
+                <th style="background:#e5e5e5; border:1px solid #888; text-align:left; padding:4px 8px;">VAT NO</th>
+                <th style="background:#e5e5e5; border:1px solid #888; text-align:left; padding:4px 8px;">Cust. Code</th>
+            </tr>
+            <tr>
+                <td style="border-left:1px solid #888; border-right:1px solid #888; padding:4px 8px;">{{
+                    doc.customer_name }}</td>
+                <td style="border-left:1px solid #888; border-right:1px solid #888; padding:4px 8px;"></td>
+                <td style="border-left:1px solid #888; border-right:1px solid #888; padding:4px 8px;">{{ doc.tax_id }}
+                </td>
+                <td style="border-left:1px solid #888; border-right:1px solid #888; padding:4px 8px;">{{
+                    doc.customer_code or '' }}</td>
+            </tr>
+            <tr>
+                <th style="background:#e5e5e5; border:1px solid #888; text-align:left; padding:4px 8px;">Invoice No.
+                </th>
+                <th style="background:#e5e5e5; border:1px solid #888; text-align:left; padding:4px 8px;">Invoice Date :
+                </th>
+                <th style="background:#e5e5e5; border:1px solid #888; text-align:left; padding:4px 8px;">Mode of Pay
+                </th>
+                <th style="background:#e5e5e5; border:1px solid #888; text-align:left; padding:4px 8px;">P.O No:</th>
+            </tr>
+            <tr>
+                <td
+                    style="border-left:1px solid #888; border-right:1px solid #888; border-bottom:1px solid #888; padding:4px 8px;">
+                    {{ doc.name }}</td>
+                <td
+                    style="border-left:1px solid #888; border-right:1px solid #888;  border-bottom:1px solid #888; padding:4px 8px;">
+                    {{ doc.get_formatted("posting_date") }}</td>
+                <td
+                    style="border-left:1px solid #888; border-right:1px solid #888;  border-bottom:1px solid #888; padding:4px 8px;">
+                    {{ doc.mode_of_payment or '' }}</td>
+                <td
+                    style="border-left:1px solid #888; border-right:1px solid #888;  border-bottom:1px solid #888; padding:4px 8px;">
+                    {{ doc.po_no or '' }}</td>
+            </tr>
+        </table>
+        <table class="items-table" style="border-bottom:1px solid #888;">
+            <tr>
+                <th style="width:5%; border:1px solid #222;">S.N<br><span style="font-size:11px;">رقم التسلسل</span>
+                </th>
+                <th style="width:10%; border:1px solid #222;">Model No<br><span style="font-size:11px;">رقم
+                        الموديل</span></th>
+                <th style="width:25%; border:1px solid #222;">Description<br><span style="font-size:11px;">الوصف</span>
+                </th>
+                <th style="width:8%; border:1px solid #222;">QTY<br><span style="font-size:11px;">كمية</span></th>
+                <th style="width:8%; border:1px solid #222;">Unit<br><span style="font-size:11px;">سعر الوحدة</span>
+                </th>
+                <th style="width:10%; border:1px solid #222;">U.Rate<br><span style="font-size:11px;">مبلغ</span></th>
+                <th style="width:10%; border:1px solid #222;">Amount<br><span style="font-size:11px;">القيمة
+                        الضريبية</span></th>
+                <th style="width:8%; border:1px solid #222;">VAT<br><span style="font-size:11px;">القيمة المضافة</span>
+                </th>
+                <th style="width:8%; border:1px solid #222;">VAT Value<br><span style="font-size:11px;">القيمة
+                        الاجمالية</span></th>
+                <th style="width:8%; border:1px solid #222;">Total Price</th>
+            </tr>
+            {% for item in doc.items %}
+            <tr style="height:30px;">
+                <td>{{ loop.index }}</td>
+                <td>{{ item.item_code }}</td>
+                <td style="text-align:left">{{ item.description }}<br><span style="font-size:11px;">{{
+                        item.description_ar or '' }}</span></td>
+                <td>{{ "%.2f"|format(item.qty) }}</td>
+                <td>{{ item.uom }}</td>
+                <td>{{ "%.2f"|format(item.rate) }}</td>
+                <td>{{ "%.2f"|format(item.amount) }}</td>
+                <td>15%</td>
+                <td>{{ "%.2f"|format(item.amount * 0.15) }}</td>
+                <td>{{ "%.2f"|format(item.amount * 1.15) }}</td>
+            </tr>
+            {% endfor %}
+            {% for i in range(15 - doc.items|length) %}
+            <tr style="height:30px;">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table style="width:100%; border-collapse:collapse; margin-top:18px; font-size:13px; border:2px solid #222;">
+            <tr>
+                <!-- Left: Delivered Info -->
+                <td style="width:25%; border-right:1px solid #222; vertical-align:top; padding:8px;">
+                    <div style="margin-bottom:8px;">
+                        <b>Delivered by : {{ doc.owner }}</b><br>
+                        <span style="font-size:11px;">سلمت بواسطة</span>
+                    </div>
+                    <div style="margin-bottom:12px; border-bottom:1px solid #222; padding-bottom:4px;">
+                        <b>Name : {{ doc.owner }}</b><br>
+                        <span style="font-size:11px;">الاسم</span>
+                    </div>
+                    <div style="margin-bottom:12px; border-bottom:1px solid #222; padding-bottom:4px;">
+                        <b>Signature :</b><br>
+                        <span style="font-size:11px;">التوقيع</span>
+                    </div>
+                    <div>
+                        <b>Date :</b><br>
+                        <span style="font-size:11px;">التاريخ</span>
+                    </div>
+                </td>
+                <!-- Center Left: Received Info -->
+                <td style="width:25%; border-right:1px solid #222; vertical-align:top; padding:8px;">
+                    <div style="margin-bottom:8px;">
+                        <b>Received By :</b><br>
+                        <span style="font-size:11px;">المستلم</span>
+                    </div>
+                    <div style="margin-bottom:12px; border-bottom:1px solid #222; padding-bottom:4px;">
+                        <b>Name :</b><br>
+                        <span style="font-size:11px;">الاسم</span>
+                    </div>
+                    <div style="margin-bottom:12px; border-bottom:1px solid #222; padding-bottom:4px;">
+                        <b>Signature :</b><br>
+                        <span style="font-size:11px;">التوقيع</span>
+                    </div>
+                    <div>
+                        <b>Date :</b><br>
+                        <span style="font-size:11px;">التاريخ</span>
+                    </div>
+                </td>
+                <!-- Center Right: QR Code -->
+                <td
+                    style="width:25%; border-right:1px solid #222; vertical-align:center; text-align:center; padding:8px;">
+                    <img src="{{ doc.ksa_einv_qr or '' }}" alt="QR Code" width="120" height="120">
+                </td>
+                <!-- Right: Totals -->
+                <td style="width:25%; vertical-align:top; padding:8px;">
+                    <div style="margin-bottom:8px; font-weight:bold;">
+                        Total Amount :<br>
+                        <span style="font-size:11px;">المبلغ الاجمالي</span>
+                    </div>
+                    <div style="margin-bottom:4px; border-bottom:1px solid #222; padding-bottom:2px;">
+                        <span style="float:left;">Total :</span>
+                        <span style="float:right; font-weight:bold;">{{ "%.2f"|format(doc.total) }}</span>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <div style="margin-bottom:4px; border-bottom:1px solid #222; padding-bottom:2px;">
+                        <span style="float:left;">Discount :</span>
+                        <span style="float:right; font-weight:bold;">{{ "%.2f"|format(doc.discount_amount) }}</span>
+                        <div style="clear:both;"></div>
+                        <span style="font-size:11px;">التخفيض</span>
+                    </div>
+                    <div style="margin-bottom:4px; border-bottom:1px solid #222; padding-bottom:2px;">
+                        <span style="float:left;">Net Amount :</span>
+                        <span style="float:right; font-weight:bold;">{{ "%.2f"|format(doc.net_total) }}</span>
+                        <div style="clear:both;"></div>
+                        <span style="font-size:11px;">صافي المبلغ</span>
+                    </div>
+                    <div style="margin-bottom:4px; border-bottom:1px solid #222; padding-bottom:2px;">
+                        <span style="float:left;">VAT (15%) :</span>
+                        <span style="float:right; font-weight:bold;">{{ "%.2f"|format(doc.total_taxes_and_charges)
+                            }}</span>
+                        <div style="clear:both;"></div>
+                        <span style="font-size:11px;">ضريبة القيمة المضافة</span>
+                    </div>
+                    <div style="margin-bottom:4px; padding-bottom:2px;">
+                        <span style="float:left; font-weight:bold;">Grant Total :</span>
+                        <span style="float:right; font-weight:bold;">{{ "%.2f"|format(doc.grand_total) }}</span>
+                        <div style="clear:both;"></div>
+                        <span style="font-size:11px;">المبلغ الاجمالي</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="border-top:1px solid #222; padding:8px; text-align:center; font-size:13px;">
+                    <div style="margin-bottom:4px;">{{ doc.base_in_words }}</div>
+                    <div style="font-size:12px; font-weight:bold; direction:rtl;">{{ doc.base_in_words_ar or '' }}</div>
+                </td>
+            </tr>
+        </table>
+        <div style="width:100%; margin-top:8px; font-size:14px;">
+            <span style="float:left;">Salesman البائع</span>
+            <span style="float:right;">Customer Signature توقيع العميل</span>
+            <div style="clear:both;"></div>
+        </div>
+
+        <div class="green-bar"
+            style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:bold; background:#1b7e36; color:#fff; min-height:32px; padding:2px 0; margin-top:8px;">
+            <div style="flex:1; text-align:left; direction:ltr; padding-left:10px; font-size: 8px;">
+                Goods received in good order and Condition<br>
+                This invoice is not considered paid, without receipt
+            </div>
+            <div style="flex:1; text-align:center;">
+                Email: {{ doc.contact_email or 'info@outwearksa.com' }}
+            </div>
+            <div style="flex:1; text-align:right; direction:rtl; padding-right:10px;">
+                استلمت البضاعة المبينة اعلاه كاملة وبحالة جديدة<br>
+                لا تعتبر الفاتورة أعلاه مسددة الا بسند قبض رسمي
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

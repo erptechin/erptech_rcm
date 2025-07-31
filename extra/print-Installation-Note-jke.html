@@ -74,7 +74,9 @@
                             </tr>
                             <tr>
                                 <td>Docket No.</td>
-                                <td>{{ doc.name[-5:] }}</td>
+                                <td>{% set delivery_note = frappe.get_doc("Delivery Note",
+                                    doc.custom_delivery_note) %}
+                                    {{delivery_note.custom_addinfo23}}</td>
                             </tr>
                             <tr>
                                 <td>Truck No.</td>

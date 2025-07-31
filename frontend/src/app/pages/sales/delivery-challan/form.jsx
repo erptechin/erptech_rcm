@@ -20,6 +20,7 @@ import { Page } from "components/shared/Page";
 import { Button, Card, Table, THead, TBody, Th, Tr, Td } from "components/ui";
 import DynamicForms from 'app/components/form/dynamicForms';
 import { useInfo, useAddData, useFeachSingle, useUpdateData, useFeachData } from "hooks/useApiHook";
+import { getCustomData } from "utils/apis";
 
 const pageName = "Delivery Challan List"
 const doctype = "Delivery Note"
@@ -219,10 +220,10 @@ export default function AddEditFrom() {
 
   const mutationAdd = useAddData((data) => {
     if (data) {
+      reset();
       if (data.docstatus === 1) {
         createInstallationNote(data)
       } else {
-        reset();
         navigate(-1)
       }
     }
@@ -241,6 +242,21 @@ export default function AddEditFrom() {
 
   const createInstallationNote = async (data) => {
     let doctype = 'Installation Note'
+
+    // Delete all Installation Note records for the same Delivery Note
+    let listData = await getListData({
+      doctype,
+      filters: JSON.stringify([[doctype, "custom_delivery_note", "=", data?.name]]),
+      fields: JSON.stringify(["name"]),
+      page_length: 1000
+    })
+    if (listData?.data?.length > 0) {
+      await getCustomData({
+        url: `erptech_rcm.api.doctype.delete_data?doctype=${doctype}&ids=${JSON.stringify(listData?.data.map(item => item.name))}`
+      });
+    }
+
+    // Create Installation Note
     let res = await getListData({ doctype, filters: JSON.stringify([[doctype, "custom_delivery_note", "=", data?.name]]), fields: JSON.stringify(["name"]) })
     if (!res.data[0]) {
       let body = {}
@@ -344,11 +360,18 @@ export default function AddEditFrom() {
     values: id ? data : initialState,
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (formData) => {
     if (id) {
-      mutationUpdate.mutate({ doctype, body: { ...data, id } })
+      const response = await getCustomData({
+        url: `erptech_rcm.api.doctype.update_data?doctype=${doctype}&name=${id}&update_fields=${JSON.stringify([{ 'docstatus': 0 }])}`
+      });
+      if (response.success) {
+        delete formData.creation
+        delete formData.modified
+        mutationUpdate.mutate({ doctype, body: { ...formData, 'docstatus': 1, id } })
+      }
     } else {
-      mutationAdd.mutate({ doctype, body: data })
+      mutationAdd.mutate({ doctype, body: { ...formData, docstatus: 1 } })
     }
   };
 
@@ -403,49 +426,14 @@ export default function AddEditFrom() {
             >
               Back
             </Button>
-            {info?.is_submittable ? (
-              <>
-                <Button
-                  className="min-w-[7rem]"
-                  color="primary"
-                  type="submit"
-                  form="new-post-form"
-                  disabled={data?.docstatus > 1}
-                  onClick={() => setValue('docstatus', 0)}
-                >
-                  Save
-                </Button>
-                {data?.docstatus === 1 ? <Button
-                  className="min-w-[7rem]"
-                  color="error"
-                  type="submit"
-                  form="new-post-form"
-                  onClick={() => setValue('docstatus', 2)}
-                >
-                  Cancel
-                </Button> : <Button
-                  className="min-w-[7rem]"
-                  color="success"
-                  type="submit"
-                  form="new-post-form"
-                  disabled={data?.docstatus > 1}
-                  onClick={() => setValue('docstatus', 1)}
-                >
-                  Submit
-                </Button>
-                }
-
-              </>
-            ) : (
-              <Button
-                className="min-w-[7rem]"
-                color="primary"
-                type="submit"
-                form="new-post-form"
-              >
-                Save
-              </Button>
-            )}
+            <Button
+              className="min-w-[7rem]"
+              color={"success"}
+              type="submit"
+              form="new-post-form"
+            >
+              {"Submit"}
+            </Button>
           </div>
         </div>
 

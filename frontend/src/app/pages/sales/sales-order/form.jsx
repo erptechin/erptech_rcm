@@ -119,22 +119,19 @@ export default function AddEditFrom() {
     }
   });
 
+
   const onSubmit = async (formData) => {
     if (id) {
-      if (data?.docstatus === 1) {
-        const response = await getCustomData({
-          url: `erptech_rcm.api.doctype.update_data?doctype=${doctype}&name=${id}&update_fields=${JSON.stringify([{ 'docstatus': 0 }])}`
-        });
-        if (response.success) {
-          delete formData.creation
-          delete formData.modified
-          mutationUpdate.mutate({ doctype, body: { ...formData, 'docstatus': 1, id } })
-        }
-      } else {
-        mutationUpdate.mutate({ doctype, body: { ...formData, id } })
+      const response = await getCustomData({
+        url: `erptech_rcm.api.doctype.update_data?doctype=${doctype}&name=${id}&update_fields=${JSON.stringify([{ 'docstatus': 0 }])}`
+      });
+      if (response.success) {
+        delete formData.creation
+        delete formData.modified
+        mutationUpdate.mutate({ doctype, body: { ...formData, 'docstatus': 1, id } })
       }
     } else {
-      mutationAdd.mutate({ doctype, body: formData })
+      mutationAdd.mutate({ doctype, body: { ...formData, docstatus: 1 } })
     }
   };
 
@@ -166,49 +163,14 @@ export default function AddEditFrom() {
             >
               Back
             </Button>
-            {info?.is_submittable ? (
-              <>
-                <Button
-                  className="min-w-[7rem]"
-                  color="primary"
-                  type="submit"
-                  form="new-post-form"
-                  disabled={data?.docstatus > 1}
-                  onClick={() => setValue('docstatus', 0)}
-                >
-                  Save
-                </Button>
-                {data?.docstatus === 1 ? <Button
-                  className="min-w-[7rem]"
-                  color="error"
-                  type="submit"
-                  form="new-post-form"
-                  onClick={() => setValue('docstatus', 2)}
-                >
-                  Cancel
-                </Button> : <Button
-                  className="min-w-[7rem]"
-                  color="success"
-                  type="submit"
-                  form="new-post-form"
-                  disabled={data?.docstatus > 1}
-                  onClick={() => setValue('docstatus', 1)}
-                >
-                  Submit
-                </Button>
-                }
-
-              </>
-            ) : (
-              <Button
-                className="min-w-[7rem]"
-                color="primary"
-                type="submit"
-                form="new-post-form"
-              >
-                Save
-              </Button>
-            )}
+            <Button
+              className="min-w-[7rem]"
+              color={"success"}
+              type="submit"
+              form="new-post-form"
+            >
+              {"Submit"}
+            </Button>
           </div>
         </div>
         <form
@@ -234,6 +196,14 @@ export default function AddEditFrom() {
             </div>
             <div className="col-span-12 space-y-4 sm:space-y-5 lg:col-span-4 lg:space-y-6">
               <Card className="space-y-5 p-4 sm:px-5">
+                <DynamicForms
+                  infos={info}
+                  fields={[...branch]}
+                  register={register}
+                  control={control}
+                  errors={errors}
+                  readOnly={info?.is_submittable && data?.docstatus}
+                />
                 <Controller
                   render={({ field: { onChange, value, ...rest } }) => {
                     return <SearchSelect

@@ -173,14 +173,18 @@ export default function AddEditFrom() {
     }
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (formData) => {
     if (id) {
-      if (data?.status === "Draft" && info?.is_submittable) {
-        data['docstatus'] = 1
+      const response = await getCustomData({
+        url: `erptech_rcm.api.doctype.update_data?doctype=${doctype}&name=${id}&update_fields=${JSON.stringify([{ 'docstatus': 0 }])}`
+      });
+      if (response.success) {
+        delete formData.creation
+        delete formData.modified
+        mutationUpdate.mutate({ doctype, body: { ...formData, 'docstatus': 1, id } })
       }
-      mutationUpdate.mutate({ doctype, body: { ...data, id } })
     } else {
-      mutationAdd.mutate({ doctype, body: data })
+      mutationAdd.mutate({ doctype, body: { ...formData, docstatus: 1 } })
     }
   };
 
@@ -213,11 +217,11 @@ export default function AddEditFrom() {
             </Button>
             <Button
               className="min-w-[7rem]"
-              color={data?.status === "Draft" && info?.is_submittable ? "success" : "primary"}
+              color={"success"}
               type="submit"
               form="new-post-form"
             >
-              {data?.status === "Draft" && info?.is_submittable ? "Submit" : "Save"}
+              {"Submit"}
             </Button>
           </div>
         </div>
