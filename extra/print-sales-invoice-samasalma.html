@@ -1,0 +1,298 @@
+<div class="invoice-container">
+    <div class="header">
+        <div class="company-info">
+            <div class="company-name">Samaa Salmi Equipment Maintenance Est.</div>
+            <div class="company-details">
+                CR: 7032068764 - Mobile no.: +966 55 518 8396<br>
+                Branch: Ar Rawabi, Riyadh - Kingdom of Saudi Arabia<br>
+                Email: info@outwearksa.com<br>
+                Website: www.outwearksa.com<br>
+                VAT No.: 310144104100003
+            </div>
+        </div>
+
+        <div class="logo-section">
+            <img src="/files/logo-fav.png">
+        </div>
+
+        <div class="arabic-info">
+            <div class="arabic-name">مؤسسة سما سلمى - ملابس خارجية السعودية</div>
+            <div class="company-details">
+                س.ت: ٧٠٣٢٠٦٨٧٦٤ - جوال: ٩٦٦ ٥٥ ٥١٨ ٨٣٩٦<br>
+                فرع الروابي، الرياض - المملكة العربية السعودية<br>
+                البريد الإلكتروني: info@outwearksa.com<br>
+                الموقع الإلكتروني: www.outwearksa.com<br>
+                الرقم الضريبي: ٣١٠١٤٤١٠٤١٠٠٠٠٣
+            </div>
+        </div>
+    </div>
+
+
+    <div class="invoice-title">
+        <h3 style="margin: 0;">Sales Invoice - فاتورة المبيعات</h3>
+    </div>
+
+
+    <div class="invoice-details">
+        <div class="detail-group">
+            <div class="detail-row">
+                <span class="detail-label">Sold To</span>
+                <span>{{ doc.customer_name}}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">لعميل</span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="detail-group">
+            <div class="detail-row">
+                <span class="detail-label">VAT NO</span>
+                <span>{{ doc.tax_id }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Cont. Code</span>
+                <span>891</span>
+            </div>
+        </div>
+
+        <div class="detail-group">
+            <div class="detail-row">
+                <span class="detail-label">Invoice No.</span>
+                <span>{{ doc.name}}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">رقم الفاتورة</span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="invoice-details">
+        <div class="detail-group">
+            <div class="detail-row">
+                <span class="detail-label">Invoice Date :</span>
+                <span>{{ doc.get_formatted("posting_date") }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">التاريخ الفاتورة</span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="detail-group">
+            <div class="detail-row">
+                <span class="detail-label">Payment Due Date</span>
+                <span>{{ doc.due_date }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">تاريخ استحقاق الدفع</span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="detail-group">
+            <div class="detail-row">
+                <span class="detail-label">P.O No:</span>
+                <span>{{ doc.po_no }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">رقم الطلب</span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>رقم الموديل<br><span class="arabic-header">Model No</span></th>
+                <th>الوصف<br><span class="arabic-header">Description</span></th>
+                <th>كمية<br><span class="arabic-header">QTY</span></th>
+                <th>الوحدة<br><span class="arabic-header">Unit</span></th>
+                <th>سعر الوحدة<br><span class="arabic-header">U.Rate</span></th>
+                <th>المبلغ<br><span class="arabic-header">Amount</span></th>
+                <th>الضريبة المضافة<br><span class="arabic-header">VAT</span></th>
+                <th>قيمة الضريبة المضافة<br><span class="arabic-header">VAT Value</span></th>
+                <th>القيمة الإجمالية<br><span class="arabic-header">Total Value</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in doc.items %}
+            <tr>
+                <td>{{ item.item_code }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ "%.2f"|format(item.qty) }}</td>
+                <td>{{ item.uom }}</td>
+                <td>{{ "%.2f"|format(item.rate) }}</td>
+                <td>{{ "%.2f"|format(item.amount) }}</td>
+                <td>15%</td>
+                <td>{{ "%.2f"|format(item.amount * 0.15) }}</td>
+                <td>{{ "%.2f"|format(item.amount * 1.15) }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>3845</td>
+                <td>PLASTIC CONTAINERS 350LTR(404)<br>حاوية بلاستيك ٣٥٠ لتر</td>
+                <td>1.00</td>
+                <td>PCS</td>
+                <td>60.87</td>
+                <td>60.87</td>
+                <td>15%</td>
+                <td>9.13</td>
+                <td>70.00</td>
+            </tr>
+            <tr>
+                <td>1788</td>
+                <td>HANGER PLASTIC LQ (4X30)<br>علاقة بلاستيك إل كيو</td>
+                <td>3.00</td>
+                <td>CRT</td>
+                <td>39.14</td>
+                <td>117.42</td>
+                <td>15%</td>
+                <td>17.61</td>
+                <td>135.03</td>
+            </tr>
+            <tr>
+                <td>3844</td>
+                <td>PLASTIC CONTAINERS 110 LTR(403)<br>حاوية بلاستيك ١١٠ لتر</td>
+                <td>3.00</td>
+                <td>PCS</td>
+                <td>52.17</td>
+                <td>156.51</td>
+                <td>15%</td>
+                <td>23.48</td>
+                <td>179.99</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <div class="amount-words">
+        <strong>{{ doc.base_in_words }}</strong><br>
+    </div>
+
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 30px; border: 2px solid #2d5016;">
+        <tr>
+            <td style="border: 1px solid #2d5016; padding: 15px; vertical-align: top; width: 25%;">
+                <div class="total-row" style="margin-bottom: 15px;">
+                    <strong style="color: #2d5016;">Delivered by :</strong> {{ doc.owner }}<br>
+                    <span style="font-size: 10px; color: #666;">سلم بواسطة</span>
+                </div>
+                <div class="total-row" style="margin-bottom: 15px;">
+                    <strong>Name :</strong> {{ doc.owner }}<br>
+                    <span style="font-size: 10px; color: #666;">الاسم</span>
+                </div>
+                <div class="total-row" style="margin-bottom: 15px;">
+                    <strong>Signature :</strong><br>
+                    <span style="font-size: 10px; color: #666;">التوقيع</span>
+                </div>
+                <div class="total-row">
+                    <strong>Date :</strong><br>
+                    <span style="font-size: 10px; color: #666;">التاريخ</span>
+                </div>
+            </td>
+            <td style="border: 1px solid #2d5016; padding: 15px; vertical-align: top; width: 25%;">
+                <div class="total-row" style="margin-bottom: 15px;">
+                    <strong style="color: #2d5016;">Received By :</strong><br>
+                    <span style="font-size: 10px; color: #666;">المستلم</span>
+                </div>
+                <div class="total-row" style="margin-bottom: 15px;">
+                    <strong>Name :</strong><br>
+                    <span style="font-size: 10px; color: #666;">الاسم</span>
+                </div>
+                <div class="total-row" style="margin-bottom: 15px;">
+                    <strong>Signature :</strong><br>
+                    <span style="font-size: 10px; color: #666;">التوقيع</span>
+                </div>
+                <div class="total-row">
+                    <strong>Date :</strong><br>
+                    <span style="font-size: 10px; color: #666;">التاريخ</span>
+                </div>
+            </td>
+            <td style="border: 1px solid #2d5016; padding: 15px; vertical-align: middle; text-align: center; width: 25%;">
+                <div class="qr-code">
+                    <img class="qr-code" src={{doc.ksa_einv_qr}} style="max-width: 120px; height: auto;">
+                </div>
+            </td>
+            <td style="border: 1px solid #2d5016; padding: 15px; vertical-align: top; text-align: right; width: 25%;">
+                <div class="total-row">
+                    <span>Total Amount :</span>
+                    <span>{{ "%.2f"|format(doc.total) }}</span>
+                </div>
+                <div class="total-row">
+                    <span>المبلغ الإجمالي</span>
+                    <span>٣٣٤.٨٠</span>
+                </div>
+                <div class="total-row">
+                    <span>Discount :</span>
+                    <span>{{ "%.2f"|format(doc.discount_amount) }}</span>
+                </div>
+                <div class="total-row">
+                    <span>الخصم</span>
+                    <span>٠.٠٠</span>
+                </div>
+                <div class="total-row">
+                    <span>Net Amount :</span>
+                    <span>{{ "%.2f"|format(doc.net_total) }}</span>
+                </div>
+                <div class="total-row">
+                    <span>صافي المجموع</span>
+                    <span>٣٣٤.٨٠</span>
+                </div>
+                <div class="total-row">
+                    <span>VAT (15%) :</span>
+                    <span>{{ "%.2f"|format(doc.total_taxes_and_charges) }}</span>
+                </div>
+                <div class="total-row">
+                    <span>ضريبة القيمة المضافة</span>
+                    <span>٥٠.٢٢</span>
+                </div>
+
+                <div class="grand-total" style="background: none; color: #2d5016; font-weight: bold; border-top: 2px solid #2d5016; padding-top: 10px; margin-top: 10px;">
+                    <div class="total-row">
+                        <span>Grand Total :</span>
+                        <span>{{ "%.2f"|format(doc.grand_total) }}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>المبلغ الاجمالي</span>
+                        <span>{{ "%.2f"|format(doc.grand_total) }}</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+    <div
+        style="display: flex; justify-content: space-between; margin-top: 30px; padding: 20px 0; border-top: 1px solid #ddd;">
+        <div>
+            <strong>Salesman</strong><br>
+            <span style="font-size: 12px;">البائع</span>
+        </div>
+        <div style="text-align: right;">
+            <strong>Customer Signature</strong><br>
+            <span style="font-size: 12px;">توقيع العميل</span>
+        </div>
+    </div>
+
+
+    <div class="footer-text" style="background-color: #2d5016; color: white; padding: 15px; border-radius: 5px; text-align: center;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="text-align: left;">
+                <strong>Goods received in good order and Condition</strong><br>
+                <strong>This invoice is not considered paid, without receipt</strong>
+            </div>
+            <div style="text-align: center;">
+                <strong>Email: raythan.hr@gmail.com</strong>
+            </div>
+            <div style="text-align: right; direction: rtl;">
+                <strong>استلمت البضاعة المبينة أعلاء كاملة وبحالة جديدة</strong><br>
+                <strong>لا تعتبر الفاتورة الأجلة مسددة إلا بسند قبض رسمي</strong>
+            </div>
+        </div>
+    </div>
+</div>
