@@ -4,5 +4,5 @@
 **/
 
 // export const JWT_HOST_API = "https://balaji.erptech.in";
-export const JWT_HOST_API = "";
+export const JWT_HOST_API = "http://localhost:8000";
 export const company = "";

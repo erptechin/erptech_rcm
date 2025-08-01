@@ -10,18 +10,17 @@ import { Schema } from "app/components/form/schema";
 import { Page } from "components/shared/Page";
 import { Button, Card } from "components/ui";
 import DynamicForms from 'app/components/form/dynamicForms';
-import { useInfo, useFeachSingle } from "hooks/useApiHook";
+import { useInfo } from "hooks/useApiHook";
 
 // ----------------------------------------------------------------------
 
-export default function SubValues({ onClose, id, doctype }) {
+export default function SubValues({ onClose, data, doctype }) {
   const { isDark, darkColorScheme, lightColorScheme } = useThemeContext();
   const [fields, setFields] = useState([])
   const initialState = Object.fromEntries(
     [...fields].map(field => [field, ""])
   );
   const { data: info, isLoading: isLoadingInfo } = useInfo({ doctype });
-  const { data, isLoading } = useFeachSingle({ doctype, id, fields: JSON.stringify(fields) });
 
   useEffect(() => {
     if (info?.fields) {
@@ -30,7 +29,6 @@ export default function SubValues({ onClose, id, doctype }) {
     }
   }, [info])
 
-
   const {
     register,
     handleSubmit,
@@ -38,14 +36,14 @@ export default function SubValues({ onClose, id, doctype }) {
     control,
   } = useForm({
     resolver: yupResolver(Schema(info?.fields)),
-    values: id ? data : initialState,
+    values: data ? data : initialState,
   });
 
   const onSubmit = (data) => {
     onClose(data)
   };
 
-  if (id && isLoading || isLoadingInfo) {
+  if (isLoadingInfo) {
     return <Skeleton
       style={{
         "--sk-color": isDark ? darkColorScheme[700] : lightColorScheme[300],
